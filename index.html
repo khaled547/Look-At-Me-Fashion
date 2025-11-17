@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Look At Me Fashion</title>
+
+    <link href="src/output.css" rel="stylesheet" />
+    <meta
+      name="description"
+      content="Red themed header with top bar, responsive navbar, search, wishlist, cart"
+    />
+    <style>
+      /* Optional: smooth show/hide for mobile drawer */
+      .collapse-max-height {
+        transition: max-height 0.3s ease;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+    <!-- Offer Section -->
+    <div class="w-full bg-red-600 text-white text-xs sm:text-sm">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between py-2">
+          <p class="font-medium">Free Shipping Over 1000৳</p>
+          <a href="tel:0123456789" class="underline-offset-2 hover:underline"
+            >Hotline: 01608594887</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!--Header Section-->
+    <header
+      class="sticky top-0 z-50 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75 border-b border-red-100"
+    >
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-3 py-3 md:py-4">
+          <!-- Brand / Logo -->
+          <a
+            href="#"
+            class="flex items-center gap-2 shrink-0"
+            aria-label="Look At Me Fashion - Home"
+          >
+            <img src="./image/logo.jpeg" alt="Logo" class="h-10 w-auto" />
+
+            <span
+              class="text-lg md:text-xl font-extrabold tracking-tight text-red-700"
+              >LOOK AT ME FASHION</span
+            >
+          </a>
+
+          <!-- Desktop: Center menu (hidden on mobile) -->
+          <nav class="ml-2 hidden md:block">
+            <ul class="flex items-center gap-1 text-[15px] font-medium">
+              <li>
+                <a
+                  class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-800"
+                  href="#"
+                  >Shoes</a
+                >
+              </li>
+              <li>
+                <a
+                  class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-800"
+                  href="#"
+                  >Bags</a
+                >
+              </li>
+              <li>
+                <a
+                  class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-800"
+                  href="#"
+                  >Cosmetics</a
+                >
+              </li>
+              <li>
+                <a
+                  class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-800"
+                  href="#"
+                  >Watches</a
+                >
+              </li>
+              <li>
+                <a
+                  class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-800"
+                  href="#"
+                  >Umbrella</a
+                >
+              </li>
+              <li>
+                <a
+                  class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-800"
+                  href="#"
+                  >Wallet</a
+                >
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Spacer -->
+          <div class="flex-1"></div>
+
+          <!-- Desktop: Right side tools (hidden on mobile) -->
+          <div class="hidden md:flex items-center gap-2">
+            <!-- Search -->
+            <form action="#" method="get" class="relative w-64 lg:w-80">
+              <!-- JS placeholder: এখানে সার্চ সাবমিট করলে কুয়েরি হ্যান্ডেল করার লজিক আসবে  -->
+              <label for="search-desktop" class="sr-only">Search</label>
+              <input
+                id="search-desktop"
+                name="q"
+                type="search"
+                placeholder="Search for items, brands…"
+                class="w-full rounded-2xl border border-red-200 bg-white py-2.5 pl-10 pr-4 text-sm shadow-sm placeholder:text-red-400 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"
+              />
+              <svg
+                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-3.5-3.5"></path>
+              </svg>
+            </form>
+
+            <!-- Wishlist button -->
+            <a
+              href="#"
+              class="inline-flex items-center justify-center rounded-2xl border border-red-200 p-2.5 text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-600"
+              aria-label="Wishlist"
+            >
+              <!-- JS placeholder: এখানে Wishlist কাউন্ট/স্টেট আপডেটের লজিক আসবে -->
+              <svg
+                class="h-6 w-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"
+                />
+              </svg>
+            </a>
+
+            <!-- Cart button -->
+            <a
+              href="#"
+              class="relative inline-flex items-center justify-center rounded-2xl border border-red-200 p-2.5 text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-600"
+              aria-label="Cart"
+            >
+              <!-- JS placeholder: এখানে Cart ওপেন/কাউন্ট আপডেটের লজিক আসবে -->
+              <svg
+                class="h-6 w-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path
+                  d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                ></path>
+              </svg>
+              <span
+                class="absolute -right-1 -top-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-600 px-1.5 text-[11px] font-semibold leading-none text-white"
+                >0</span
+              >
+            </a>
+          </div>
+
+          <!-- Mobile: Hamburger -->
+          <div class="md:hidden">
+            <!-- Hidden checkbox toggler (no JS) -->
+            <input
+              id="nav-toggle"
+              type="checkbox"
+              class="peer sr-only"
+              aria-hidden="true"
+            />
+            <label
+              for="nav-toggle"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-red-200 text-red-600 hover:bg-red-50 active:bg-red-100"
+              aria-label="Toggle navigation"
+            >
+              <svg
+                class="h-6 w-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== Mobile Drawer (collapsible, no JS) ========== -->
+      <div class="md:hidden border-t border-red-100">
+        <!-- The drawer listens to #nav-toggle via the sibling selector -->
+        <div
+          class="max-h-0 peer-checked:max-h-[480px] collapse-max-height overflow-hidden"
+          id="mobile-drawer"
+        >
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 space-y-3">
+            <!-- Search (mobile) -->
+            <form action="#" method="get" class="relative">
+              <!-- JS placeholder: মোবাইল সার্চ সাবমিট হ্যান্ডলার আসবে -->
+              <label for="search-mobile" class="sr-only">Search</label>
+              <input
+                id="search-mobile"
+                name="q"
+                type="search"
+                placeholder="Search for items, brands…"
+                class="w-full rounded-2xl border border-red-200 bg-white py-2.5 pl-10 pr-4 text-sm shadow-sm placeholder:text-red-400 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600"
+              />
+              <svg
+                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-3.5-3.5"></path>
+              </svg>
+            </form>
+
+            <!-- Menu items (stacked) -->
+            <nav>
+              <ul class="grid gap-1 text-[15px] font-medium">
+                <li>
+                  <a
+                    class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-700"
+                    href="#"
+                    >Shoes</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-700"
+                    href="#"
+                    >Bags</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-700"
+                    href="#"
+                    >Watches</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-700"
+                    href="#"
+                    >Umbrella</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-700"
+                    href="#"
+                    >Wallet</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="px-3 py-2 rounded-lg hover:bg-red-50 hover:text-red-700"
+                    href="#"
+                    >Cosmatics</a
+                  >
+                </li>
+              </ul>
+            </nav>
+
+            <!-- Quick actions (mobile) -->
+            <div class="flex items-center gap-2 pt-1">
+              <a
+                href="#"
+                class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-red-200 p-2.5 text-red-600 hover:bg-red-50"
+              >
+                <!-- JS placeholder: Wishlist স্টেট/কাউন্ট আপডেট আসবে -->
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"
+                  />
+                </svg>
+                <span>Wishlist</span>
+              </a>
+              <a
+                href="#"
+                class="relative inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-red-200 p-2.5 text-red-600 hover:bg-red-50"
+              >
+                <!-- JS placeholder: Cart ওপেন/কাউন্ট আপডেট আসবে -->
+                <svg
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path
+                    d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                  ></path>
+                </svg>
+                <span>Cart</span>
+                <span
+                  class="absolute -right-1 -top-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-600 px-1.5 text-[11px] font-semibold leading-none text-white"
+                  >0</span
+                >
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section Start -->
+    <section
+      class="relative bg-gradient-to-r from-red-500 to-red-700 text-white overflow-hidden"
+    >
+      <!-- Background Image -->
+      <div
+        class="absolute inset-0 bg-[url('https://thumbs.dreamstime.com/b/business-women-accessories-red-handbag-wallet-euro-money-sunglasses-phone-aroma-perfume-blue-background-fashion-181671038.jpg')] bg-cover bg-center opacity-90"
+      ></div>
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/40"></div>
+
+      <!-- Content -->
+      <div
+        class="relative flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 md:py-28"
+      >
+        <!-- Left Side (Text Content) -->
+        <div class="max-w-lg text-center md:text-left z-10">
+          <h1 class="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
+            Style That Speaks For You
+          </h1>
+          <p class="text-lg md:text-xl mb-8 opacity-90">
+            Discover trendy shoes, bags, and more at
+            <span class="font-semibold">Look At Me Fashion</span>.
+          </p>
+          <a
+            href="#shop"
+            class="inline-block bg-white text-red-600 font-semibold px-8 py-3 rounded-full shadow-md hover:bg-red-700 hover:text-white transition duration-300"
+          >
+            Shop Now
+          </a>
+        </div>
+
+        <!-- Right Side (Image) 
+        <div class="mt-10 md:mt-0 md:ml-10 z-10">
+          <img
+            src="./image/hero small img.jpg"
+            alt="Fashion Model"
+            class="rounded-2xl shadow-2xl w-72 md:w-96 object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div> --->
+      </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!--catagory section-->
+
+    <section class="bg-red-50 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Title -->
+        <h2 class="text-3xl font-bold text-center text-red-700 mb-4">
+          Shop by Category
+        </h2>
+        <p class="text-center text-gray-600 mb-8">
+          Find your perfect style from our top collections.
+        </p>
+
+        <!-- Category Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+          <!-- Shoes -->
+          <a
+            href="products.html?cat=shoes"
+            class="bg-white rounded-2xl shadow border-t-4 border-red-500 hover:shadow-lg hover:-translate-y-1 hover:scale-105 transition duration-300 text-center p-4"
+          >
+            <img
+              src="./image/shoes.jpeg"
+              alt="Shoes"
+              class="w-full h-32 object-cover rounded-xl mx-auto"
+            />
+            <h3
+              class="text-lg font-semibold mt-3 text-gray-800 hover:text-red-600 transition"
+            >
+              Shoes
+            </h3>
+            <p class="text-sm text-red-600 font-medium mt-1">View Products →</p>
+          </a>
+
+          <!-- Bags -->
+          <a
+            href="products.html?cat=bags"
+            class="bg-white rounded-2xl shadow border-t-4 border-red-500 hover:shadow-lg hover:-translate-y-1 hover:scale-105 transition duration-300 text-center p-4"
+          >
+            <img
+              src="./image/bag.jpeg"
+              alt="Bags"
+              class="w-full h-32 object-cover rounded-xl mx-auto"
+            />
+            <h3
+              class="text-lg font-semibold mt-3 text-gray-800 hover:text-red-600 transition"
+            >
+              Bags
+            </h3>
+            <p class="text-sm text-red-600 font-medium mt-1">View Products →</p>
+          </a>
+
+          <!-- Cosmetics -->
+          <a
+            href="products.html?cat=cosmetics"
+            class="bg-white rounded-2xl shadow border-t-4 border-red-500 hover:shadow-lg hover:-translate-y-1 hover:scale-105 transition duration-300 text-center p-4"
+          >
+            <img
+              src="./image/cosmetich.jpeg"
+              alt="Cosmetics"
+              class="w-full h-32 object-cover rounded-xl mx-auto"
+            />
+            <h3
+              class="text-lg font-semibold mt-3 text-gray-800 hover:text-red-600 transition"
+            >
+              Cosmetics
+            </h3>
+            <p class="text-sm text-red-600 font-medium mt-1">View Products →</p>
+          </a>
+
+          <!-- Watches -->
+          <a
+            href="products.html?cat=watches"
+            class="bg-white rounded-2xl shadow border-t-4 border-red-500 hover:shadow-lg hover:-translate-y-1 hover:scale-105 transition duration-300 text-center p-4"
+          >
+            <img
+              src="./image/watch.jpeg"
+              alt="Watches"
+              class="w-full h-32 object-cover rounded-xl mx-auto"
+            />
+            <h3
+              class="text-lg font-semibold mt-3 text-gray-800 hover:text-red-600 transition"
+            >
+              Watches
+            </h3>
+            <p class="text-sm text-red-600 font-medium mt-1">View Products →</p>
+          </a>
+
+          <!-- Umbrella -->
+          <a
+            href="products.html?cat=umbrella"
+            class="bg-white rounded-2xl shadow border-t-4 border-red-500 hover:shadow-lg hover:-translate-y-1 hover:scale-105 transition duration-300 text-center p-4"
+          >
+            <img
+              src="./image/umbella.jpeg"
+              alt="Umbrella"
+              class="w-full h-32 object-cover rounded-xl mx-auto"
+            />
+            <h3
+              class="text-lg font-semibold mt-3 text-gray-800 hover:text-red-600 transition"
+            >
+              Umbrella
+            </h3>
+            <p class="text-sm text-red-600 font-medium mt-1">View Products →</p>
+          </a>
+
+          <!-- Wallet -->
+          <a
+            href="products.html?cat=wallet"
+            class="bg-white rounded-2xl shadow border-t-4 border-red-500 hover:shadow-lg hover:-translate-y-1 hover:scale-105 transition duration-300 text-center p-4"
+          >
+            <img
+              src="./image/wallet.jpeg"
+              alt="Wallet"
+              class="w-full h-32 object-cover rounded-xl mx-auto"
+            />
+            <h3
+              class="text-lg font-semibold mt-3 text-gray-800 hover:text-red-600 transition"
+            >
+              Wallet
+            </h3>
+            <p class="text-sm text-red-600 font-medium mt-1">View Products →</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== Featured Products Section Start ====== -->
+    <section class="bg-red-50 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <h2 class="text-3xl font-bold text-center text-red-700 mb-4">
+          Featured Products
+        </h2>
+        <p class="text-center text-gray-600 mb-10">
+          Our best picks for your perfect look.
+        </p>
+
+        <!-- Products Grid -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8"
+        >
+          <!-- Product Card 1 -->
+          <div
+            class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300"
+          >
+            <img
+              src="./image/bag.jpeg"
+              alt="Leather Handbag"
+              class="w-full h-64 object-cover rounded-t-2xl"
+            />
+            <div class="p-5 text-center">
+              <h3 class="text-lg font-semibold text-gray-900">
+                Leather Handbag
+              </h3>
+              <p class="text-sm text-gray-600">Bags</p>
+              <p class="text-lg font-bold text-gray-800 mt-2">৳ 1800</p>
+              <p class="text-yellow-500 text-sm mb-3">★★★★★</p>
+              <button
+                class="bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 2 -->
+          <div
+            class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300"
+          >
+            <img
+              src="./image/shoes.jpeg"
+              alt="Stylish Sneakers"
+              class="w-full h-64 object-cover rounded-t-2xl"
+            />
+            <div class="p-5 text-center">
+              <h3 class="text-lg font-semibold text-gray-900">
+                Stylish Sneakers
+              </h3>
+              <p class="text-sm text-gray-600">Shoes</p>
+              <p class="text-lg font-bold text-gray-800 mt-2">৳ 2500</p>
+              <p class="text-yellow-500 text-sm mb-3">★★★★☆</p>
+              <button
+                class="bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 3 -->
+          <div
+            class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300"
+          >
+            <img
+              src="./image/watch.jpeg"
+              alt="Classic Watch"
+              class="w-full h-64 object-cover rounded-t-2xl"
+            />
+            <div class="p-5 text-center">
+              <h3 class="text-lg font-semibold text-gray-900">Classic Watch</h3>
+              <p class="text-sm text-gray-600">Watches</p>
+              <p class="text-lg font-bold text-gray-800 mt-2">৳ 3200</p>
+              <p class="text-yellow-500 text-sm mb-3">★★★★★</p>
+              <button
+                class="bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 4 -->
+          <div
+            class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300"
+          >
+            <img
+              src="./image/cosmetich.jpeg"
+              alt="Cosmetic Set"
+              class="w-full h-64 object-cover rounded-t-2xl"
+            />
+            <div class="p-5 text-center">
+              <h3 class="text-lg font-semibold text-gray-900">Cosmetic Set</h3>
+              <p class="text-sm text-gray-600">Cosmetics</p>
+              <p class="text-lg font-bold text-gray-800 mt-2">৳ 1500</p>
+              <p class="text-yellow-500 text-sm mb-3">★★★★☆</p>
+              <button
+                class="bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 5 -->
+          <div
+            class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300"
+          >
+            <img
+              src="./image/umbella.jpeg"
+              alt="Umbrella Pro"
+              class="w-full h-64 object-cover rounded-t-2xl"
+            />
+            <div class="p-5 text-center">
+              <h3 class="text-lg font-semibold text-gray-900">Umbrella Pro</h3>
+              <p class="text-sm text-gray-600">Umbrella</p>
+              <p class="text-lg font-bold text-gray-800 mt-2">৳ 700</p>
+              <p class="text-yellow-500 text-sm mb-3">★★★★★</p>
+              <button
+                class="bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Card 6 -->
+          <div
+            class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300"
+          >
+            <img
+              src="./image/umbella.jpeg"
+              alt="Men's Wallet"
+              class="w-full h-64 object-cover rounded-t-2xl"
+            />
+            <div class="p-5 text-center">
+              <h3 class="text-lg font-semibold text-gray-900">Men's Wallet</h3>
+              <p class="text-sm text-gray-600">Wallet</p>
+              <p class="text-lg font-bold text-gray-800 mt-2">৳ 900</p>
+              <p class="text-yellow-500 text-sm mb-3">★★★★☆</p>
+              <button
+                class="bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ====== Featured Products Section End ====== -->
+  </body>
+</html>
