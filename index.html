@@ -355,24 +355,26 @@
 
     <!-- Hero Section Start -->
     <section
-      class="relative bg-gradient-to-r from-red-500 to-red-700 text-white overflow-hidden"
+      class="relative w-full h-[500px] md:h-[650px] overflow-hidden"
     >
       <!-- Background Image -->
       <div
-        class="absolute inset-0 bg-[url('https://thumbs.dreamstime.com/b/business-women-accessories-red-handbag-wallet-euro-money-sunglasses-phone-aroma-perfume-blue-background-fashion-181671038.jpg')] bg-cover bg-center opacity-90"
-      ></div>
+        class="absolute inset-0 bg-cover bg-center opacity-90"
+      >
+      <img src="./image/download (2).jfif" alt="Hero Bangladesh" class="absolute inset-0 w-full h-full object-cover object-center">
+    </div>
 
       <!-- Overlay -->
       <div class="absolute inset-0 bg-black/40"></div>
 
       <!-- Content -->
       <div
-        class="relative flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 md:py-28"
+        class="relative z-10 px-6 md:px-16 py-24  text-white max-w-2xl"
       >
         <!-- Left Side (Text Content) -->
         <div class="max-w-lg text-center md:text-left z-10">
           <h1 class="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
-            Style That Speaks For You
+            Style That Speaks For Yous
           </h1>
           <p class="text-lg md:text-xl mb-8 opacity-90">
             Discover trendy shoes, bags, and more at
@@ -397,6 +399,44 @@
       </div>
     </section>
     <!-- Hero Section End -->
+
+
+
+    <!-- Offer / Sale Banner section -->
+<section class="bg-gradient-to-r from-red-600 to-red-800 text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 items-center gap-10">
+
+    <!-- Left Content -->
+    <div class="text-center md:text-left">
+      <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight drop-shadow">
+        Mega Sale – Up To <span class="text-yellow-300">20% OFF!</span>
+      </h2>
+
+      <p class="text-base md:text-lg opacity-90 mb-6">
+        Limited time offer on selected fashion items.
+      </p>
+
+      <a 
+        href="#shop"
+        class="inline-block bg-white text-red-700 font-semibold px-8 py-3 rounded-full shadow-md hover:bg-red-700 hover:text-white transition duration-300"
+      >
+        Shop Deals
+      </a>
+    </div>
+
+    <!-- Right Image -->
+    <div class="flex justify-center md:justify-end">
+      <img 
+        src="./image/offer section bennar.png"
+        alt="Sale Product"
+        class="w-64 md:w-80 lg:w-96 rounded-2xl shadow-2xl object-cover hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+
+  </div>
+</section>
+<!-- ===================== End Offer Banner ===================== -->
+
 
     <!--catagory section-->
 
@@ -522,6 +562,103 @@
         </div>
       </div>
     </section>
+
+
+
+    <!-- ===================== New Arrivals Section (Integrated) ===================== -->
+<section class="bg-gray-50 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Title -->
+    <div class="text-center mb-10">
+      <h2 class="text-3xl md:text-4xl font-bold text-red-700">
+        New Arrivals
+      </h2>
+      <p class="text-gray-600 mt-2">
+        Check out the latest additions to our collection.
+      </p>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+      <!-- Product Card -->
+      <div class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300">
+        <img 
+          src="./image/ledies bag.jpeg" 
+          class="w-full h-60 object-cover rounded-t-2xl" 
+          alt="Product"
+        />
+        <div class="p-5 text-center">
+          <h3 class="text-lg font-semibold text-gray-900">Leather Handbag</h3>
+          <p class="text-sm text-gray-500">Bags</p>
+          <p class="text-lg font-bold text-gray-800 mt-2">৳ 1800</p>
+
+          <a class="inline-block mt-3 text-sm text-red-600 font-medium hover:underline">
+            View Details →
+          </a>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300">
+        <img 
+          src="./image/Stylish Sneakers.jfif"
+          class="w-full h-60 object-cover rounded-t-2xl" 
+          alt="Product"
+        />
+        <div class="p-5 text-center">
+          <h3 class="text-lg font-semibold text-gray-900">Stylish Sneakers</h3>
+          <p class="text-sm text-gray-500">Shoes</p>
+          <p class="text-lg font-bold text-gray-800 mt-2">৳ 2500</p>
+
+          <a class="inline-block mt-3 text-sm text-red-600 font-medium hover:underline">
+            View Details →
+          </a>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300">
+        <img 
+          src="./image/Classic Watch.jfif" 
+          class="w-full h-60 object-cover rounded-t-2xl" 
+          alt="Product"
+        />
+        <div class="p-5 text-center">
+          <h3 class="text-lg font-semibold text-gray-900">Classic Watch</h3>
+          <p class="text-sm text-gray-500">Watches</p>
+          <p class="text-lg font-bold text-gray-800 mt-2">৳ 3200</p>
+
+          <a class="inline-block mt-3 text-sm text-red-600 font-medium hover:underline">
+            View Details →
+          </a>
+        </div>
+      </div>
+
+      <!-- Product Card -->
+      <div class="bg-white rounded-2xl shadow border hover:shadow-xl hover:-translate-y-1 transition duration-300">
+        <img 
+          src="./image/Luxury Cosmetic Set.jfif" 
+          class="w-full h-60 object-cover rounded-t-2xl" 
+          alt="Product"
+        />
+        <div class="p-5 text-center">
+          <h3 class="text-lg font-semibold text-gray-900">Luxury Cosmetic Set</h3>
+          <p class="text-sm text-gray-500">Cosmetics</p>
+          <p class="text-lg font-bold text-gray-800 mt-2">৳ 1500</p>
+
+          <a class="inline-block mt-3 text-sm text-red-600 font-medium hover:underline">
+            View Details →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ===================== End New Arrivals Section ===================== -->
+
 
     <!-- ====== Featured Products Section Start ====== -->
     <section class="bg-red-50 py-12">
@@ -677,5 +814,152 @@
       </div>
     </section>
     <!-- ====== Featured Products Section End ====== -->
+
+<!-- ===================== Testimonials Section (Integrated) ===================== -->
+<section class="bg-gray-50 py-14 mt-4">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Title -->
+    <div class="text-center mb-10">
+      <h2 class="text-3xl md:text-4xl font-bold text-red-700">
+        What Our Customers Say
+      </h2>
+      <p class="text-gray-600 mt-2">
+        Trusted by customers all over Bangladesh.
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Review Card 1 -->
+      <div class="bg-white rounded-2xl shadow p-6 border hover:shadow-xl transition duration-300">
+        <img 
+          src="./image/khaled.r.jpeg" 
+          alt="Customer"
+          class="rounded-full w-16 h-16 object-cover mx-auto"
+        />
+
+        <h3 class="text-center mt-4 font-semibold text-gray-800">
+          Khaled Saifullah
+        </h3>
+
+        <div class="flex justify-center mt-2 text-yellow-400 text-lg">
+          ★★★★★
+        </div>
+
+        <p class="text-gray-600 text-center mt-3">
+          Great service and amazing product quality! Fast delivery and well packaged.
+        </p>
+      </div>
+
+      <!-- Review Card 2 -->
+      <div class="bg-white rounded-2xl shadow p-6 border hover:shadow-xl transition duration-300">
+        <img 
+          src="./image/Fahad.jpeg" 
+          alt="Customer"
+          class="rounded-full w-16 h-16 object-cover mx-auto"
+        />
+
+        <h3 class="text-center mt-4 font-semibold text-gray-800">
+          Fahad Muntasir
+        </h3>
+
+        <div class="flex justify-center mt-2 text-yellow-400 text-lg">
+          ★★★★★
+        </div>
+
+        <p class="text-gray-600 text-center mt-3">
+          Love the handbag! Quality just amazing. Highly recommended.
+        </p>
+      </div>
+
+      <!-- Review Card 3 -->
+      <div class="bg-white rounded-2xl shadow p-6 border hover:shadow-xl transition duration-300">
+        <img 
+          src="./image/Mohit.jpeg" 
+          alt="Customer"
+          class="rounded-full w-16 h-16 object-cover mx-auto"
+        />
+
+        <h3 class="text-center mt-4 font-semibold text-gray-800">
+          Mohitul Islam
+        </h3>
+
+        <div class="flex justify-center mt-2 text-yellow-400 text-lg">
+          ★★★★★
+        </div>
+
+        <p class="text-gray-600 text-center mt-3">
+          Their shoe collection is awesome! Stylish and affordable.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ===================== End Testimonials Section ===================== -->
+
+
+<!-- ===================== Footer Section (Integrated) ===================== -->
+<footer class="bg-gray-900 text-gray-300 mt-10">
+  <div class="max-w-7xl mx-auto px-6 py-12">
+
+    <!-- Grid Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+      <!-- Brand Info -->
+      <div>
+        <h2 class="text-xl font-bold text-white">LOOK AT ME FASHION</h2>
+        <p class="mt-3 text-gray-400 leading-relaxed">
+          Your trusted online fashion shop for shoes, bags, cosmetics, watches, 
+          and accessories. Premium products at affordable prices.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-3">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-red-500 transition">Home</a></li>
+          <li><a href="#" class="hover:text-red-500 transition">Shop</a></li>
+          <li><a href="#" class="hover:text-red-500 transition">Categories</a></li>
+          <li><a href="#" class="hover:text-red-500 transition">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Customer Support -->
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-3">Customer Support</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-red-500 transition">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-red-500 transition">Return Policy</a></li>
+          <li><a href="#" class="hover:text-red-500 transition">Shipping Info</a></li>
+          <li><a href="#" class="hover:text-red-500 transition">FAQ</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Social Icons -->
+    <div class="mt-10 flex gap-4">
+      <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-red-600 transition">
+        FB
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-red-600 transition">
+        IG
+      </a>
+    </div>
+
+    <!-- Bottom Text -->
+    <div class="mt-10 border-t border-gray-700 pt-4 text-sm text-gray-400 text-center">
+      © 2025 Look At Me Fashion — All Rights Reserved.
+    </div>
+
+  </div>
+</footer>
+<!-- ===================== End Footer Section ===================== -->
+
+
   </body>
 </html>
