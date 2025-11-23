@@ -19,14 +19,14 @@
   </head>
   <body class="bg-white text-gray-900 antialiased">
     <!--Header Section-->
-  
+
     <header
+      id="mainHeader"
       class="sticky top-0 z-50 bg-white border-b border-red-200 shadow-sm"
     >
-      <nav class="max-w-7xl mx-auto px-4 lg:px-8">
-        <!-- Navbar Main Wrapper -->
+      <nav id="mainNav" class="max-w-7xl mx-auto px-4 lg:px-8">
         <div class="flex items-center justify-between py-3">
-          <!--Logo Section -->
+          <!-- Logo -->
           <a href="#" class="flex items-center">
             <div class="bg-[#B60000] px-4 py-2 rounded-lg shadow">
               <span class="text-[#FFD600] font-extrabold text-lg tracking-wide">
@@ -35,25 +35,24 @@
             </div>
           </a>
 
-          <!--Navbar Menu Items (Desktop) -->
+          <!-- Desktop Menu -->
           <ul
             class="hidden md:flex items-center gap-6 font-semibold text-[15px]"
           >
-            <!-- Home -->
+            <!-- HOME -->
             <li>
-              <a href="#" class="hover:text-[#B60000]">HOME</a>
+              <a href="#homeSection" class="nav-link hover:text-[#B60000]"
+                >HOME</a
+              >
             </li>
 
             <!-- SHOP (Mega Menu Button) -->
             <li class="relative">
-              <!-- SHOP Button (JS Later) -->
               <button
                 id="shopBtn"
                 class="hover:text-[#B60000] flex items-center gap-1 select-none"
               >
                 SHOP
-
-                <!-- Small Down Arrow -->
                 <svg
                   width="18"
                   height="18"
@@ -64,13 +63,13 @@
                   <path d="M6 9l6 6 6-6"></path>
                 </svg>
               </button>
+
+              <!-- Mega Menu -->
               <div
                 id="megaMenu"
-                class="hidden absolute left-0 top-full w-[750px] bg-white shadow-xl rounded-b-lg mt-2 p-6 grid grid-cols-4 gap-8 border-t-4 border-[#B60000]"
+                class="hidden opacity-0 transition-all duration-200 absolute left-0 top-full w-[750px] bg-white shadow-xl rounded-b-lg mt-2 p-6 grid grid-cols-4 gap-8 border-t-4 border-[#B60000]"
               >
-                <!-- 
-                 COLUMN 1: Clothing
-             -->
+                <!-- Column 1 -->
                 <div>
                   <h3 class="font-bold text-[#B60000] mb-3">Clothing</h3>
                   <ul class="space-y-2 text-sm">
@@ -90,8 +89,7 @@
                   </ul>
                 </div>
 
-                <!-- 
-                  COLUMN 2: Bags -->
+                <!-- Column 2 -->
                 <div>
                   <h3 class="font-bold text-[#B60000] mb-3">Bags</h3>
                   <ul class="space-y-2 text-sm">
@@ -105,9 +103,7 @@
                   </ul>
                 </div>
 
-                <!-- 
-                 COLUMN 3: Footwear
-          -->
+                <!-- Column 3 -->
                 <div>
                   <h3 class="font-bold text-[#B60000] mb-3">Footwear</h3>
                   <ul class="space-y-2 text-sm">
@@ -123,9 +119,7 @@
                   </ul>
                 </div>
 
-                <!-- 
-                 COLUMN 4: Beauty & Accessories
-        -->
+                <!-- Column 4 -->
                 <div>
                   <h3 class="font-bold text-[#B60000] mb-3">
                     Beauty & Accessories
@@ -155,21 +149,47 @@
               </div>
             </li>
 
-            <!-- New Arrivals -->
-            <li><a href="#" class="hover:text-[#B60000]">NEW ARRIVALS</a></li>
+            <!-- Other Links -->
+            <li>
+              <a
+                href="#newArrivalsSection"
+                class="nav-link hover:text-[#B60000]"
+              >
+                NEW ARRIVALS
+              </a>
+            </li>
 
-            <!-- Featured -->
-            <li><a href="#" class="hover:text-[#B60000]">FEATURED</a></li>
+            <li>
+              <a href="#featuredSection" class="nav-link hover:text-[#B60000]">
+                FEATURED
+              </a>
+            </li>
 
-            <!-- Contact -->
-            <li><a href="#" class="hover:text-[#B60000]">CONTACT</a></li>
+            <li>
+              <a href="#contactSection" class="nav-link hover:text-[#B60000]">
+                CONTACT
+              </a>
+            </li>
           </ul>
 
-          <!-- 
-           Right Side Icons
- -->
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobileMenuBtn"
+            class="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
+          >
+            <svg
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M3 6h18M3 12h18M3 18h18"></path>
+            </svg>
+          </button>
+
+          <!-- Right Icons (same as before) -->
           <div class="flex items-center gap-3">
-            <!-- Search Icon -->
             <button
               class="w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
             >
@@ -185,7 +205,6 @@
               </svg>
             </button>
 
-            <!-- Wishlist Icon -->
             <button
               class="w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
             >
@@ -198,11 +217,10 @@
               >
                 <path
                   d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1.1-1a5.5 5.5 0 00-7.7 7.7L12 21.2l8.8-8.8a5.5 5.5 0 000-7.8z"
-                />
+                ></path>
               </svg>
             </button>
 
-            <!-- Cart Icon -->
             <button
               class="relative w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
             >
@@ -217,18 +235,14 @@
                 <circle cx="19" cy="20" r="1"></circle>
                 <path
                   d="M1 1h4l2.7 12.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"
-                />
+                ></path>
               </svg>
-
-              <!-- Cart Badge -->
               <span
                 class="absolute -top-1 -right-1 bg-[#FFD600] text-[#B60000] text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
+                >0</span
               >
-                0
-              </span>
             </button>
 
-            <!-- User Icon -->
             <button
               class="w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
             >
@@ -245,15 +259,35 @@
             </button>
           </div>
         </div>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobileMenu"
+          class="md:hidden hidden flex flex-col gap-4 font-semibold text-[16px] bg-white p-4 rounded-lg shadow border border-red-200 mt-2"
+        >
+          <a href="#homeSection" class="nav-link hover:text-[#B60000]">HOME</a>
+          <button class="hover:text-[#B60000] text-left">SHOP</button>
+          <a href="#newArrivalsSection" class="nav-link hover:text-[#B60000]"
+            >NEW ARRIVALS</a
+          >
+          <a href="#featuredSection" class="nav-link hover:text-[#B60000]"
+            >FEATURED</a
+          >
+          <a href="#contactSection" class="nav-link hover:text-[#B60000]"
+            >CONTACT</a
+          >
+        </div>
       </nav>
     </header>
 
     <!--  HERO SECTION -->
-    <section class="w-full bg-gradient-to-r from-[#B60000] to-[#7A0000] py-20">
+    <section
+      id="homeSection"
+      class="w-full bg-gradient-to-r from-[#B60000] to-[#7A0000] py-20"
+    >
       <div
         class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 items-center gap-12"
       >
-
         <div class="text-white">
           <!-- বড় হেডিং -->
           <h1
@@ -289,142 +323,141 @@
       </div>
     </section>
 
-   <!-- 
-     CATEGORY SECTION  
-     -->
-<section class="py-20 bg-red-50" id="shopCategory">
-
-  <!-- বাংলা কমেন্ট: পুরো সেকশনে Hero-এর মত প্রশস্ত spacing রাখা হয়েছে -->
-  <div class="max-w-7xl mx-auto px-6">
-
-    <!-- Section Title -->
-    <div class="text-center mb-14">
-      <!-- বাংলা কমেন্ট: Hero সেকশনের মতো bold + shadow টাইটেল -->
-      <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow">
-        Shop by Category
-      </h2>
-
-      <!-- বাংলা কমেন্ট: সাবটাইটেলটিকে হালকা gray রঙে রাখা হয়েছে যাতে প্রিমিয়াম vibe আসে -->
-      <p class="mt-3 text-gray-600">
-        Find your perfect style from our top collections.
-      </p>
-    </div>
-
-    <!-- Responsive Grid: 2 → 3 → 6 columns -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">  
-
-
-
-      <!--CATEGORY CARD TEMPLATE -->
-
-      <!-- Clothing -->
-      <div class="group bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer 
-                  hover:shadow-xl transition transform hover:-translate-y-1 hover:scale-105">
-        <!-- Image -->
-        <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
-          <img src="./image/clothing.jpeg" 
-               class="w-full h-full object-cover" alt="Clothing Category">
+    <!--  CATEGORY SECTION  -->
+    <section class="py-20 bg-red-50" id="shopCategory">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Section Title -->
+        <div class="text-center mb-14">
+          <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow">
+            Shop by Category
+          </h2>
+          <p class="mt-3 text-gray-600">
+            Find your perfect style from our top collections.
+          </p>
         </div>
 
-        <!-- Titles -->
-        <h3 class="mt-3 font-bold text-gray-800 text-center">
-          Clothing
-        </h3>
+        <!-- Responsive Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
+          <!-- Clothing -->
+          <div
+            class="category-card bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-500 opacity-0 translate-y-4"
+            data-category="clothing"
+          >
+            <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
+              <img
+                src="./image/clothing.jpeg"
+                class="w-full h-full object-cover"
+                alt="Clothing Category"
+              />
+            </div>
 
-        <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
-          View Products →
-        </p>
-      </div>
+            <h3 class="mt-3 font-bold text-gray-800 text-center">Clothing</h3>
+            <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
+              View Products →
+            </p>
+          </div>
 
-      <!-- Bags -->
-      <div class="group bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer 
-                  hover:shadow-xl transition transform hover:-translate-y-1 hover:scale-105">
-        <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
-          <img src="./image/ledies bag.jpeg"
-               class="w-full h-full object-cover" alt="Bags Category">
+          <!-- Bags -->
+          <div
+            class="category-card bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-500 opacity-0 translate-y-4"
+            data-category="bags"
+          >
+            <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
+              <img
+                src="./image/ledies bag.jpeg"
+                class="w-full h-full object-cover"
+                alt="Bags Category"
+              />
+            </div>
+
+            <h3 class="mt-3 font-bold text-gray-800 text-center">Bags</h3>
+            <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
+              View Products →
+            </p>
+          </div>
+
+          <!-- Footwear -->
+          <div
+            class="category-card bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-500 opacity-0 translate-y-4"
+            data-category="footwear"
+          >
+            <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
+              <img
+                src="./image/Footwear.jpeg"
+                class="w-full h-full object-cover"
+                alt="Footwear Category"
+              />
+            </div>
+
+            <h3 class="mt-3 font-bold text-gray-800 text-center">Footwear</h3>
+            <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
+              View Products →
+            </p>
+          </div>
+
+          <!-- Cosmetics -->
+          <div
+            class="category-card bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-500 opacity-0 translate-y-4"
+            data-category="cosmetics"
+          >
+            <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
+              <img
+                src="./image/cosmetics2.jpeg"
+                class="w-full h-full object-cover"
+                alt="Cosmetics Category"
+              />
+            </div>
+
+            <h3 class="mt-3 font-bold text-gray-800 text-center">Cosmetics</h3>
+            <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
+              View Products →
+            </p>
+          </div>
+
+          <!-- Watches -->
+          <div
+            class="category-card bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-500 opacity-0 translate-y-4"
+            data-category="watches"
+          >
+            <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
+              <img
+                src="./image/watch.jpeg"
+                class="w-full h-full object-cover"
+                alt="Watches Category"
+              />
+            </div>
+
+            <h3 class="mt-3 font-bold text-gray-800 text-center">Watches</h3>
+            <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
+              View Products →
+            </p>
+          </div>
+
+          <!-- Accessories -->
+          <div
+            class="category-card bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-500 opacity-0 translate-y-4"
+            data-category="accessories"
+          >
+            <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
+              <img
+                src="./image/Accessorics.jpeg"
+                class="w-full h-full object-cover"
+                alt="Accessories Category"
+              />
+            </div>
+
+            <h3 class="mt-3 font-bold text-gray-800 text-center">
+              Accessories
+            </h3>
+            <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
+              View Products →
+            </p>
+          </div>
         </div>
-
-        <h3 class="mt-3 font-bold text-gray-800 text-center">
-          Bags
-        </h3>
-
-        <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
-          View Products →
-        </p>
       </div>
+    </section>
 
-      <!-- Footwear -->
-      <div class="group bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer 
-                  hover:shadow-xl transition transform hover:-translate-y-1 hover:scale-105">
-        <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
-          <img src="./image/Footwear.jpeg"
-               class="w-full h-full object-cover" alt="Footwear Category">
-        </div>
-
-        <h3 class="mt-3 font-bold text-gray-800 text-center">
-          Footwear
-        </h3>
-
-        <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
-          View Products →
-        </p>
-      </div>
-
-      <!-- Cosmetics -->
-      <div class="group bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer 
-                  hover:shadow-xl transition transform hover:-translate-y-1 hover:scale-105">
-        <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
-          <img src="./image/cosmetics2.jpeg"
-               class="w-full h-full object-cover" alt="Cosmetics Category">
-        </div>
-
-        <h3 class="mt-3 font-bold text-gray-800 text-center">
-          Cosmetics
-        </h3>
-
-        <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
-          View Products →
-        </p>
-      </div>
-
-      <!-- Watches -->
-      <div class="group bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer 
-                  hover:shadow-xl transition transform hover:-translate-y-1 hover:scale-105">
-        <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
-          <img src="./image/watch.jpeg"
-               class="w-full h-full object-cover" alt="Watches Category">
-        </div>
-
-        <h3 class="mt-3 font-bold text-gray-800 text-center">
-          Watches
-        </h3>
-
-        <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
-          View Products →
-        </p>
-      </div>
-
-      <!-- Accessories -->
-      <div class="group bg-white rounded-2xl shadow-md border-t-4 border-[#B60000] p-4 cursor-pointer 
-                  hover:shadow-xl transition transform hover:-translate-y-1 hover:scale-105">
-        <div class="w-full h-32 bg-gray-200 rounded-xl overflow-hidden">
-          <img src="./image/Accessorics.jpeg"
-               class="w-full h-full object-cover" alt="Accessories Category">
-        </div>
-
-        <h3 class="mt-3 font-bold text-gray-800 text-center">
-          Accessories
-        </h3>
-
-        <p class="text-sm text-center mt-1 text-[#B60000] font-medium">
-          View Products →
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
+    <!--Category Section End-->
 
     <!-- Offer / Sale Banner section -->
     <section class="bg-gradient-to-r from-red-600 to-red-800 text-white py-12">
@@ -436,7 +469,8 @@
           <h2
             class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight drop-shadow"
           >
-          Baby Dress  Mega Sale – Up To <span class="text-yellow-300">20% OFF!</span>
+            Baby Dress Mega Sale – Up To
+            <span class="text-yellow-300">20% OFF!</span>
           </h2>
 
           <p class="text-base md:text-lg opacity-90 mb-6">
@@ -463,320 +497,371 @@
     </section>
     <!-- ===================== End Offer Banner ===================== -->
 
-   <!-- ======================================================
+    <!-- ======================================================
      NEW ARRIVALS SECTION  
      Premium Red/Yellow Theme (HTML + Tailwind Only)
      ====================================================== -->
-<section class="py-20 bg-white" id="newArrivalsSection">
+    <section class="py-20 bg-white" id="newArrivalsSection">
+      <!-- বাংলা কমেন্ট: শিরোনাম ও সাবটাইটেল সেন্টার করে দেওয়া হয়েছে -->
+      <div class="max-w-7xl mx-auto px-6 text-center mb-12">
+        <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow">
+          New Arrivals
+        </h2>
+        <p class="mt-3 text-gray-600">
+          Explore our latest fashion picks just added to the collection.
+        </p>
+      </div>
 
-  <!-- বাংলা কমেন্ট: শিরোনাম ও সাবটাইটেল সেন্টার করে দেওয়া হয়েছে -->
-  <div class="max-w-7xl mx-auto px-6 text-center mb-12">
-    <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow">
-      New Arrivals
-    </h2>
-    <p class="mt-3 text-gray-600">
-      Explore our latest fashion picks just added to the collection.
-    </p>
-  </div>
-
-  <div class="max-w-7xl mx-auto px-6 relative">
-
-    <!-- ===============================
+      <div class="max-w-7xl mx-auto px-6 relative">
+        <!-- ===============================
          SLIDER WRAPPER
          (JS later using ID)
          =============================== -->
-    <!-- বাংলা কমেন্ট: স্লাইডার কনটেইনার - JS দিয়ে স্ক্রল করানো যাবে -->
-    <div id="arrivalSlider" class="flex gap-6 overflow-x-auto scroll-smooth pb-4">
-
-      <!-- ====================================================
+        <!-- বাংলা কমেন্ট: স্লাইডার কনটেইনার - JS দিয়ে স্ক্রল করানো যাবে -->
+        <div
+          id="arrivalSlider"
+          class="flex gap-6 overflow-x-auto scroll-smooth pb-4"
+        >
+          <!-- ====================================================
            PRODUCT CARD TEMPLATE (Premium eCommerce Look)
            ==================================================== -->
 
-      <!-- Product 1 -->
-      <div class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl 
-                  transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]">
-        <!-- Image -->
-        <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
-          <img src="./image/ledies bag.jpeg"
-               class="w-full h-full object-cover" alt="Product Image">
+          <!-- Product 1 -->
+          <div
+            class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]"
+          >
+            <!-- Image -->
+            <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
+              <img
+                src="./image/ledies bag.jpeg"
+                class="w-full h-full object-cover"
+                alt="Product Image"
+              />
+            </div>
+
+            <!-- Content -->
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-800">Stylish Ladies Bag</h3>
+              <p class="text-[#B60000] font-bold mt-1">$25.00</p>
+
+              <!-- Button -->
+              <button
+                class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div
+            class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]"
+          >
+            <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
+              <img
+                src="./image/watch.jpeg"
+                class="w-full h-full object-cover"
+                alt="Product Image"
+              />
+            </div>
+
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-800">Men’s Premium Watch</h3>
+              <p class="text-[#B60000] font-bold mt-1">$40.00</p>
+
+              <button
+                class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div
+            class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]"
+          >
+            <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
+              <img
+                src="./image/Stylish Sneakers.jfif"
+                class="w-full h-full object-cover"
+                alt="Product Image"
+              />
+            </div>
+
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-800">Comfortable Shoes</h3>
+              <p class="text-[#B60000] font-bold mt-1">$32.00</p>
+
+              <button
+                class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div
+            class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]"
+          >
+            <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
+              <img
+                src="./image/cosmetich.jpeg"
+                class="w-full h-full object-cover"
+                alt="Product Image"
+              />
+            </div>
+
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-800">Cosmetic Kit</h3>
+              <p class="text-[#B60000] font-bold mt-1">$18.00</p>
+
+              <button
+                class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <!-- Product 5 -->
+          <div
+            class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]"
+          >
+            <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
+              <img
+                src="./image/sunglass.jfif"
+                class="w-full h-full object-cover"
+                alt="Product Image"
+              />
+            </div>
+
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-800">Modern Sunglasses</h3>
+              <p class="text-[#B60000] font-bold mt-1">$15.00</p>
+
+              <button
+                class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
         </div>
 
-        <!-- Content -->
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-800">Stylish Ladies Bag</h3>
-          <p class="text-[#B60000] font-bold mt-1">$25.00</p>
-
-          <!-- Button -->
-          <button 
-            class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white 
-                   border border-[#FFD600] hover:shadow-md transition">
-            View Details
-          </button>
-        </div>
-      </div>
-
-      <!-- Product 2 -->
-      <div class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl 
-                  transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]">
-        <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
-          <img src="./image/watch.jpeg"
-               class="w-full h-full object-cover" alt="Product Image">
-        </div>
-
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-800">Men’s Premium Watch</h3>
-          <p class="text-[#B60000] font-bold mt-1">$40.00</p>
-
-          <button 
-            class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white 
-                   border border-[#FFD600] hover:shadow-md transition">
-            View Details
-          </button>
-        </div>
-      </div>
-
-      <!-- Product 3 -->
-      <div class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl 
-                  transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]">
-        <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
-          <img src="./image/Stylish Sneakers.jfif"
-               class="w-full h-full object-cover" alt="Product Image">
-        </div>
-
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-800">Comfortable Shoes</h3>
-          <p class="text-[#B60000] font-bold mt-1">$32.00</p>
-
-          <button 
-            class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white 
-                   border border-[#FFD600] hover:shadow-md transition">
-            View Details
-          </button>
-        </div>
-      </div>
-
-      <!-- Product 4 -->
-      <div class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl 
-                  transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]">
-        <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
-          <img src="./image/cosmetich.jpeg"
-               class="w-full h-full object-cover" alt="Product Image">
-        </div>
-
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-800">Cosmetic Kit</h3>
-          <p class="text-[#B60000] font-bold mt-1">$18.00</p>
-
-          <button 
-            class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white 
-                   border border-[#FFD600] hover:shadow-md transition">
-            View Details
-          </button>
-        </div>
-      </div>
-
-      <!-- Product 5 -->
-      <div class="min-w-[250px] bg-white rounded-xl shadow-md hover:shadow-xl 
-                  transition duration-300 hover:-translate-y-1 border-t-4 border-[#B60000]">
-        <div class="h-44 bg-gray-200 rounded-t-xl overflow-hidden">
-          <img src="./image/sunglass.jfif"
-               class="w-full h-full object-cover" alt="Product Image">
-        </div>
-
-        <div class="p-4">
-          <h3 class="font-semibold text-gray-800">Modern Sunglasses</h3>
-          <p class="text-[#B60000] font-bold mt-1">$15.00</p>
-
-          <button 
-            class="mt-3 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white 
-                   border border-[#FFD600] hover:shadow-md transition">
-            View Details
-          </button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- =====================================
+        <!-- =====================================
          SLIDER BUTTONS (FOR JS FUNCTION LATER)
          ===================================== -->
 
-    <!-- বাংলা কমেন্ট: বাম দিকের স্লাইড বাটন -->
-    <button id="arrivalPrev"
-            class="absolute top-1/2 left-0 -translate-y-1/2 bg-[#B60000] text-white 
-                   w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-[#7A0000]">
-      ‹
-    </button>
+        <!-- বাংলা কমেন্ট: বাম দিকের স্লাইড বাটন -->
+        <button
+          id="arrivalPrev"
+          class="absolute top-1/2 left-0 -translate-y-1/2 bg-[#B60000] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-[#7A0000]"
+        >
+          ‹
+        </button>
 
-    <!-- বাংলা কমেন্ট: ডান দিকের স্লাইড বাটন -->
-    <button id="arrivalNext"
-            class="absolute top-1/2 right-0 -translate-y-1/2 bg-[#B60000] text-white 
-                   w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-[#7A0000]">
-      ›
-    </button>
-
-  </div>
-</section>
+        <!-- বাংলা কমেন্ট: ডান দিকের স্লাইড বাটন -->
+        <button
+          id="arrivalNext"
+          class="absolute top-1/2 right-0 -translate-y-1/2 bg-[#B60000] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-[#7A0000]"
+        >
+          ›
+        </button>
+      </div>
+    </section>
 
     <!-- ======================================================
      FEATURED PRODUCTS SECTION
      Premium Red/Yellow Theme (HTML + Tailwind Only)
      ====================================================== -->
-<section class="py-20 bg-red-50" id="featuredProductsSection">
+    <section class="py-20 bg-red-50" id="featuredSection">
+      <!-- বাংলা কমেন্ট: শিরোনাম ও সাবটাইটেল সেন্টারে রাখা হয়েছে -->
+      <div class="max-w-7xl mx-auto px-6 text-center mb-14">
+        <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow">
+          Featured Products
+        </h2>
+        <p class="mt-3 text-gray-600">Handpicked favorites just for you.</p>
+      </div>
 
-  <!-- বাংলা কমেন্ট: শিরোনাম ও সাবটাইটেল সেন্টারে রাখা হয়েছে -->
-  <div class="max-w-7xl mx-auto px-6 text-center mb-14">
-    <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow">
-      Featured Products
-    </h2>
-    <p class="mt-3 text-gray-600">
-      Handpicked favorites just for you.
-    </p>
-  </div>
-
-  <!-- বাংলা কমেন্ট: Responsive Grid (3–4 column layout) -->
-  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-
-    <!-- ====================================================
+      <!-- বাংলা কমেন্ট: Responsive Grid (3–4 column layout) -->
+      <div
+        class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8"
+      >
+        <!-- ====================================================
          PRODUCT CARD TEMPLATE – Premium eCommerce Look
          ==================================================== -->
 
-    <!-- Baby Dress -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000]
-                transition duration-300 hover:-translate-y-1">
-      <!-- Image -->
-      <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
-        <img src="./image/Boy dress.jpg"
-             class="w-full h-full object-contain" alt="Baby Dress">
+        <!-- Baby Dress -->
+        <div
+          class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000] transition duration-300 hover:-translate-y-1"
+        >
+          <!-- Image -->
+          <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
+            <img
+              src="./image/Boy dress.jpg"
+              class="w-full h-full object-contain"
+              alt="Baby Dress"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="p-5">
+            <h3 class="font-bold text-gray-800 text-lg">Baby Dress</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              Soft and stylish baby dress made with premium fabric.
+            </p>
+            <p class="text-[#B60000] font-bold mt-3">$1800</p>
+
+            <button
+              class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Three pieces -->
+        <div
+          class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000] transition duration-300 hover:-translate-y-1"
+        >
+          <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
+            <img
+              src="./image/three pice.jpg"
+              class="w-full h-full object-contain"
+              alt="Ladies Bag"
+            />
+          </div>
+
+          <div class="p-5">
+            <h3 class="font-bold text-gray-800 text-lg">
+              Woman Premium Three piece
+            </h3>
+            <p class="text-sm text-gray-600 mt-1">
+              Elegant three piece outfit perfect for any occasion.
+            </p>
+            <p class="text-[#B60000] font-bold mt-3">$2500</p>
+
+            <button
+              class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Lipstick -->
+        <div
+          class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000] transition duration-300 hover:-translate-y-1"
+        >
+          <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
+            <img
+              src="./image/lipstic2.jpg"
+              class="w-full h-full object-contain"
+              alt="Lipstick"
+            />
+          </div>
+
+          <div class="p-5">
+            <h3 class="font-bold text-gray-800 text-lg">Lipstick</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              Long-lasting premium lipstick with vibrant shades.
+            </p>
+            <p class="text-[#B60000] font-bold mt-3">$120</p>
+
+            <button
+              class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Women Shoes -->
+        <div
+          class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000] transition duration-300 hover:-translate-y-1"
+        >
+          <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
+            <img
+              src="./image/woman shoes.webp"
+              class="w-full h-full object-contain"
+              alt="Women Shoes"
+            />
+          </div>
+
+          <div class="p-5">
+            <h3 class="font-bold text-gray-800 text-lg">Women Shoes</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              Comfortable and fashionable shoes for everyday wear.
+            </p>
+            <p class="text-[#B60000] font-bold mt-3">$1300</p>
+
+            <button
+              class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Hijab -->
+        <div
+          class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000] transition duration-300 hover:-translate-y-1"
+        >
+          <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
+            <img
+              src="./image/baby Hizab.jpg"
+              class="w-full h-full object-contain"
+              alt="Men’s Watch"
+            />
+          </div>
+
+          <div class="p-5">
+            <h3 class="font-bold text-gray-800 text-lg">Hijab</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              Soft and breathable hijabs in various colors.
+            </p>
+            <p class="text-[#B60000] font-bold mt-3">$900</p>
+
+            <button
+              class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+
+        <!--fogg -->
+        <div
+          class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000] transition duration-300 hover:-translate-y-1"
+        >
+          <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
+            <img
+              src="./image/fogg.webp"
+              class="w-full h-full object-contain"
+              alt="Sunglasses"
+            />
+          </div>
+
+          <div class="p-5">
+            <h3 class="font-bold text-gray-800 text-lg">
+              Fogg Premium Body Spray
+            </h3>
+            <p class="text-sm text-gray-600 mt-1">
+              Long-lasting fragrance for all-day freshness.
+            </p>
+            <p class="text-[#B60000] font-bold mt-3">$150</p>
+
+            <button
+              class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg hover:bg-white border border-[#FFD600] hover:shadow-md transition"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
       </div>
-
-      <!-- Content -->
-      <div class="p-5">
-        <h3 class="font-bold text-gray-800 text-lg">Baby Dress</h3>
-        <p class="text-sm text-gray-600 mt-1">
-          Soft and stylish baby dress made with premium fabric.
-        </p>
-        <p class="text-[#B60000] font-bold mt-3">$1800</p>
-
-        <button class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg
-                       hover:bg-white border border-[#FFD600] hover:shadow-md transition">
-          View Details
-        </button>
-      </div>
-    </div>
-
-    <!-- Three pieces -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000]
-                transition duration-300 hover:-translate-y-1">
-      <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
-        <img src="./image/three pice.jpg"
-             class="w-full h-full object-contain" alt="Ladies Bag">
-      </div>
-
-      <div class="p-5">
-        <h3 class="font-bold text-gray-800 text-lg">Woman Premium Three piece</h3>
-        <p class="text-sm text-gray-600 mt-1">
-          Elegant three piece outfit perfect for any occasion.
-        </p>
-        <p class="text-[#B60000] font-bold mt-3">$2500</p>
-
-        <button class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg
-                       hover:bg-white border border-[#FFD600] hover:shadow-md transition">
-          View Details
-        </button>
-      </div>
-    </div>
-
-    <!-- Lipstick -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000]
-                transition duration-300 hover:-translate-y-1">
-      <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
-        <img src="./image/lipstic2.jpg"
-             class="w-full h-full object-contain" alt="Lipstick">
-      </div>
-
-      <div class="p-5">
-        <h3 class="font-bold text-gray-800 text-lg">Lipstick</h3>
-        <p class="text-sm text-gray-600 mt-1">
-          Long-lasting premium lipstick with vibrant shades.
-        </p>
-        <p class="text-[#B60000] font-bold mt-3">$120</p>
-
-        <button class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg
-                       hover:bg-white border border-[#FFD600] hover:shadow-md transition">
-          View Details
-        </button>
-      </div>
-    </div>
-
-    <!-- Women Shoes -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000]
-                transition duration-300 hover:-translate-y-1">
-      <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
-        <img src="./image/woman shoes.webp"
-             class="w-full h-full object-contain" alt="Women Shoes">
-      </div>
-
-      <div class="p-5">
-        <h3 class="font-bold text-gray-800 text-lg">Women Shoes</h3>
-        <p class="text-sm text-gray-600 mt-1">
-          Comfortable and fashionable shoes for everyday wear.
-        </p>
-        <p class="text-[#B60000] font-bold mt-3">$1300</p>
-
-        <button class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg
-                       hover:bg-white border border-[#FFD600] hover:shadow-md transition">
-          View Details
-        </button>
-      </div>
-    </div>
-
-    <!-- Hijab -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000]
-                transition duration-300 hover:-translate-y-1">
-      <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
-        <img src="./image/baby Hizab.jpg"
-             class="w-full h-full object-contain" alt="Men’s Watch">
-      </div>
-
-      <div class="p-5">
-        <h3 class="font-bold text-gray-800 text-lg">Hijab</h3>
-        <p class="text-sm text-gray-600 mt-1">
-          Soft and breathable hijabs in various colors.
-        </p>
-        <p class="text-[#B60000] font-bold mt-3">$900</p>
-
-        <button class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg
-                       hover:bg-white border border-[#FFD600] hover:shadow-md transition">
-          View Details
-        </button>
-      </div>
-    </div>
-
-    <!--fogg -->
-    <div class="bg-white rounded-xl shadow-md hover:shadow-xl border-t-4 border-[#B60000]
-                transition duration-300 hover:-translate-y-1">
-      <div class="h-56 bg-gray-200 rounded-t-xl overflow-hidden">
-        <img src="./image/fogg.webp"
-             class="w-full h-full object-contain" alt="Sunglasses">
-      </div>
-
-      <div class="p-5">
-        <h3 class="font-bold text-gray-800 text-lg">Fogg Premium Body Spray</h3>
-        <p class="text-sm text-gray-600 mt-1">
-          Long-lasting fragrance for all-day freshness.
-        </p>
-        <p class="text-[#B60000] font-bold mt-3">$150</p>
-
-        <button class="mt-4 w-full bg-[#FFD600] text-[#B60000] font-semibold py-2 rounded-lg
-                       hover:bg-white border border-[#FFD600] hover:shadow-md transition">
-          View Details
-        </button>
-      </div>
-    </div>
-
-  </div>
-</section>
+    </section>
 
     <!-- ===================== Testimonials Section (Integrated) ===================== -->
     <section class="bg-gray-50 py-14 mt-4">
@@ -867,102 +952,310 @@
     </section>
     <!-- ===================== End Testimonials Section ===================== -->
 
-   <!-- ============================================================
+    <!-- =============================
+     CONTACT SECTION  
+     (Premium Islamic Tone)
+============================= -->
+    <section id="contactSection" class="bg-[rgb(254,242,242)] py-16 lg:py-24">
+      <!-- Section Container -->
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <!-- Grid Layout: Left Info + Right Form -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- ====================================
+           LEFT COLUMN — ISLAMIC TONE + SHOP INFO
+      ===================================== -->
+          <div class="space-y-6">
+            <!-- Brand Title -->
+            <h2
+              class="text-3xl lg:text-4xl font-extrabold text-[#B60000] leading-snug"
+            >
+              LOOK AT ME FASHION
+            </h2>
+
+            <!-- Islamic Bengali Text -->
+            <p
+              class="text-gray-700 leading-relaxed text-[17px] bg-white shadow rounded-xl p-6 border border-red-100"
+            >
+              “ফ্যাশনকে সহজ, সুন্দর ও সবার জন্য সহজলভ্য করতে আমরা
+              প্রতিশ্রুতিবদ্ধ। আমরা halal আয় ও নৈতিক বাণিজ্যের মাধ্যমে সর্বোত্তম
+              মান নিশ্চিত করার চেষ্টা করি। সৎ ব্যবসা আল্লাহর কাছে প্রিয়, আর
+              প্রতারণা থেকে দূরে থাকা আমাদের দায়িত্ব।”
+            </p>
+
+            <!-- Address -->
+            <div>
+              <h3 class="font-bold text-xl text-[#B60000] mb-1">
+                আমাদের ঠিকানা
+              </h3>
+              <p class="text-gray-700 leading-relaxed">
+                তামিরুল মিল্লাত মহিলা কামিল মাদ্রাসার গেইটের বিপরীত পাশে, মিন্টু
+                চত্বর, মাতুয়াইল, ডেমরা, ঢাকা।
+              </p>
+            </div>
+
+            <!-- Phone + WhatsApp -->
+            <div>
+              <h3 class="font-bold text-xl text-[#B60000] mb-1">ফোন</h3>
+
+              <a
+                href="tel:+8801775539131"
+                class="flex items-center gap-2 text-gray-700 hover:text-[#B60000] font-semibold text-lg"
+              >
+                📞 +880 1775-539131
+              </a>
+
+              <!-- WhatsApp Icon Row -->
+              <a
+                href="https://wa.me/8801775539131"
+                target="_blank"
+                class="inline-flex items-center gap-2 mt-2 text-green-600 hover:text-[#B60000] transition"
+              >
+                <!-- WhatsApp Icon -->
+                <svg
+                  width="26"
+                  height="26"
+                  fill="currentColor"
+                  class="text-green-600 hover:text-[#B60000] transition"
+                >
+                  <path
+                    d="M13.02 2.25c-5.88 0-10.65 4.77-10.65 10.65 0 1.88.49 3.71 1.44 5.32L2 24l5.93-1.77c1.55.85 3.28 1.29 5.09 1.29h.01c5.88 0 10.65-4.77 10.65-10.65s-4.77-10.65-10.66-10.65zm0 19.2c-1.53 0-3.03-.4-4.34-1.17l-.31-.18-3.52 1.05 1.08-3.43-.2-.35c-.87-1.44-1.33-3.09-1.33-4.79 0-5.08 4.13-9.21 9.21-9.21s9.21 4.13 9.21 9.21-4.13 9.21-9.21 9.21zm5.02-6.86c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.62.14-.18.27-.71.88-.87 1.06-.16.18-.32.2-.6.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.58-1.5-1.85-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.62-1.49-.85-2.04-.22-.53-.45-.45-.62-.45-.16 0-.34-.02-.52-.02-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29s.98 2.66 1.12 2.85c.14.18 1.93 2.95 4.69 4.14.66.28 1.17.45 1.57.58.66.21 1.26.18 1.73.11.53-.08 1.6-.65 1.83-1.27.23-.62.23-1.15.16-1.27-.07-.11-.25-.18-.52-.32z"
+                  />
+                </svg>
+                WhatsApp এ মেসেজ করুন
+              </a>
+            </div>
+
+            <!-- Email -->
+            <div>
+              <h3 class="font-bold text-xl text-[#B60000] mb-1">ইমেইল</h3>
+              <a
+                href="mailto:support@lookatme.com"
+                class="text-gray-700 hover:text-[#B60000] font-semibold"
+              >
+                support@lookatme.com
+              </a>
+            </div>
+          </div>
+
+          <!-- ====================================
+           RIGHT COLUMN — CONTACT FORM
+      ===================================== -->
+          <div class="bg-white p-8 shadow-xl rounded-2xl border border-red-100">
+            <h3 class="text-2xl font-bold text-[#B60000] mb-6">যোগাযোগ ফর্ম</h3>
+
+            <form class="space-y-5">
+              <!-- NAME -->
+              <div>
+                <label class="font-semibold text-gray-700">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  class="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#B60000] outline-none"
+                  placeholder="আপনার পূর্ণ নাম লিখুন"
+                />
+              </div>
+
+              <!-- EMAIL -->
+              <div>
+                <label class="font-semibold text-gray-700">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  class="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#B60000] outline-none"
+                  placeholder="ইমেইল লিখুন"
+                />
+              </div>
+
+              <!-- PHONE -->
+              <div>
+                <label class="font-semibold text-gray-700">Phone Number</label>
+                <input
+                  type="tel"
+                  required
+                  class="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#B60000] outline-none"
+                  placeholder="ফোন নম্বর লিখুন"
+                />
+              </div>
+
+              <!-- MESSAGE -->
+              <div>
+                <label class="font-semibold text-gray-700">Message</label>
+                <textarea
+                  rows="4"
+                  required
+                  class="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[#B60000] outline-none"
+                  placeholder="আপনার বার্তা লিখুন..."
+                ></textarea>
+              </div>
+
+              <!-- SUBMIT BUTTON -->
+              <button
+                type="submit"
+                class="w-full bg-[#FFD600] text-[#B60000] font-bold py-3 mt-2 rounded-xl shadow hover:bg-[#B60000] hover:text-[#FFD600] transition duration-200"
+              >
+                বার্তা পাঠান
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================
+       GOOGLE MAP — FULL WIDTH RESPONSIVE
+  ===================================== -->
+      <div class="mt-16 px-4 lg:px-10">
+        <div
+          class="w-full h-[350px] lg:h-[450px] rounded-2xl overflow-hidden shadow-lg border-4 border-red-200"
+        >
+          <!-- Responsive Map -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.336734613411!2d90.45766637436833!3d23.73395838964462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755bfbcd871083d%3A0x78a4b49daf58cc09!2z4KaH4Kao4Kaq4KeN4Ka24KeH4KaV4KeAIOCmluCnh-CmvyDgppXgprPgp4fgpqjgp43gpp_gp4Ag4KaH4KeN4KaV4Ka-4Ka24Ka-4Kak4Ka-4Ka4IOCngeCmrOCnjeCmlSDgpofgprDgppzgp4fgpqjgpqzgpr_gppUgKDEp!5e0!3m2!1sen!2sbd!4v1732195464510!5m2!1sen!2sbd"
+            width="100%"
+            height="100%"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
      PREMIUM ECOMMERCE FOOTER  
      Look At Me Fashion — Red/Yellow Brand Theme
      HTML + Tailwind Only
      ============================================================ -->
-<footer id="footerSection" class="bg-[#6B0000] pt-16 shadow-inner text-white">
-
-  <!-- বাংলা কমেন্ট: Footer-এর মূল ৪টি কলাম -->
-  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
-    <!-- ============================
+    <footer
+      id="footerSection"
+      class="bg-[#6B0000] pt-16 shadow-inner text-white"
+    >
+      <!-- বাংলা কমেন্ট: Footer-এর মূল ৪টি কলাম -->
+      <div
+        class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"
+      >
+        <!-- ============================
          COLUMN 1 — BRAND INFO
          ============================ -->
-    <div>
-      <!-- Logo Box -->
-      <div class="inline-block bg-[#B60000] px-5 py-2 rounded-lg shadow">
-        <h2 class="text-[#FFD600] font-extrabold text-lg tracking-wide">
-          LOOK AT ME FASHION
-        </h2>
-      </div>
+        <div>
+          <!-- Logo Box -->
+          <div class="inline-block bg-[#B60000] px-5 py-2 rounded-lg shadow">
+            <h2 class="text-[#FFD600] font-extrabold text-lg tracking-wide">
+              LOOK AT ME FASHION
+            </h2>
+          </div>
 
-      <!-- Short Bengali Description -->
-      <p class="mt-4 text-white leading-relaxed">
-        ফ্যাশনকে সহজ, সুন্দর ও সবার জন্য সহজলভ্য করতে আমরা প্রতিশ্রুতিবদ্ধ।
-      </p>
+          <!-- Short Bengali Description -->
+          <p class="mt-4 text-white leading-relaxed">
+            ফ্যাশনকে সহজ, সুন্দর ও সবার জন্য সহজলভ্য করতে আমরা প্রতিশ্রুতিবদ্ধ।
+          </p>
 
-      <!-- Islamic Honest Message -->
-      <p class="mt-4 text-sm text-gray-700 bg-red-50 p-3 rounded-lg border-l-4 border-[#B60000]">
-        আমরা হালাল আয়ের প্রতি প্রতিশ্রুতিবদ্ধ। সৎভাবে ব্যবসা করা সুন্নাহ,  
-        আর আমরা সেই সুন্নাহ পালন করার চেষ্টা করি।  
-        আমাদের পণ্যে প্রতারণা বা বাড়তি দাম নেই, ইনশাআল্লাহ।
-      </p>
+          <!-- Islamic Honest Message -->
+          <p
+            class="mt-4 text-sm text-gray-700 bg-red-50 p-3 rounded-lg border-l-4 border-[#B60000]"
+          >
+            আমরা হালাল আয়ের প্রতি প্রতিশ্রুতিবদ্ধ। সৎভাবে ব্যবসা করা সুন্নাহ,
+            আর আমরা সেই সুন্নাহ পালন করার চেষ্টা করি। আমাদের পণ্যে প্রতারণা বা
+            বাড়তি দাম নেই, ইনশাআল্লাহ।
+          </p>
 
-      <!-- Contact Info -->
-      <div class="mt-5 space-y-2 text-white">
-        <p><strong>ঠিকানা:</strong> ১২৩, ঢাকা, বাংলাদেশ</p>
-        <p><strong>ফোন:</strong> +880 1234-567890</p>
-        <p><strong>ইমেইল:</strong> support@lookatme.com</p>
-      </div>
-    </div>
+          <!-- Contact Info -->
+          <div class="mt-5 space-y-2 text-white">
+            <p><strong>ঠিকানা:</strong> ১২৩, ঢাকা, বাংলাদেশ</p>
+            <p><strong>ফোন:</strong> +880 1234-567890</p>
+            <p><strong>ইমেইল:</strong> support@lookatme.com</p>
+          </div>
+        </div>
 
-    <!-- ============================
+        <!-- ============================
          COLUMN 2 — QUICK LINKS
          ============================ -->
-    <div>
-      <h3 class="text-lg font-bold text-[#FFD600] mb-4">Quick Links</h3>
-      <ul class="space-y-2 text-white">
-        <li><a href="#" class="hover:text-[#B60000] transition">Home</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">Shop</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">New Arrivals</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">Featured</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">Contact</a></li>
-      </ul>
-    </div>
+        <div>
+          <h3 class="text-lg font-bold text-[#FFD600] mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-white">
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">Home</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">Shop</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition"
+                >New Arrivals</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">Featured</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">Contact</a>
+            </li>
+          </ul>
+        </div>
 
-    <!-- ============================
+        <!-- ============================
          COLUMN 3 — CUSTOMER SUPPORT
          ============================ -->
-    <div>
-      <h3 class="text-lg font-bold text-[#FFD600] mb-4">Customer Support</h3>
-      <ul class="space-y-2 text-white">
-        <li><a href="#" class="hover:text-[#B60000] transition">Shipping Policy</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">Return Policy</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">FAQ</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">Support</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">Order Tracking</a></li>
-      </ul>
-    </div>
+        <div>
+          <h3 class="text-lg font-bold text-[#FFD600] mb-4">
+            Customer Support
+          </h3>
+          <ul class="space-y-2 text-white">
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition"
+                >Shipping Policy</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition"
+                >Return Policy</a
+              >
+            </li>
+            <li><a href="#" class="hover:text-[#B60000] transition">FAQ</a></li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">Support</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition"
+                >Order Tracking</a
+              >
+            </li>
+          </ul>
+        </div>
 
-    <!-- ============================
+        <!-- ============================
          COLUMN 4 — SOCIAL MEDIA
          ============================ -->
-    <div>
-      <h3 class="text-lg font-bold text-[#FFD600] mb-4">Follow Us</h3>
+        <div>
+          <h3 class="text-lg font-bold text-[#FFD600] mb-4">Follow Us</h3>
 
-      <!-- বাংলা কমেন্ট: সোশ্যাল লিংকগুলো hover করলে রেড কালার হবে -->
-      <ul class="space-y-2 text-white">
-        <li><a href="#" class="hover:text-[#B60000] transition">Facebook</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">Instagram</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">YouTube</a></li>
-        <li><a href="#" class="hover:text-[#B60000] transition">WhatsApp</a></li>
-      </ul>
-    </div>
+          <!-- বাংলা কমেন্ট: সোশ্যাল লিংকগুলো hover করলে রেড কালার হবে -->
+          <ul class="space-y-2 text-white">
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">Facebook</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">Instagram</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">YouTube</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#B60000] transition">WhatsApp</a>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-  </div>
-
-  <!-- ============================
+      <!-- ============================
        BOTTOM COPYRIGHT BAR
        ============================ -->
-  <div class="mt-14 border-t border-red-200 bg-red-50 py-4">
-    <p class="text-center text-gray-700 text-sm">
-      © 2025 Look At Me Fashion. সর্বস্বত্ব সংরক্ষিত।
-    </p>
-  </div>
-
-</footer>
+      <div class="mt-14 border-t border-red-200 bg-red-50 py-4">
+        <p class="text-center text-gray-700 text-sm">
+          © 2025 Look At Me Fashion. সর্বস্বত্ব সংরক্ষিত।
+        </p>
+      </div>
+    </footer>
 
     <script src="./app.js"></script>
   </body>
