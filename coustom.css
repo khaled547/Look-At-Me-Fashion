@@ -14,3 +14,22 @@
     opacity: 0;
   }
 }
+
+/* Mobile Menu Smooth Animation */
+.mobile-slide {
+  transition: max-height 0.3s ease;
+}
+
+/* Bottom Menu Smooth Slide Animation */
+#bottomMenu {
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
