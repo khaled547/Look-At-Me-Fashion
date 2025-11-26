@@ -269,9 +269,9 @@ function initActiveNavHighlight() {
   });
 }
 
-/********************************************
+/*
  * ESC → CLOSE ANY OPEN DROPDOWN
- ********************************************/
+ */
 function initGlobalEscapeClose() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
@@ -282,10 +282,10 @@ function initGlobalEscapeClose() {
   });
 }
 
-/********************************************
+/*
  * SCROLL DOWN → HEADER HIDE
  * SCROLL UP → HEADER SHOW
- ********************************************/
+ */
 function initHeaderScrollHide() {
   const header = $("mainHeader");
   let lastY = window.scrollY;
@@ -302,7 +302,7 @@ function initHeaderScrollHide() {
     lastY = curr;
   });
 }
-/************************************************************
+/*
  * CATEGORY SECTION EFFECTS (Smart Hybrid Edition)
  * ----------------------------------------------------------
  * ✓ Fade-in animation when categories appear
@@ -311,7 +311,7 @@ function initHeaderScrollHide() {
  * ✓ Mobile horizontal scroll (Netflix Style)
  * ✓ Smooth scroll to product area
  * ✓ Category-based product filtering
- ************************************************************/
+ */
 function initCategoryPremium() {
   const cards = document.querySelectorAll(".category-card");
   const productItems = document.querySelectorAll("[data-category]");
@@ -441,9 +441,9 @@ function initCategoryPremium() {
   });
 }
 
-/********************************************
+/*
  * PRODUCT SYSTEM (CART + WISHLIST + DETAILS)
- ********************************************/
+ **/
 function initProductSystem() {
   const PRODUCTS = [
     {
@@ -638,9 +638,9 @@ function initProductSystem() {
   updateCartBadge();
 }
 
-/********************************************
+/*
  * AUTH MODAL
- ********************************************/
+ */
 function initAuthModal() {
   const overlay = document.getElementById("authOverlay");
   const close = document.getElementById("authClose");
@@ -662,7 +662,7 @@ function initAuthModal() {
   });
 }
 
-/************************************************************
+/*
  * NEW ARRIVAL SLIDER (Smart + Mobile Perfect Edition)
  * ----------------------------------------------------------
  * ✓ Arrow control
@@ -672,7 +672,7 @@ function initAuthModal() {
  * ✓ Auto snap to nearest card
  * ✓ Disable/Enable arrows on edges
  * ✓ Clean & readable code
- ************************************************************/
+ */
 function initNewArrivalSlider() {
   const slider = document.getElementById("arrivalSlider");
   const next = document.getElementById("arrivalNext");
@@ -812,14 +812,14 @@ function initNewArrivalSlider() {
   updateArrows(); // initial update
 }
 
-/************************************************************
+/*
  * FEATURED SECTION EFFECTS (Ripple + Shine + Animation)
  * ----------------------------------------------------------
  * ✓ Fade-in + stagger
  * ✓ Ripple effect on card tap/click
  * ✓ Shine effect on images
  * ✓ Mobile perfect
- ************************************************************/
+ */
 function initFeaturedEffects() {
   const cards = document.querySelectorAll("#featuredSection .featured-card");
   const images = document.querySelectorAll(
@@ -908,9 +908,9 @@ function initFeaturedEffects() {
   });
 }
 
-/************************************************************
+/*
  * TESTIMONIALS EFFECTS (Smart + Mobile Perfect)
- ************************************************************/
+ */
 function initTestimonialsEffects() {
   const cards = document.querySelectorAll(
     "#testimonialsSection .testimonial-card"
@@ -1000,7 +1000,7 @@ function initTestimonialsEffects() {
   }
 }
 
-/************************************************************
+/*
  * OFFER BANNER EFFECTS (Smart + Mobile Premium Edition)
  * ----------------------------------------------------------
  * ✓ Text fade & slide-up
@@ -1008,7 +1008,7 @@ function initTestimonialsEffects() {
  * ✓ Stagger delay (pro look)
  * ✓ Mobile optimized smoothness
  * ✓ Scroll-out reset for re-animation
- ************************************************************/
+ */
 function initOfferBannerEffects() {
   const text = document.getElementById("offerText");
   const image = document.getElementById("offerImage");
@@ -1149,5 +1149,6 @@ function initFooterPro() {
     },
     { threshold: 0.2 }
   );
+
   obs.observe(footer);
 }
