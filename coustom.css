@@ -1,15 +1,19 @@
-/* Glow text for "20% OFF" */
-.glow-text {
-  text-shadow: 0 0 8px rgba(255, 214, 0, 0.8), 0 0 16px rgba(255, 214, 0, 0.6);
-  animation: glowText 1.8s ease-in-out infinite alternate;
+/* SHINE / GLOSS EFFECT */
+.shine-effect {
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  animation: shineMove 0.6s ease-in-out forwards;
 }
 
-@keyframes glowText {
-  0% {
-    text-shadow: 0 0 4px rgba(255, 214, 0, 0.7), 0 0 10px rgba(255, 214, 0, 0.4);
+@keyframes shineMove {
+  from {
+    transform: translateX(-100%) skewX(-10deg);
   }
-  100% {
-    text-shadow: 0 0 10px rgba(255, 255, 200, 1),
-      0 0 25px rgba(255, 214, 0, 0.9);
+  to {
+    transform: translateX(100%) skewX(-10deg);
   }
 }

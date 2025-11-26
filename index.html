@@ -3,20 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Look At Me Fashion</title>
-    <link rel="stylesheet" href="./coustom.css" />
+
+    <!--Fonts Add-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <!--Tailwind Add-->
     <link href="src/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="coustom.css" />
+    <!--SEO Add-->
     <meta
       name="description"
-      content="Red themed header with top bar, responsive navbar, search, wishlist, cart"
+      content="Look At Me Fashion - Premium clothing store. Shop trending outfits for men and women."
     />
+
+    <!--Gobal Style-->
     <style>
       body {
         font-family: "Poppins", sans-serif;
@@ -25,10 +32,6 @@
       .collapse-max-height {
         transition: max-height 0.3s ease;
       }
-    </style>
-  </head>
-  <body class="bg-white text-gray-900 antialiased">
-    <style>
       @keyframes glow {
         0%,
         100% {
@@ -42,17 +45,20 @@
         animation: glow 1.8s infinite;
       }
     </style>
-
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
     <!--Header Section-->
-
-    <!-- ================================
-     HEADER + NAVBAR SECTION (NEW)
-     ================================ -->
     <header
       id="mainHeader"
       class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm"
     >
-      <nav id="mainNav" class="max-w-7xl mx-auto px-4 lg:px-8">
+      <!--NavBar Section-->
+      <nav
+        id="mainNav"
+        class="max-w-7xl mx-auto px-4 lg:px-8"
+        role="navigation"
+        aria-label="Main navigation"
+      >
         <div class="flex items-center justify-between py-3 gap-3">
           <!-- LOGO + BRAND -->
           <a href="#homeSection" class="flex items-center gap-2">
@@ -78,7 +84,7 @@
             </li>
 
             <li class="relative">
-              <!-- SHOP BUTTON (MEGA MENU) -->
+              <!-- SHOP BUTTON  -->
               <button
                 id="shopBtn"
                 class="hover:text-[#B60000] flex items-center gap-1 select-none"
@@ -100,80 +106,206 @@
                 id="megaMenu"
                 class="hidden opacity-0 transition-all duration-200 absolute left-0 top-full w-[750px] bg-white shadow-xl rounded-b-lg mt-2 p-6 grid grid-cols-4 gap-8 border-t-4 border-[#B60000]"
               >
-                <!-- Column 1 -->
+                <!-- Column 1 Clothing-->
                 <div>
                   <h3 class="font-bold text-[#B60000] mb-3">Clothing</h3>
                   <ul class="space-y-2 text-sm">
                     <li>
-                      <a class="hover:text-red-600" href="#">Baby Dress</a>
-                    </li>
-                    <li><a class="hover:text-red-600" href="#">Hijab</a></li>
-                    <li>
-                      <a class="hover:text-red-600" href="#">Three Piece</a>
+                      <a class="hover:text-red-600" href="#"
+                        >Boys clothing set</a
+                      >
                     </li>
                     <li>
-                      <a class="hover:text-red-600" href="#">Trouser/Pants</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Girls Dress</a
+                      >
                     </li>
                     <li>
-                      <a class="hover:text-red-600" href="#">Goj Kapor</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Hijab</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Three Piece</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Trouser/Pants</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Orbit Cotton Fabric</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Premium Cotton Lungi</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Gamcha</a
+                      >
                     </li>
                   </ul>
                 </div>
 
-                <!-- Column 2 -->
+                <!-- Column 2 Bag -->
                 <div>
                   <h3 class="font-bold text-[#B60000] mb-3">Bags</h3>
                   <ul class="space-y-2 text-sm">
                     <li>
-                      <a class="hover:text-red-600" href="#">Ladies Bag</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >School Bag</a
+                      >
                     </li>
                     <li>
-                      <a class="hover:text-red-600" href="#">School Bag</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Ledies Bag</a
+                      >
                     </li>
-                    <li><a class="hover:text-red-600" href="#">Wallet</a></li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >HandBag</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Tote Bag</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Wallet</a
+                      >
+                    </li>
                   </ul>
                 </div>
 
-                <!-- Column 3 -->
+                <!-- Column 3 Shoes -->
                 <div>
                   <h3 class="font-bold text-[#B60000] mb-3">Footwear</h3>
                   <ul class="space-y-2 text-sm">
                     <li>
-                      <a class="hover:text-red-600" href="#">Men Shoes</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Men Shoes</a
+                      >
                     </li>
                     <li>
-                      <a class="hover:text-red-600" href="#">Women Shoes</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Women Shoes</a
+                      >
                     </li>
                     <li>
-                      <a class="hover:text-red-600" href="#">Kids Shoes</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Kids Shoes</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >School Jump cats</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Burmese Sandals</a
+                      >
                     </li>
                   </ul>
                 </div>
 
-                <!-- Column 4 -->
+                <!-- Column 4 Beautry -->
                 <div>
                   <h3 class="font-bold text-[#B60000] mb-3">
                     Beauty & Accessories
                   </h3>
                   <ul class="space-y-2 text-sm">
                     <li>
-                      <a class="hover:text-red-600" href="#">Cosmetics</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                      >
+                        Color Cosmetics</a
+                      >
                     </li>
-                    <li><a class="hover:text-red-600" href="#">Lipstick</a></li>
                     <li>
-                      <a class="hover:text-red-600" href="#"
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Jewelry</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
                         >Earrings & Hair Clips</a
                       >
                     </li>
-                    <li><a class="hover:text-red-600" href="#">Watches</a></li>
                     <li>
-                      <a class="hover:text-red-600" href="#">Sunglasses</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Watches</a
+                      >
                     </li>
                     <li>
-                      <a class="hover:text-red-600" href="#">Perfume / Attar</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Sunglasses</a
+                      >
                     </li>
                     <li>
-                      <a class="hover:text-red-600" href="#">Socks & Caps</a>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Perfume / Attar</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                        href="#"
+                        >Socks & Caps</a
+                      >
                     </li>
                   </ul>
                 </div>
@@ -326,11 +458,12 @@
               class="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
             >
               <svg
-                width="22"
-                height="22"
+                width="20"
+                height="20"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
+                aria-hidden="true"
               >
                 <path d="M3 6h18M3 12h18M3 18h18"></path>
               </svg>
@@ -341,12 +474,60 @@
         <!-- MOBILE MENU (drawer style) -->
         <div
           id="mobileMenu"
-          class="md:hidden mobile-slide max-h-0 overflow-hidden flex flex-col gap-3 font-semibold text-[15px] bg-white p-4 rounded-lg shadow border border-red-200 mt-2"
+          class="md:hidden mobile-slide max-h-0 overflow-y-auto flex flex-col gap-3 font-semibold text-[15px] bg-white p-4 rounded-lg shadow border border-red-200 mt-2"
         >
           <a href="#homeSection" class="nav-link hover:text-[#B60000]">HOME</a>
-          <button class="hover:text-[#B60000] text-left" id="mobileShopLink">
-            SHOP
-          </button>
+          <a id="mobileMenuShop" class="nav-link hover:text-[#B60000]">SHOP</a>
+          <!-- MOBILE SHOP MENU -->
+          <div
+            id="mobileShopMenu"
+            class="hidden bg-white border-l-4 border-[#B60000] mt-2 p-4 rounded-lg shadow-md space-y-4"
+          >
+            <div>
+              <h4 class="font-bold text-[#B60000]">Clothing</h4>
+              <ul class="ml-3 text-sm text-gray-700 space-y-1">
+                <li>Boys Clothing</li>
+                <li>Girls Dress</li>
+                <li>Hijab</li>
+                <li>Three Piece</li>
+                <li>Fabric</li>
+                <li>Lungi</li>
+                <li>Gamcha</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-[#B60000]">Bags</h4>
+              <ul class="ml-3 text-sm text-gray-700 space-y-1">
+                <li>School Bag</li>
+                <li>Ladies Bag</li>
+                <li>Tote Bag</li>
+                <li>Wallet</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-[#B60000]">Footwear</h4>
+              <ul class="ml-3 text-sm text-gray-700 space-y-1">
+                <li>Men Shoes</li>
+                <li>Women Shoes</li>
+                <li>Kids Shoes</li>
+                <li>Sandals</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-[#B60000]">Beauty & Accessories</h4>
+              <ul class="ml-3 text-sm text-gray-700 space-y-1">
+                <li>Cosmetics</li>
+                <li>Jewelry</li>
+                <li>Hair Clips</li>
+                <li>Watches</li>
+                <li>Perfume</li>
+              </ul>
+            </div>
+          </div>
+
           <a href="#newArrivalsSection" class="nav-link hover:text-[#B60000]"
             >NEW ARRIVALS</a
           >
@@ -360,16 +541,13 @@
       </nav>
     </header>
 
-    <!--  HERO SECTION -->
-    <!-- ======================================================
-     ULTRA-COMPACT PREMIUM HERO (Final Smart Edition)
-     ====================================================== -->
+    <!--  HERO SECTION Start-->
     <section
       id="homeSection"
       class="relative w-full bg-gradient-to-br from-[#8A0000] via-[#B60000] to-[#7A0000] py-14 md:py-20 overflow-hidden"
     >
       <!-- Glow Effects -->
-      <div class="absolute inset-0">
+      <div class="absolute inset-0 pointer-events-none">
         <div
           class="absolute top-16 left-6 w-28 h-28 bg-[#FFD600]/20 blur-3xl rounded-full"
         ></div>
@@ -448,11 +626,13 @@
         </div>
       </div>
     </section>
+    <!--Hero Section End-->
 
-    <!--  CATEGORY SECTION  -->
     <!-- ======================================================
-     CATEGORY SECTION (Ultra Premium Tailwind Edition)
-     ====================================================== -->
+         CATEGORY SECTION
+         - Main shop categories for users
+    ====================================================== -->
+
     <section class="py-16 bg-red-50" id="shopCategory">
       <div class="max-w-7xl mx-auto px-6">
         <!-- TITLE -->
@@ -467,14 +647,15 @@
           </p>
         </div>
 
-        <!-- GRID -->
+        <!-- Category cards grid (2 → 3 → 6 columns) -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
-          <!-- CARD -->
+          <!-- Single category card: Clothing -->
           <div
             class="category-card group bg-white rounded-2xl shadow-md border-t-4 border-[#FFD600] p-4 cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl"
+            data-category="clothing"
           >
             <div
-              class="w-full h-36 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
+              class="w-full h-32 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
             >
               <img
                 src="./image/clothing.jpeg"
@@ -497,9 +678,10 @@
           <!-- Bags -->
           <div
             class="category-card group bg-white rounded-2xl shadow-md border-t-4 border-[#FFD600] p-4 cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl"
+            data-category="bags"
           >
             <div
-              class="w-full h-36 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
+              class="w-full h-32 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
             >
               <img
                 src="./image/ledies bag.jpeg"
@@ -522,9 +704,10 @@
           <!-- Footwear -->
           <div
             class="category-card group bg-white rounded-2xl shadow-md border-t-4 border-[#FFD600] p-4 cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl"
+            data-category="footwear"
           >
             <div
-              class="w-full h-36 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
+              class="w-full h-32 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
             >
               <img
                 src="./image/Footwear.jpeg"
@@ -547,9 +730,10 @@
           <!-- Cosmetics -->
           <div
             class="category-card group bg-white rounded-2xl shadow-md border-t-4 border-[#FFD600] p-4 cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl"
+            data-category="cosmetics"
           >
             <div
-              class="w-full h-36 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
+              class="w-full h-32 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
             >
               <img
                 src="./image/cosmetics2.jpeg"
@@ -572,9 +756,10 @@
           <!-- Watches -->
           <div
             class="category-card group bg-white rounded-2xl shadow-md border-t-4 border-[#FFD600] p-4 cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl"
+            data-category="watches"
           >
             <div
-              class="w-full h-36 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
+              class="w-full h-32 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
             >
               <img
                 src="./image/watch.jpeg"
@@ -597,9 +782,10 @@
           <!-- Accessories -->
           <div
             class="category-card group bg-white rounded-2xl shadow-md border-t-4 border-[#FFD600] p-4 cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl"
+            data-category="accessories"
           >
             <div
-              class="w-full h-36 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
+              class="w-full h-32 sm:h-40 rounded-xl overflow-hidden bg-gray-100"
             >
               <img
                 src="./image/Accessorics.jpeg"
@@ -621,8 +807,8 @@
         </div>
       </div>
     </section>
-
     <!--Category Section End-->
+
     <!-- ===================== Offer Banner (Premium Animated) ===================== -->
     <section
       id="offerBanner"
@@ -630,7 +816,7 @@
     >
       <!-- PARALLAX BACKGROUND CIRCLE -->
       <div
-        class="absolute top-10 left-10 w-32 h-32 bg-[#FFD600]/20 blur-3xl rounded-full animate-pulse"
+        class="absolute top-10 left-10 w-32 h-32 bg-[#FFD600]/20 blur-3xl rounded-full animate-pulse pointer-events-none"
       ></div>
 
       <div
@@ -661,7 +847,7 @@
         <!-- IMAGE AREA -->
         <div
           id="offerImage"
-          class="opacity-0 translate-y-5 transition-all duration-700 ease-out flex justify-center md:justify-end"
+          class="opacity-0 translate-y-5 transition-all duration-700 ease-out flex justify-center md:justify-end overflow-hidden"
         >
           <img
             src="./image/baby dress offer section.jpg"
@@ -672,12 +858,15 @@
     </section>
     <!-- ===================== End Offer Banner ===================== -->
 
-    <!--New  Arrival-->
+    <!-- ========== New Arrivals Section (Products Slider) ========== -->
+
     <section id="newArrivalsSection" class="py-20 bg-red-50">
       <div class="max-w-7xl mx-auto px-6">
         <!-- Title -->
         <div class="text-center mb-12">
-          <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow">
+          <h2
+            class="text-3xl sm:text-4xl font-extrabold text-[#B60000] drop-shadow"
+          >
             New Arrivals
           </h2>
           <p class="text-gray-600 mt-2 text-sm sm:text-base">
@@ -690,16 +879,16 @@
           <!-- Slider -->
           <div
             id="arrivalSlider"
-            class="flex gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory no-scrollbar"
+            class="flex gap-6 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory no-scrollbar"
           >
             <!-- CARD TEMPLATE (copy for all items) -->
             <!-- CARD -->
             <div
-              class="min-w-[280px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
+              class="min-w-[260px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
             >
               <!-- IMAGE perfect box -->
               <div
-                class="aspect-square bg-white rounded-t-2xl p-4 flex items-center justify-center"
+                class="aspect-square bg-white rounded-t-2xl p-3 flex items-center justify-center"
               >
                 <img
                   src="./image/ledies bag.jpeg"
@@ -722,10 +911,10 @@
 
             <!-- CARD 2 -->
             <div
-              class="min-w-[280px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
+              class="min-w-[260px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
             >
               <div
-                class="aspect-square bg-white rounded-t-2xl p-4 flex items-center justify-center"
+                class="aspect-square bg-white rounded-t-2xl p-3 flex items-center justify-center"
               >
                 <img
                   src="./image/watch.jpeg"
@@ -748,10 +937,10 @@
 
             <!-- CARD 3 -->
             <div
-              class="min-w-[280px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
+              class="min-w-[260px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
             >
               <div
-                class="aspect-square bg-white rounded-t-2xl p-4 flex items-center justify-center"
+                class="aspect-square bg-white rounded-t-2xl p-3 flex items-center justify-center"
               >
                 <img
                   src="./image/Stylish Sneakers.jfif"
@@ -774,10 +963,10 @@
 
             <!-- CARD 4 -->
             <div
-              class="min-w-[280px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
+              class="min-w-[260px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
             >
               <div
-                class="aspect-square bg-white rounded-t-2xl p-4 flex items-center justify-center"
+                class="aspect-square bg-white rounded-t-2xl p-3 flex items-center justify-center"
               >
                 <img
                   src="./image/cosmetich.jpeg"
@@ -798,10 +987,10 @@
 
             <!-- CARD 5 -->
             <div
-              class="min-w-[280px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
+              class="min-w-[250px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
             >
               <div
-                class="aspect-square bg-white rounded-t-2xl p-4 flex items-center justify-center"
+                class="aspect-square bg-white rounded-t-2xl p-3 flex items-center justify-center"
               >
                 <img
                   src="./image/Boy dress.jpg"
@@ -822,10 +1011,10 @@
 
             <!-- CARD 6 -->
             <div
-              class="min-w-[280px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
+              class="min-w-[260px] sm:min-w-[320px] bg-white rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 snap-start"
             >
               <div
-                class="aspect-square bg-white rounded-t-2xl p-4 flex items-center justify-center"
+                class="aspect-square bg-white rounded-t-2xl p-3 flex items-center justify-center"
               >
                 <img
                   src="./image/three pice.jpg"
@@ -850,14 +1039,14 @@
           <!-- Arrows -->
           <button
             id="arrivalPrev"
-            class="absolute top-1/2 -left-3 -translate-y-1/2 bg-[#B60000] text-white w-10 h-10 rounded-full shadow-lg hover:bg-[#7A0000] transition"
+            class="absolute top-1/2 -left-3 -translate-y-1/2 bg-[#B60000] text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-lg hover:bg-[#7A0000] transition"
           >
             ‹
           </button>
 
           <button
             id="arrivalNext"
-            class="absolute top-1/2 -right-3 -translate-y-1/2 bg-[#B60000] text-white w-10 h-10 rounded-full shadow-lg hover:bg-[#7A0000] transition"
+            class="absolute top-1/2 -right-3 -translate-y-1/2 bg-[#B60000] text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-lg hover:bg-[#7A0000] transition"
           >
             ›
           </button>
@@ -865,13 +1054,14 @@
       </div>
     </section>
 
-    <!-- ===============================================
-     FEATURED COLLECTIONS (6 CARDS - PREMIUM)
-     =============================================== -->
+    <!-- Featured Products Section -->
+
     <section id="featuredSection" class="py-20 bg-[#FFF8F0]">
       <!-- Title -->
       <div class="max-w-7xl mx-auto px-6 text-center mb-16">
-        <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow-lg">
+        <h2
+          class="text-3xl sm:text-4xl font-extrabold text-[#B60000] drop-shadow-lg"
+        >
           Featured Collections
         </h2>
         <p class="mt-3 text-gray-700 text-sm md:text-base">
@@ -881,9 +1071,9 @@
 
       <!-- Products Grid -->
       <div
-        class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+        class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-8"
       >
-        <!-- CARD 1 -->
+        <!-- CARD 1 Boy Dress -->
         <div
           class="featured-card opacity-0 translate-y-6 transition-all duration-700 bg-white rounded-2xl shadow-md hover:shadow-[0_8px_30px_rgba(182,0,0,0.20)] border border-red-200"
         >
@@ -907,7 +1097,7 @@
           </div>
         </div>
 
-        <!-- CARD 2 -->
+        <!-- CARD 2 Three pices-->
         <div
           class="featured-card opacity-0 translate-y-6 transition-all duration-700 bg-white rounded-2xl shadow-md hover:shadow-[0_8px_30px_rgba(182,0,0,0.20)] border border-red-200"
         >
@@ -931,7 +1121,7 @@
           </div>
         </div>
 
-        <!-- CARD 3 -->
+        <!-- CARD 3 lipstic-->
         <div
           class="featured-card opacity-0 translate-y-6 transition-all duration-700 bg-white rounded-2xl shadow-md hover:shadow-[0_8px_30px_rgba(182,0,0,0.20)] border border-red-200"
         >
@@ -957,7 +1147,7 @@
           </div>
         </div>
 
-        <!-- CARD 4 -->
+        <!-- CARD 4 Shoes -->
         <div
           class="featured-card opacity-0 translate-y-6 transition-all duration-700 bg-white rounded-2xl shadow-md hover:shadow-[0_8px_30px_rgba(182,0,0,0.20)] border border-red-200"
         >
@@ -979,7 +1169,7 @@
           </div>
         </div>
 
-        <!-- CARD 5 -->
+        <!-- CARD 5 Hizab-->
         <div
           class="featured-card opacity-0 translate-y-6 transition-all duration-700 bg-white rounded-2xl shadow-md hover:shadow-[0_8px_30px_rgba(182,0,0,0.20)] border border-red-200"
         >
@@ -1001,7 +1191,7 @@
           </div>
         </div>
 
-        <!-- CARD 6 -->
+        <!-- CARD 6 Fogg-->
         <div
           class="featured-card opacity-0 translate-y-6 transition-all duration-700 bg-white rounded-2xl shadow-md hover:shadow-[0_8px_30px_rgba(182,0,0,0.20)] border border-red-200"
         >
@@ -1028,54 +1218,69 @@
     </section>
 
     <!-- ============================================
-   PREMIUM TESTIMONIALS SECTION (Red/Yellow Theme)
-   ============================================ -->
-    <section id="testimonialsSection" class="py-20 bg-[#FFF8F0]">
-      <div class="max-w-7xl mx-auto px-6">
+     Testimonials Section (Smart Mobile + Swipe)
+============================================ -->
+    <section id="testimonialsSection" class="py-16 sm:py-20 bg-[#FFF8F0]">
+      <div class="max-w-7xl mx-auto px-5 sm:px-6">
         <!-- Section Title -->
-        <div class="text-center mb-14">
-          <h2 class="text-4xl font-extrabold text-[#B60000] drop-shadow-md">
+        <div class="text-center mb-10 sm:mb-14">
+          <h2
+            class="text-3xl sm:text-4xl font-extrabold text-[#B60000] drop-shadow-md"
+          >
             What Our Customers Say
           </h2>
-          <p class="mt-3 text-gray-700 text-sm md:text-base">
+          <p class="mt-2 sm:mt-3 text-gray-700 text-sm sm:text-base">
             100% trusted reviews from our happy shoppers.
           </p>
         </div>
 
-        <!-- Testimonials Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          <!-- Card 1 -->
+        <!-- Testimonials Container 
+         Mobile = Swipe
+         Desktop = Grid 
+     -->
+        <div
+          id="testimonialSlider"
+          class="flex sm:grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar"
+        >
+          <!-- Testimonial Card 1 -->
           <div
-            class="testimonial-card opacity-0 translate-y-6 bg-white rounded-2xl shadow-lg border border-red-200 p-7 transition"
+            class="testimonial-card min-w-[85%] sm:min-w-0 snap-center opacity-0 translate-y-6 bg-white rounded-2xl shadow-md sm:shadow-lg border border-red-200 p-5 sm:p-7 transition-all duration-700"
           >
             <img
               src="./image/khaled.r.jpeg"
               class="w-20 h-20 rounded-full object-cover mx-auto shadow-md"
             />
-            <h3 class="text-center mt-4 font-bold text-gray-900 text-lg">
+
+            <h3
+              class="text-center mt-4 font-bold text-gray-900 text-base sm:text-lg"
+            >
               Khaled Saifullah
             </h3>
 
-            <!-- Stars -->
             <div class="flex justify-center text-yellow-400 mt-1 text-xl">
               ★★★★★
             </div>
 
-            <p class="text-gray-700 text-center mt-3">
+            <p
+              class="text-gray-700 text-center mt-3 text-sm sm:text-base leading-relaxed"
+            >
               “Amazing service! Delivery was super fast and the product quality
               is premium.”
             </p>
           </div>
 
-          <!-- Card 2 -->
+          <!-- Testimonial Card 2 -->
           <div
-            class="testimonial-card opacity-0 translate-y-6 bg-white rounded-2xl shadow-lg border border-red-200 p-7 transition"
+            class="testimonial-card min-w-[85%] sm:min-w-0 snap-center opacity-0 translate-y-6 bg-white rounded-2xl shadow-md sm:shadow-lg border border-red-200 p-5 sm:p-7 transition-all duration-700"
           >
             <img
               src="./image/Fahad.jpeg"
               class="w-20 h-20 rounded-full object-cover mx-auto shadow-md"
             />
-            <h3 class="text-center mt-4 font-bold text-gray-900 text-lg">
+
+            <h3
+              class="text-center mt-4 font-bold text-gray-900 text-base sm:text-lg"
+            >
               Fahad Muntasir
             </h3>
 
@@ -1083,21 +1288,26 @@
               ★★★★★
             </div>
 
-            <p class="text-gray-700 text-center mt-3">
+            <p
+              class="text-gray-700 text-center mt-3 text-sm sm:text-base leading-relaxed"
+            >
               “Their bags are amazing! Awesome quality, looks even better in
               real.”
             </p>
           </div>
 
-          <!-- Card 3 -->
+          <!-- Testimonial Card 3 -->
           <div
-            class="testimonial-card opacity-0 translate-y-6 bg-white rounded-2xl shadow-lg border border-red-200 p-7 transition"
+            class="testimonial-card min-w-[85%] sm:min-w-0 snap-center opacity-0 translate-y-6 bg-white rounded-2xl shadow-md sm:shadow-lg border border-red-200 p-5 sm:p-7 transition-all duration-700"
           >
             <img
               src="./image/Mohit.jpeg"
               class="w-20 h-20 rounded-full object-cover mx-auto shadow-md"
             />
-            <h3 class="text-center mt-4 font-bold text-gray-900 text-lg">
+
+            <h3
+              class="text-center mt-4 font-bold text-gray-900 text-base sm:text-lg"
+            >
               Mohitul Islam
             </h3>
 
@@ -1105,7 +1315,9 @@
               ★★★★★
             </div>
 
-            <p class="text-gray-700 text-center mt-3">
+            <p
+              class="text-gray-700 text-center mt-3 text-sm sm:text-base leading-relaxed"
+            >
               “Their shoes are stylish and comfortable. Highly recommended!”
             </p>
           </div>
@@ -1117,17 +1329,25 @@
      PREMIUM BRAND FOOTER  
 ========================== -->
 
-    <!--Back To Button-->
+    <!-- Back To Top Button -->
     <button
       id="backToTop"
-      class="fixed bottom-6 right-6 hidden bg-[#FFD600] text-[#6B0000] p-3 rounded-full shadow-lg text-xl z-50"
+      class="fixed bottom-6 right-6 hidden opacity-0 bg-[#FFD600] text-[#6B0000] p-3 rounded-full shadow-xl text-xl z-50 transition-all duration-300"
     >
       ↑
     </button>
 
+    <!-- Toast Notification -->
+    <div
+      id="toast"
+      class="fixed bottom-20 right-6 bg-black/80 text-white text-sm px-4 py-2 rounded-lg hidden opacity-0 transition-all duration-300 z-50"
+    >
+      Copied!
+    </div>
+
     <footer
       id="contactSection"
-      class="bg-[#6B0000] text-white pt-16 pb-4 mt-10"
+      class="bg-[#6B0000] text-white pt-16 pb-4 mt-10 opacity-0 translate-y-5 transition-all duration-700"
     >
       <div
         class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"
@@ -1148,8 +1368,7 @@
           <p
             class="mt-4 text-sm bg-white text-[#6B0000] p-3 rounded-lg border-l-4 border-[#FFD600] shadow"
           >
-            ❤️ আমরা হালাল আয়ের প্রতি প্রতিশ্রুতিবদ্ধ। সৎভাবে ব্যবসা করা একটি
-            আমানত — ইনশাআল্লাহ প্রতারণামুক্ত সেবা।
+            ❤️ হালাল আয়ের প্রতি প্রতিশ্রুতিবদ্ধ। সৎভাবে ব্যবসা করা একটি আমানত।
           </p>
         </div>
 
@@ -1193,10 +1412,9 @@
 
           <p class="text-white/90 mb-2 text-sm">
             <strong class="text-[#FFD600]">📞 Phone:</strong>
-            <a href="tel:+8801775539131" class="hover:text-[#FFD600]"
-              >01775-539131</a
-            >
-
+            <a href="tel:+8801775539131" class="hover:text-[#FFD600]">
+              01775-539131
+            </a>
             <button
               id="copyPhone"
               class="text-xs text-yellow-300 underline ml-2"
@@ -1211,12 +1429,10 @@
             <a
               href="https://facebook.com/lookatmefashion001"
               target="_blank"
-              class="p-2 bg-white rounded-full hover:bg-[#FFD600] shadow transition"
+              class="p-2 bg-white rounded-full hover:bg-[#FFD600] shadow transition footerIcon"
             >
-              <svg width="22" height="22" fill="#6B0000" viewBox="0 0 24 24">
-                <path
-                  d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.3l-.4 3h-1.9v7A10 10 0 0 0 22 12z"
-                />
+              <svg width="22" height="22" fill="#6B0000">
+                <path d="M22 12a10 10 0 ..." />
               </svg>
             </a>
 
@@ -1224,29 +1440,19 @@
             <a
               href="https://wa.me/8801775539131"
               target="_blank"
-              class="p-2 bg-white rounded-full hover:bg-[#FFD600] shadow transition"
+              class="p-2 bg-white rounded-full hover:bg-[#FFD600] shadow transition footerIcon"
             >
-              <svg width="22" height="22" fill="#25D366" viewBox="0 0 24 24">
-                <path
-                  d="M20.5 3.5A11.8 11.8 0 0 0 12 0 12 12 0 0 0 .2 12.1L0 24l12-2.8A12 12 0 0 0 24 12a11.8 11.8 0 0 0-3.5-8.5zM12 21.2c-1.6 0-3.2-.4-4.6-1.2l-.3-.2-5 1.1 1.1-4.9-.2-.3a9.2 9.2 0 1 1 17.4-4.6A9.3 9.3 0 0 1 12 21.2zm5-6.8c-.3-.1-1.7-.9-2-1-.3-.1-.6-.1-.8.1l-.4.5c-.1.2-.3.2-.4.1-.6-.3-1.9-.9-3-2.3-.3-.4-.5-.8-.2-1.1l.3-.4c.1-.2.1-.4 0-.6l-1-2.4c-.3-.7-.6-.6-.8-.6H9c-.3 0-.6.3-.8.5a3.3 3.3 0 0 0-1 2.4c0 1.4 1 2.7 1.1 2.9.1.2 2 3.2 5 4.4.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.1-.2-.2-.5-.3z"
-                />
+              <svg width="22" height="22" fill="#25D366">
+                <path d="M20.5 3.5 ..." />
               </svg>
             </a>
           </div>
 
-          <!-- GOOGLE MAP EMBED (WORKING) -->
+          <!-- MAP -->
           <div
-            class="mt-6 w-full h-[170px] rounded-xl overflow-hidden shadow-lg border-2 border-red-200"
+            class="mt-6 w-full h-[170px] rounded-xl overflow-hidden shadow-lg border-2 border-red-200 hover:border-[#FFD600] transition"
           >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.336734613411!2d90.45766637436833!3d23.73395838964462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b82bb3d3cd2d%3A0x54ee06b6b24bdb6c!2sTamirul%20Millat%20Mohila%20Madrasah!5e0!3m2!1sen!2sbd!4v1706500000000"
-              width="100%"
-              height="100%"
-              style="border: 0"
-              loading="lazy"
-              allowfullscreen=""
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <iframe src="YOUR_MAP_LINK" width="100%" height="100%"></iframe>
           </div>
         </div>
       </div>
@@ -1254,7 +1460,7 @@
       <!-- COPYRIGHT -->
       <div class="border-t border-red-300 bg-red-50 py-3 mt-10">
         <p class="text-center text-gray-700 text-sm">
-          © <span id="year">2025 Look At Me Fashion — All Rights Reserved</span>
+          © <span id="year">2025</span> Look At Me Fashion — All Rights Reserved
         </p>
       </div>
     </footer>

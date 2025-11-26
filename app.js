@@ -1,4 +1,18 @@
 /********************************************
+ * UTILITY HELPERS (GLOBAL)
+ ********************************************/
+const $ = (id) => document.getElementById(id);
+const $$ = (selector) => document.querySelectorAll(selector);
+
+function clickOutside(element, except, callback) {
+  document.addEventListener("click", (e) => {
+    if (!element.contains(e.target) && !except.contains(e.target)) {
+      callback();
+    }
+  });
+}
+
+/********************************************
  * MASTER INIT (DOM READY)
  ********************************************/
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,68 +24,105 @@ document.addEventListener("DOMContentLoaded", () => {
   initSmoothScroll();
   initMobileMenu();
   initBottomMenu();
+  initActiveNavHighlight();
+  initGlobalEscapeClose();
+  initHeaderScrollHide();
+
+  /* ADD THESE */
   initCategoryPremium();
   initProductSystem();
-  initAuthModal();
   initNewArrivalSlider();
   initFeaturedEffects();
   initTestimonialsEffects();
   initOfferBannerEffects();
   initFooterPro();
+  initMobileShopMenu();
 });
 
 /********************************************
- * SEARCH TOGGLE
+ * MOBILE MENU
  ********************************************/
-function initSearchBox() {
-  const searchBtn = document.getElementById("searchBtn");
-  const searchBox = document.getElementById("searchBox");
-  const searchClose = document.getElementById("searchClose");
+function initMobileMenu() {
+  const btn = $("mobileMenuBtn");
+  const menu = $("mobileMenu");
 
-  if (!searchBtn || !searchBox || !searchClose) return;
+  if (!btn || !menu) return;
 
-  searchBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    searchBox.classList.toggle("hidden");
-  });
+  btn.addEventListener("click", () => {
+    const open = menu.style.maxHeight && menu.style.maxHeight !== "0px";
 
-  searchClose.addEventListener("click", () => {
-    searchBox.classList.add("hidden");
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!searchBox.contains(e.target) && !searchBtn.contains(e.target)) {
-      searchBox.classList.add("hidden");
+    if (open) {
+      // বন্ধ করার সময়
+      menu.style.maxHeight = "0px";
+      setTimeout(() => menu.classList.add("hidden"), 250);
+    } else {
+      // খোলার সময় => content যত লম্বা, height তত
+      menu.classList.remove("hidden");
+      menu.style.maxHeight = menu.scrollHeight + "px"; // ✅ auto height
     }
   });
 }
 
 /********************************************
- * HEADER WISHLIST TOGGLE
+ * MOBILE SHOP DROPDOWN (inside mobile menu)
+ ********************************************/
+function initMobileShopMenu() {
+  const btn = $("mobileMenuShop"); // mobile menu তে SHOP button
+  const menu = $("mobileShopMenu"); // dropdown box
+
+  if (!btn || !menu) return;
+
+  btn.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+}
+
+/********************************************
+ * SEARCH BOX
+ ********************************************/
+function initSearchBox() {
+  const searchBtn = $("searchBtn");
+  const searchBox = $("searchBox");
+  const searchClose = $("searchClose");
+  const searchInput = $("searchInput");
+
+  if (!searchBtn || !searchBox) return;
+
+  // Open
+  searchBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    searchBox.classList.toggle("hidden");
+    if (!searchBox.classList.contains("hidden")) searchInput?.focus();
+  });
+
+  searchClose?.addEventListener("click", () => {
+    searchBox.classList.add("hidden");
+  });
+
+  clickOutside(searchBox, searchBtn, () => searchBox.classList.add("hidden"));
+}
+
+/********************************************
+ * HEADER WISHLIST
  ********************************************/
 function initWishlistToggle() {
-  const wishBtn = document.getElementById("wishBtn");
-  const wishIcon = document.getElementById("wishIcon");
+  const wishBtn = $("wishBtn");
+  const wishIcon = $("wishIcon");
   if (!wishBtn || !wishIcon) return;
 
-  let wishActive = localStorage.getItem("headerWish") === "true";
+  let active = localStorage.getItem("headerWish") === "true";
 
-  function applyState() {
-    if (wishActive) {
-      wishIcon.setAttribute("fill", "#B60000");
-      wishIcon.setAttribute("stroke", "#B60000");
-    } else {
-      wishIcon.setAttribute("fill", "none");
-      wishIcon.setAttribute("stroke", "currentColor");
-    }
-  }
+  const update = () => {
+    wishIcon.setAttribute("fill", active ? "#B60000" : "none");
+    wishIcon.setAttribute("stroke", active ? "#B60000" : "currentColor");
+  };
 
-  applyState();
+  update();
 
   wishBtn.addEventListener("click", () => {
-    wishActive = !wishActive;
-    applyState();
-    localStorage.setItem("headerWish", wishActive);
+    active = !active;
+    update();
+    localStorage.setItem("headerWish", active);
   });
 }
 
@@ -79,87 +130,89 @@ function initWishlistToggle() {
  * USER MENU
  ********************************************/
 function initUserMenu() {
-  const userBtn = document.getElementById("userBtn");
-  const userMenu = document.getElementById("userMenu");
-  if (!userBtn || !userMenu) return;
+  const btn = $("userBtn");
+  const menu = $("userMenu");
+  if (!btn || !menu) return;
 
-  userBtn.addEventListener("click", (e) => {
+  btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    userMenu.classList.toggle("hidden");
+    menu.classList.toggle("hidden");
   });
 
-  document.addEventListener("click", (e) => {
-    if (!userMenu.contains(e.target) && !userBtn.contains(e.target)) {
-      userMenu.classList.add("hidden");
-    }
-  });
+  clickOutside(menu, btn, () => menu.classList.add("hidden"));
 }
 
 /********************************************
- * MEGA MENU (SHOP)
+ * SHOP MEGA MENU
  ********************************************/
 function initShopMegaMenu() {
-  const shopBtn = document.getElementById("shopBtn");
-  const megaMenu = document.getElementById("megaMenu");
-  if (!shopBtn || !megaMenu) return;
+  const btn = $("shopBtn");
+  const menu = $("megaMenu");
+  if (!btn || !menu) return;
 
-  shopBtn.addEventListener("click", (event) => {
-    event.stopPropagation();
-    const hidden = megaMenu.classList.contains("hidden");
-    if (hidden) {
-      megaMenu.classList.remove("hidden");
-      requestAnimationFrame(() => megaMenu.classList.remove("opacity-0"));
+  // Click toggle
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const hide = menu.classList.contains("hidden");
+    if (hide) {
+      menu.classList.remove("hidden", "opacity-0");
     } else {
-      megaMenu.classList.add("opacity-0");
-      setTimeout(() => megaMenu.classList.add("hidden"), 150);
+      menu.classList.add("opacity-0");
+      setTimeout(() => menu.classList.add("hidden"), 150);
     }
   });
 
-  document.addEventListener("click", (e) => {
-    if (!megaMenu.contains(e.target) && !shopBtn.contains(e.target)) {
-      megaMenu.classList.add("opacity-0");
-      setTimeout(() => megaMenu.classList.add("hidden"), 150);
-    }
+  // Hover open (desktop only)
+  if (window.innerWidth > 768) {
+    btn.addEventListener("mouseenter", () => {
+      menu.classList.remove("hidden", "opacity-0");
+    });
+    menu.addEventListener("mouseleave", () => {
+      menu.classList.add("opacity-0");
+      setTimeout(() => menu.classList.add("hidden"), 150);
+    });
+  }
+
+  clickOutside(menu, btn, () => {
+    menu.classList.add("opacity-0");
+    setTimeout(() => menu.classList.add("hidden"), 150);
   });
 }
 
 /********************************************
- * HEADER SCROLL SHADOW
+ * STICKY HEADER SHADOW
  ********************************************/
 function initStickyHeader() {
-  const header = document.getElementById("mainHeader");
+  const header = $("mainHeader");
   if (!header) return;
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 10) header.classList.add("shadow-md");
-    else header.classList.remove("shadow-md");
+    header.classList.toggle("shadow-md", window.scrollY > 10);
   });
 }
 
 /********************************************
- * SMOOTH SCROLL (#links)
+ * SMOOTH SCROLL
  ********************************************/
 function initSmoothScroll() {
-  const header = document.getElementById("mainHeader");
-  const navLinks = document.querySelectorAll(".nav-link");
+  const header = $("mainHeader");
 
-  if (!header || !navLinks.length) return;
+  $$(".nav-link").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const targetID = link.getAttribute("href");
+      if (!targetID.startsWith("#")) return;
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const href = link.getAttribute("href");
-      if (!href || !href.startsWith("#")) return;
-      event.preventDefault();
+      e.preventDefault();
 
-      const target = document.querySelector(href);
+      const target = document.querySelector(targetID);
       if (!target) return;
 
-      const finalPos =
+      const pos =
         target.getBoundingClientRect().top +
         window.pageYOffset -
         header.offsetHeight;
 
-      window.scrollTo({ top: finalPos, behavior: "smooth" });
+      window.scrollTo({ top: pos, behavior: "smooth" });
     });
   });
 }
@@ -168,124 +221,222 @@ function initSmoothScroll() {
  * MOBILE MENU
  ********************************************/
 function initMobileMenu() {
-  const btn = document.getElementById("mobileMenuBtn");
-  const menu = document.getElementById("mobileMenu");
-  const linkShop = document.getElementById("mobileShopLink");
+  const btn = $("mobileMenuBtn");
+  const menu = $("mobileMenu");
 
   if (!btn || !menu) return;
 
   btn.addEventListener("click", () => {
-    if (menu.style.maxHeight && menu.style.maxHeight !== "0px") {
-      menu.style.maxHeight = "0px";
+    const open = menu.style.maxHeight && menu.style.maxHeight !== "0px";
+    if (open) {
+      menu.style.maxHeight = "0";
       setTimeout(() => menu.classList.add("hidden"), 250);
     } else {
       menu.classList.remove("hidden");
       menu.style.maxHeight = "260px";
     }
   });
-
-  if (linkShop) {
-    linkShop.addEventListener("click", () => {
-      const target = document.getElementById("shopCategory");
-      if (!target) return;
-
-      const header = document.getElementById("mainHeader");
-      const top =
-        target.getBoundingClientRect().top +
-        window.pageYOffset -
-        (header ? header.offsetHeight : 0);
-
-      window.scrollTo({ top, behavior: "smooth" });
-
-      menu.style.maxHeight = "0px";
-      setTimeout(() => menu.classList.add("hidden"), 250);
-    });
-  }
 }
 
 /********************************************
- * BOTTOM MOBILE MENU
+ * BOTTOM MOBILE NAV
  ********************************************/
 function initBottomMenu() {
-  const navHome = document.getElementById("navHome");
-  const navSearch = document.getElementById("navSearch");
-  const navCart = document.getElementById("navCart");
-  const navUser = document.getElementById("navUser");
+  $("navHome")?.addEventListener("click", () => {
+    window.location.hash = "#homeSection";
+  });
 
-  if (navHome)
-    navHome.addEventListener(
-      "click",
-      () => (window.location.hash = "#homeSection")
-    );
+  $("navSearch")?.addEventListener("click", () => $("searchBtn")?.click());
 
-  if (navSearch)
-    navSearch.addEventListener("click", () => {
-      const btn = document.getElementById("searchBtn");
-      if (btn) btn.click();
-    });
+  $("navCart")?.addEventListener("click", () => {
+    $("cartContainer")?.scrollIntoView({ behavior: "smooth" });
+  });
 
-  if (navCart)
-    navCart.addEventListener("click", () => {
-      const cart = document.getElementById("cartContainer");
-      if (cart) cart.scrollIntoView({ behavior: "smooth" });
-      else alert("Cart section পাওয়া যায়নি!");
-    });
-
-  if (navUser)
-    navUser.addEventListener("click", () => {
-      const btn = document.getElementById("userBtn");
-      if (btn) btn.click();
-    });
+  $("navUser")?.addEventListener("click", () => $("userBtn")?.click());
 }
 
 /********************************************
- * CATEGORY EFFECTS (FADE + RIPPLE)
+ * ACTIVE NAVIGATION HIGHLIGHT
  ********************************************/
+function initActiveNavHighlight() {
+  const links = $$(".nav-link");
+
+  links.forEach((a) => {
+    a.addEventListener("click", () => {
+      links.forEach((x) => x.classList.remove("text-[#B60000]"));
+      a.classList.add("text-[#B60000]");
+    });
+  });
+}
+
+/********************************************
+ * ESC → CLOSE ANY OPEN DROPDOWN
+ ********************************************/
+function initGlobalEscapeClose() {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      $("searchBox")?.classList.add("hidden");
+      $("userMenu")?.classList.add("hidden");
+      $("megaMenu")?.classList.add("hidden");
+    }
+  });
+}
+
+/********************************************
+ * SCROLL DOWN → HEADER HIDE
+ * SCROLL UP → HEADER SHOW
+ ********************************************/
+function initHeaderScrollHide() {
+  const header = $("mainHeader");
+  let lastY = window.scrollY;
+
+  window.addEventListener("scroll", () => {
+    const curr = window.scrollY;
+
+    if (curr > lastY && curr > 80) {
+      header.style.transform = "translateY(-100%)";
+    } else {
+      header.style.transform = "translateY(0)";
+    }
+
+    lastY = curr;
+  });
+}
+/************************************************************
+ * CATEGORY SECTION EFFECTS (Smart Hybrid Edition)
+ * ----------------------------------------------------------
+ * ✓ Fade-in animation when categories appear
+ * ✓ Center ripple effect (mobile-friendly)
+ * ✓ Touch feedback (scale press)
+ * ✓ Mobile horizontal scroll (Netflix Style)
+ * ✓ Smooth scroll to product area
+ * ✓ Category-based product filtering
+ ************************************************************/
 function initCategoryPremium() {
   const cards = document.querySelectorAll(".category-card");
+  const productItems = document.querySelectorAll("[data-category]");
+  const container = document.querySelector("#shopCategory");
   if (!cards.length) return;
 
+  /* -------------------------------------------------------
+     0) Remove blue tap highlight (Mobile polish)
+  ------------------------------------------------------- */
+  cards.forEach((card) => {
+    card.style.webkitTapHighlightColor = "transparent";
+  });
+
+  /* -------------------------------------------------------
+     1) Horizontal scroll on mobile (Netflix style)
+  ------------------------------------------------------- */
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  container.addEventListener("mousedown", (e) => {
+    if (window.innerWidth > 768) return;
+    isDown = true;
+    startX = e.pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
+  });
+
+  container.addEventListener("mouseleave", () => {
+    isDown = false;
+  });
+
+  container.addEventListener("mouseup", () => {
+    isDown = false;
+  });
+
+  container.addEventListener("mousemove", (e) => {
+    if (!isDown || window.innerWidth > 768) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    container.scrollLeft = scrollLeft - walk;
+  });
+
+  /* -------------------------------------------------------
+     2) Fade-in animation (Intersection Observer)
+  ------------------------------------------------------- */
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove("opacity-0", "translate-y-3");
-          entry.target.classList.add("opacity-100", "translate-y-0");
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("opacity-100", "translate-y-0");
+        entry.target.classList.remove("opacity-0", "translate-y-3");
       });
     },
     { threshold: 0.2 }
   );
 
+  /* -------------------------------------------------------
+     3) Ripple effect (center ripple)
+  ------------------------------------------------------- */
+  function createRipple(card) {
+    const ripple = document.createElement("span");
+    ripple.className =
+      "absolute w-12 h-12 bg-yellow-300/40 rounded-full animate-[ping_0.7s_ease-out]";
+    ripple.style.left = "50%";
+    ripple.style.top = "50%";
+    ripple.style.transform = "translate(-50%, -50%)";
+    card.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+  }
+
+  /* -------------------------------------------------------
+     4) Product filter on category click
+  ------------------------------------------------------- */
+  function filterProducts(category) {
+    productItems.forEach((item) => {
+      const match = item.dataset.category === category;
+      item.style.display = match ? "block" : "none";
+    });
+  }
+
+  /* -------------------------------------------------------
+     5) Setup each category card
+  ------------------------------------------------------- */
   cards.forEach((card) => {
+    const category = card.dataset.category; // <-- এইটার জন্য HTML-এ data-category লাগবে
+
+    /* fade default classes */
     card.classList.add(
       "opacity-0",
       "translate-y-3",
       "transition-all",
       "duration-700"
     );
+
     observer.observe(card);
 
-    // Ripple
+    /* ripple required */
     card.style.position = "relative";
     card.style.overflow = "hidden";
 
-    card.addEventListener("click", (e) => {
-      const ripple = document.createElement("span");
-      ripple.className =
-        "absolute w-5 h-5 bg-yellow-300/40 rounded-full animate-[ping_0.7s_ease-out]";
+    /* mobile press scale */
+    card.addEventListener("touchstart", () => {
+      card.classList.add("scale-95");
+    });
+    card.addEventListener("touchend", () => {
+      card.classList.remove("scale-95");
+    });
 
-      const x = e.clientX - card.getBoundingClientRect().left;
-      const y = e.clientY - card.getBoundingClientRect().top;
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
-      card.appendChild(ripple);
+    /* category click handler */
+    card.addEventListener("click", () => {
+      createRipple(card);
 
-      setTimeout(() => ripple.remove(), 700);
+      // 1) Remove old active states
+      cards.forEach((c) => c.classList.remove("ring-2", "ring-[#FFD600]"));
 
-      document
-        .getElementById("newArrivalsSection")
-        ?.scrollIntoView({ behavior: "smooth" });
+      // 2) Add active highlight
+      card.classList.add("ring-2", "ring-[#FFD600]");
+
+      // 3) Filter products
+      if (category) filterProducts(category);
+
+      // 4) Scroll to product section
+      const target = document.getElementById("newArrivalsSection");
+      target?.scrollIntoView({ behavior: "smooth" });
     });
   });
 }
@@ -511,9 +662,17 @@ function initAuthModal() {
   });
 }
 
-/********************************************
- * NEW ARRIVAL SLIDER
- ********************************************/
+/************************************************************
+ * NEW ARRIVAL SLIDER (Smart + Mobile Perfect Edition)
+ * ----------------------------------------------------------
+ * ✓ Arrow control
+ * ✓ Scale effect while scrolling
+ * ✓ Fade-in animation on view
+ * ✓ Mobile swipe boost
+ * ✓ Auto snap to nearest card
+ * ✓ Disable/Enable arrows on edges
+ * ✓ Clean & readable code
+ ************************************************************/
 function initNewArrivalSlider() {
   const slider = document.getElementById("arrivalSlider");
   const next = document.getElementById("arrivalNext");
@@ -521,149 +680,474 @@ function initNewArrivalSlider() {
 
   if (!slider || !next || !prev) return;
 
-  const step = 300;
+  /* -------------------------------
+     Basic Setup
+  ------------------------------- */
+  const STEP = 280; // slide distance
+  const cards = slider.children;
 
+  // Remove mobile tap highlight
+  slider.style.webkitTapHighlightColor = "transparent";
+
+  /* -------------------------------
+     Arrow Controls
+  ------------------------------- */
   next.addEventListener("click", () =>
-    slider.scrollBy({ left: step, behavior: "smooth" })
+    slider.scrollBy({ left: STEP, behavior: "smooth" })
   );
 
   prev.addEventListener("click", () =>
-    slider.scrollBy({ left: -step, behavior: "smooth" })
+    slider.scrollBy({ left: -STEP, behavior: "smooth" })
   );
 
+  /* -------------------------------
+     Disable arrows on edges
+  ------------------------------- */
+  function updateArrows() {
+    prev.style.opacity = slider.scrollLeft <= 10 ? "0.3" : "1";
+    next.style.opacity =
+      slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10
+        ? "0.3"
+        : "1";
+  }
+
+  /* -------------------------------
+     Fade-in animation for cards
+  ------------------------------- */
+  const fadeObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("opacity-100", "translate-y-0");
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  Array.from(cards).forEach((card) => {
+    card.classList.add(
+      "opacity-0",
+      "translate-y-2",
+      "transition-all",
+      "duration-700"
+    );
+    fadeObserver.observe(card);
+  });
+
+  /* -------------------------------
+     Scroll scale effect
+  ------------------------------- */
   slider.addEventListener("scroll", () => {
-    slider.querySelectorAll("div").forEach((card) => {
+    const screenCenter = window.innerWidth / 2;
+
+    Array.from(cards).forEach((card) => {
       const rect = card.getBoundingClientRect();
-      const center = window.innerWidth / 2;
-      const dist = Math.abs(rect.left + rect.width / 2 - center);
-      const scale = 1 - Math.min(dist / 1000, 0.1);
+      const cardCenter = rect.left + rect.width / 2;
+      const distance = Math.abs(screenCenter - cardCenter);
+
+      // smooth scale
+      const scale = 1 - Math.min(distance / 1000, 0.12);
       card.style.transform = `scale(${scale})`;
+    });
+
+    updateArrows();
+  });
+
+  /* -------------------------------
+     Mobile Swipe Momentum Boost
+  ------------------------------- */
+  let touchStart = 0;
+  let touchEnd = 0;
+
+  slider.addEventListener("touchstart", (e) => {
+    touchStart = e.touches[0].clientX;
+  });
+
+  slider.addEventListener("touchend", (e) => {
+    touchEnd = e.changedTouches[0].clientX;
+
+    const diff = touchStart - touchEnd;
+
+    if (Math.abs(diff) > 50) {
+      // Small swipe = big movement (boost)
+      slider.scrollBy({
+        left: diff > 0 ? STEP : -STEP,
+        behavior: "smooth",
+      });
+    }
+  });
+
+  /* -------------------------------
+     Auto Snap to nearest card
+  ------------------------------- */
+  let snapTimeout;
+  slider.addEventListener("scroll", () => {
+    clearTimeout(snapTimeout);
+
+    snapTimeout = setTimeout(() => {
+      let nearestCard = null;
+      let minDist = Infinity;
+      const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
+
+      Array.from(cards).forEach((card) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const dist = Math.abs(cardCenter - sliderCenter);
+
+        if (dist < minDist) {
+          minDist = dist;
+          nearestCard = card;
+        }
+      });
+
+      if (nearestCard) {
+        slider.scrollTo({
+          left: nearestCard.offsetLeft - 20,
+          behavior: "smooth",
+        });
+      }
+    }, 120);
+  });
+
+  updateArrows(); // initial update
+}
+
+/************************************************************
+ * FEATURED SECTION EFFECTS (Ripple + Shine + Animation)
+ * ----------------------------------------------------------
+ * ✓ Fade-in + stagger
+ * ✓ Ripple effect on card tap/click
+ * ✓ Shine effect on images
+ * ✓ Mobile perfect
+ ************************************************************/
+function initFeaturedEffects() {
+  const cards = document.querySelectorAll("#featuredSection .featured-card");
+  const images = document.querySelectorAll(
+    "#featuredSection .featured-card img"
+  );
+  if (!cards.length) return;
+
+  const isMobile = window.innerWidth < 640;
+
+  /* ---------------------------------------------------
+     Fade-in + Stagger Animation
+  --------------------------------------------------- */
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = `${index * 0.1}s`;
+          entry.target.classList.add("opacity-100", "translate-y-0");
+        } else {
+          entry.target.classList.remove("opacity-100", "translate-y-0");
+        }
+      });
+    },
+    { threshold: 0.25 }
+  );
+
+  /* ---------------------------------------------------
+     CARD LOOP
+  --------------------------------------------------- */
+  cards.forEach((card) => {
+    observer.observe(card);
+
+    // Remove default tap highlight
+    card.style.webkitTapHighlightColor = "transparent";
+    card.style.position = "relative";
+    card.style.overflow = "hidden";
+
+    /* ---------------------------------------------------
+       DESKTOP HOVER SCALE (mobile auto-disable)
+    --------------------------------------------------- */
+    if (!isMobile) {
+      card.addEventListener("mouseenter", () =>
+        card.classList.add("scale-[1.02]")
+      );
+      card.addEventListener("mouseleave", () =>
+        card.classList.remove("scale-[1.02]")
+      );
+    }
+
+    /* ---------------------------------------------------
+       RIPPLE EFFECT on CLICK/TAP
+    --------------------------------------------------- */
+    card.addEventListener("click", (e) => {
+      const ripple = document.createElement("span");
+      ripple.className =
+        "absolute bg-yellow-300/40 rounded-full animate-[ping_0.7s_ease-out] w-10 h-10";
+
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      ripple.style.left = `${x - 20}px`;
+      ripple.style.top = `${y - 20}px`;
+
+      card.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 700);
+    });
+  });
+
+  /* ---------------------------------------------------
+     IMAGE SHINE EFFECT
+  --------------------------------------------------- */
+  images.forEach((img) => {
+    img.style.position = "relative";
+    img.style.overflow = "hidden";
+
+    img.addEventListener("mousemove", (e) => {
+      const shine = document.createElement("span");
+      shine.className =
+        "absolute top-0 left-0 w-full h-full pointer-events-none shine-effect";
+
+      img.parentElement.appendChild(shine);
+
+      setTimeout(() => shine.remove(), 600);
     });
   });
 }
 
-/********************************************
- * FEATURED SECTION EFFECTS
- ********************************************/
-function initFeaturedEffects() {
-  const cards = document.querySelectorAll("#featuredSection .featured-card");
-  if (!cards.length) return;
-
-  const obs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting)
-          e.target.classList.add("opacity-100", "translate-y-0");
-      });
-    },
-    { threshold: 0.2 }
-  );
-
-  cards.forEach((c) => {
-    obs.observe(c);
-
-    c.addEventListener("mouseenter", () => c.classList.add("scale-[1.015]"));
-    c.addEventListener("mouseleave", () => c.classList.remove("scale-[1.015]"));
-  });
-}
-
-/********************************************
- * TESTIMONIALS EFFECTS
- ********************************************/
+/************************************************************
+ * TESTIMONIALS EFFECTS (Smart + Mobile Perfect)
+ ************************************************************/
 function initTestimonialsEffects() {
   const cards = document.querySelectorAll(
     "#testimonialsSection .testimonial-card"
   );
+  const slider = document.getElementById("testimonialSlider");
+  if (!cards.length || !slider) return;
 
-  if (!cards.length) return;
+  const isMobile = window.innerWidth < 640;
 
-  const obs = new IntersectionObserver(
+  /* Fade + Stagger Animation */
+  const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting)
-          e.target.classList.add("opacity-100", "translate-y-0");
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = `${index * 0.1}s`;
+          entry.target.classList.add("opacity-100", "translate-y-0");
+        } else {
+          entry.target.classList.remove("opacity-100", "translate-y-0");
+        }
       });
     },
-    { threshold: 0.2 }
+    { threshold: 0.25 }
   );
 
-  cards.forEach((c) => {
-    obs.observe(c);
+  cards.forEach((card) => {
+    observer.observe(card);
+    card.style.webkitTapHighlightColor = "transparent";
 
-    c.addEventListener("mouseenter", () =>
-      c.classList.add("scale-[1.03]", "shadow-2xl")
-    );
-    c.addEventListener("mouseleave", () =>
-      c.classList.remove("scale-[1.03]", "shadow-2xl")
-    );
+    /* Hover effect (desktop only) */
+    if (!isMobile) {
+      card.addEventListener("mouseenter", () => {
+        card.classList.add("scale-[1.03]", "shadow-xl");
+      });
+      card.addEventListener("mouseleave", () => {
+        card.classList.remove("scale-[1.03]", "shadow-xl");
+      });
+    }
+
+    /* Touch Press Effect (mobile only) */
+    if (isMobile) {
+      card.addEventListener("touchstart", () => {
+        card.classList.add("scale-95");
+      });
+
+      card.addEventListener("touchend", () => {
+        card.classList.remove("scale-95");
+      });
+    }
   });
+
+  /* Auto-Center After Swipe (Mobile Only) */
+  if (isMobile) {
+    let isDragging = false;
+
+    slider.addEventListener("touchstart", () => {
+      isDragging = true;
+    });
+
+    slider.addEventListener("touchend", () => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      // Find card closest to center
+      let closest = null;
+      let closestDist = Infinity;
+      const center = slider.scrollLeft + slider.clientWidth / 2;
+
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const dist = Math.abs(cardCenter - window.innerWidth / 2);
+
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = card;
+        }
+      });
+
+      // Auto-center selected card
+      if (closest) {
+        closest.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+        });
+      }
+    });
+  }
 }
 
-/********************************************
- * OFFER SECTION ANIMATION
- ********************************************/
+/************************************************************
+ * OFFER BANNER EFFECTS (Smart + Mobile Premium Edition)
+ * ----------------------------------------------------------
+ * ✓ Text fade & slide-up
+ * ✓ Image fade + smooth zoom
+ * ✓ Stagger delay (pro look)
+ * ✓ Mobile optimized smoothness
+ * ✓ Scroll-out reset for re-animation
+ ************************************************************/
 function initOfferBannerEffects() {
   const text = document.getElementById("offerText");
   const image = document.getElementById("offerImage");
 
   if (!text || !image) return;
 
+  /* -------------------------
+     Helper: Reset animation
+  ------------------------- */
+  function resetAnim(el) {
+    el.classList.add("opacity-0", "translate-y-5");
+    el.style.transform = "scale(1)";
+  }
+
+  resetAnim(text);
+  resetAnim(image);
+
+  /* -------------------------
+     Mobile smooth settings
+  ------------------------- */
+  const isMobile = window.innerWidth < 600;
+  const speed = isMobile ? "0.8s" : "0.7s";
+
+  /* -------------------------
+     Observer for animation
+  ------------------------- */
   const obs = new IntersectionObserver(
     (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.remove("opacity-0", "translate-y-5");
+      entries.forEach((entry) => {
+        const el = entry.target;
+
+        if (entry.isIntersecting) {
+          // COMMON fade effect
+          el.classList.remove("opacity-0", "translate-y-5");
+          el.style.transition = `all ${speed} ease-out`;
+
+          // TEXT comes first
+          if (el.id === "offerText") {
+            el.style.transitionDelay = "0.1s";
+          }
+
+          // IMAGE comes second + zoom
+          if (el.id === "offerImage") {
+            el.style.transitionDelay = "0.3s";
+            el.style.transform = "scale(1.05)";
+
+            setTimeout(() => {
+              el.style.transform = "scale(1)";
+            }, 400);
+          }
+        } else {
+          // Reset when out of view (smart re-animate)
+          resetAnim(el);
         }
       });
     },
-    { threshold: 0.2 }
+    { threshold: 0.3 }
   );
 
   obs.observe(text);
   obs.observe(image);
+
+  /* -------------------------
+     Remove tap highlight (mobile polish)
+  ------------------------- */
+  text.style.webkitTapHighlightColor = "transparent";
+  image.style.webkitTapHighlightColor = "transparent";
 }
 
 /********************************************
- * FOOTER PRO JS (Back to top, Copy, Year)
+ * FOOTER PRO – Smart + Mobile Optimized
  ********************************************/
 function initFooterPro() {
-  // Smooth all # links
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const target = document.querySelector(link.getAttribute("href"));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  });
-
-  // Back to top
   const back = document.getElementById("backToTop");
+  const copyBtn = document.getElementById("copyPhone");
+  const toast = document.getElementById("toast");
+  const footer = document.querySelector("footer");
+  const links = document.querySelectorAll(".footerLink");
+  const socialIcons = document.querySelectorAll(".footerIcon");
+  const year = document.getElementById("year");
+
+  /* Update Year */
+  year.textContent = new Date().getFullYear();
+
+  /* Back to Top */
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) back.classList.remove("hidden");
-    else back.classList.add("hidden");
+    if (window.scrollY > 300) {
+      back.classList.remove("hidden");
+      back.classList.add("opacity-100");
+    } else {
+      back.classList.add("hidden");
+      back.classList.remove("opacity-100");
+    }
   });
 
-  back?.addEventListener("click", () =>
+  back.addEventListener("click", () =>
     window.scrollTo({ top: 0, behavior: "smooth" })
   );
 
-  // Update year
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // Copy phone
-  document.getElementById("copyPhone").addEventListener("click", () => {
+  /* Copy Phone Number */
+  copyBtn.addEventListener("click", () => {
     navigator.clipboard.writeText("01775539131");
-    alert("Phone number copied!");
+
+    toast.textContent = "Copied!";
+    toast.classList.remove("hidden", "opacity-0");
+
+    setTimeout(() => {
+      toast.classList.add("opacity-0");
+      setTimeout(() => toast.classList.add("hidden"), 300);
+    }, 1200);
   });
 
-  // Footer hover animation
-  document.querySelectorAll(".footerLink").forEach((link) => {
-    link.addEventListener(
-      "mouseover",
-      () => (link.style.letterSpacing = "1px")
+  /* Footer Links Hover */
+  links.forEach((l) => {
+    l.addEventListener("mouseenter", () =>
+      l.classList.add("tracking-wide", "text-yellow-300")
     );
-    link.addEventListener("mouseout", () => (link.style.letterSpacing = "0px"));
+    l.addEventListener("mouseleave", () =>
+      l.classList.remove("tracking-wide", "text-yellow-300")
+    );
   });
+
+  /* Social Icons Tap Animation */
+  socialIcons.forEach((icon) => {
+    icon.addEventListener("click", () => {
+      icon.classList.add("scale-110");
+      setTimeout(() => icon.classList.remove("scale-110"), 200);
+    });
+  });
+
+  /* Footer Reveal Animation */
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting)
+          footer.classList.add("opacity-100", "translate-y-0");
+      });
+    },
+    { threshold: 0.2 }
+  );
+  obs.observe(footer);
 }
