@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Product Details - Look At Me Fashion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind -->
+  <link href="src/output.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-red-50 text-gray-900 antialiased">
+
+  <!-- HEADER (simple, brand + back) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm">
+    <nav class="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between py-3 gap-3">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow shrink-0">
+          <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide">
+            LOOK AT ME FASHION
+          </span>
+        </div>
+      </a>
+
+      <a href="products.html" class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 sm:px-4 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+        ← Back to Products
+      </a>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 md:py-10 space-y-6">
+
+    <!-- BREADCRUMB + TITLE -->
+    <section class="space-y-3">
+      <nav class="text-xs sm:text-sm text-gray-600 flex flex-wrap items-center gap-1">
+        <a href="index.html" class="hover:text-[#6B0000] font-medium">Home</a>
+        <span>/</span>
+        <a href="products.html" class="hover:text-[#6B0000] font-medium">Products</a>
+        <span>/</span>
+        <span id="breadcrumbProductName" class="font-semibold text-[#6B0000]">
+          Loading...
+        </span>
+      </nav>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <h1
+          id="pageTitle"
+          class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B0000]"
+        >
+          Product Details
+        </h1>
+
+        <span
+          id="productCategoryBadge"
+          class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FFD600]/80 text-[#6B0000] text-xs sm:text-sm font-semibold border border-[#FFD600] hidden"
+        >
+          <span>Category:</span>
+          <span id="productCategoryText"></span>
+        </span>
+      </div>
+    </section>
+
+    <!-- PRODUCT DETAILS SECTION -->
+    <section
+      id="productSection"
+      class="bg-white rounded-2xl shadow-sm border border-red-100 p-4 sm:p-6 md:p-8"
+    >
+      <!-- Loading state -->
+      <div id="productLoading" class="text-center py-10 text-gray-500 text-sm">
+        Loading product details...
+      </div>
+
+      <!-- Error state -->
+      <div
+        id="productError"
+        class="hidden text-center py-10 text-red-600 text-sm font-semibold"
+      >
+        Product not found or unavailable.
+      </div>
+
+      <!-- Actual content -->
+      <div
+        id="productContent"
+        class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-start"
+      >
+        <!-- LEFT: IMAGE -->
+        <div>
+          <div
+            class="bg-white rounded-2xl shadow-md border border-red-100 overflow-hidden"
+          >
+            <div class="aspect-[4/5] bg-gray-100 overflow-hidden">
+              <img
+                id="productImage"
+                src=""
+                alt=""
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: DETAILS -->
+        <div class="space-y-4 md:space-y-5">
+          <div>
+            <h2
+              id="productName"
+              class="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#6B0000]"
+            >
+              Product Name
+            </h2>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <p
+              id="productPrice"
+              class="text-2xl sm:text-3xl font-extrabold text-[#6B0000]"
+            >
+              ৳ 0
+            </p>
+            <span
+              class="px-2 py-1 rounded-full text-[11px] font-semibold bg-[#FFD600] text-[#6B0000]"
+            >
+              Premium Quality
+            </span>
+          </div>
+
+          <p
+            id="productDescription"
+            class="text-sm sm:text-base text-gray-700 leading-relaxed"
+          >
+            Product description will appear here.
+          </p>
+
+          <!-- Add to Cart -->
+          <div class="pt-2 space-y-3">
+            <div class="flex items-center gap-3">
+              <button
+                id="addToCartBtn"
+                class="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 rounded-full bg-[#FFD600] text-[#6B0000] font-bold text-sm sm:text-base shadow hover:bg-white hover:shadow-lg border border-[#FFD600] transition"
+              >
+                🛒 Add to Cart
+              </button>
+            </div>
+
+            <p class="text-[12px] sm:text-xs text-gray-500">
+              Cash on delivery • Easy return • Trusted Look At Me Fashion store
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RELATED PRODUCTS -->
+    <section class="pb-10 md:pb-14">
+      <h3 class="text-lg sm:text-xl font-extrabold text-[#6B0000] mb-3">
+        Related Products
+      </h3>
+
+      <div
+        id="relatedContainer"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+      >
+        <!-- JS will inject related cards -->
+      </div>
+
+      <p
+        id="relatedEmpty"
+        class="hidden text-xs sm:text-sm text-gray-500 mt-2"
+      >
+        No related products found.
+      </p>
+    </section>
+  </main>
+
+  <!-- TOAST: Added to cart -->
+  <div
+    id="cartToast"
+    class="fixed bottom-6 right-6 bg-[#6B0000] text-[#FFD600] text-sm px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300"
+  >
+    ✅ Added to cart
+  </div>
+
+  <!-- JS -->
+  <script src="./single-product.js"></script>
+</body>
+</html>

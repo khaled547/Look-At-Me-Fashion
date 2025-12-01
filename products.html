@@ -1,71 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <title>Products</title>
+  <meta charset="UTF-8" />
+  <title>Products - Look At Me Fashion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" 
+        rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <link href="src/output.css" rel="stylesheet" />
 
   <style>
     body {
-      font-family: Arial;
-      padding: 20px;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-    .product-card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      background: #fff;
-    }
-    .product-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 6px;
+      font-family: "Poppins", sans-serif;
     }
   </style>
+
 </head>
-<body>
+<body class="bg-red-50 text-gray-900 antialiased">
 
-  <h2 id="title">Products</h2>
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm">
+    <nav class="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between py-3 gap-3">
+      <a href="index.html">
+        <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
+          <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide">
+            LOOK AT ME FASHION
+          </span>
+        </div>
+      </a>
 
-  <div id="productContainer" class="product-grid"></div>
+      <a href="index.html"
+        class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+        ← Back to Home
+      </a>
+    </nav>
+  </header>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get("category");
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 md:py-10 space-y-6">
 
-    if (category) {
-      document.getElementById("title").textContent = category + " Products";
-    }
+    <!-- BREADCRUMB -->
+    <section class="space-y-3">
+      <nav class="text-xs sm:text-sm text-gray-600 flex flex-wrap items-center gap-1">
+        <a href="index.html" class="hover:text-[#6B0000] font-medium">Home</a>
+        <span>/</span>
+        <span id="breadcrumb" class="font-semibold text-[#6B0000]">Products</span>
+      </nav>
 
-    fetch("http://localhost:5000/api/products")
-      .then(res => res.json())
-      .then(data => {
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <h1 id="pageTitle"
+          class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B0000]">
+          Products
+        </h1>
 
-        let filtered = data;
+        <p id="productCount" class="text-xs sm:text-sm text-gray-600"></p>
+      </div>
+    </section>
 
-        if (category) {
-          filtered = data.filter(item => item.category === category);
-        }
+    <!-- SEARCH + SORT -->
+    <section
+      class="bg-white rounded-2xl shadow-sm border border-red-100 px-4 py-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
 
-        const container = document.getElementById("productContainer");
+      <!-- Search -->
+      <div class="w-full sm:w-1/2">
+        <label class="text-xs uppercase tracking-wide text-gray-500 mb-1 block">
+          Search
+        </label>
+        <input id="filterInput" type="text"
+          placeholder="Search products..."
+          class="w-full border border-red-200 rounded-lg bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]" />
+      </div>
 
-        filtered.forEach(product => {
-          container.innerHTML += `
-            <div class="product-card">
-              <img src="${product.image}" alt="${product.name}">
-              <h3>${product.name}</h3>
-              <p>${product.price} TK</p>
-            </div>
-          `;
-        });
-      });
-  </script>
+      <!-- Sort -->
+      <div class="flex items-center gap-2">
+        <label for="sortSelect" class="text-xs sm:text-sm font-medium text-gray-700">Sort by:</label>
+
+        <select id="sortSelect"
+          class="w-40 sm:w-44 border border-red-200 rounded-lg bg-white px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]">
+          <option value="default">Default</option>
+          <option value="low-high">Price: Low → High</option>
+          <option value="high-low">Price: High → Low</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- EMPTY STATE -->
+    <section id="emptyState"
+      class="hidden text-center py-16 bg-white border border-red-100 rounded-2xl shadow-sm">
+      <div class="text-5xl mb-3">🛍️</div>
+      <h3 class="text-xl font-semibold text-[#6B0000]">No Products Found</h3>
+      <p class="text-gray-600 empty-message">Try changing filters or category.</p>
+    </section>
+
+    <!-- PRODUCT CARD TEMPLATE -->
+    <div id="productCardTemplate"
+      class="hidden bg-white rounded-2xl shadow-sm border border-red-100 overflow-hidden group">
+
+      <div class="aspect-[4/5] bg-gray-100 overflow-hidden">
+        <img data-role="product-image"
+          class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+      </div>
+
+      <div class="p-4 space-y-1">
+        <h3 data-role="product-name"
+          class="font-semibold text-base text-gray-900"></h3>
+        <p data-role="product-price"
+          class="text-lg font-extrabold text-[#6B0000]"></p>
+
+        <!-- ⭐ View Details Button ⭐ -->
+        <a data-role="view-details"
+          class="text-sm font-semibold text-[#6B0000] hover:underline block mt-1">
+          View Details →
+        </a>
+      </div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <section>
+      <div id="productContainer"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mt-4">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JS File -->
+  <script src="./product.js"></script>
 
 </body>
 </html>
+
+
+
