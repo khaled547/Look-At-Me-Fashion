@@ -13,6 +13,49 @@ function clickOutside(element, except, callback) {
 }
 
 /********************************************
+ * GLOBAL CART HELPERS  (UNIVERSAL)
+ * - Same structure as single-product.js / cart page
+ * - localStorage key: "lmf_cart"
+ ********************************************/
+const CART_KEY = "lmf_cart";
+
+function getCart() {
+  try {
+    const stored = localStorage.getItem(CART_KEY);
+    if (!stored) return [];
+    const parsed = JSON.parse(stored);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) {
+    console.warn("Error reading cart from localStorage:", e);
+    return [];
+  }
+}
+
+function saveCart(cart) {
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch (e) {
+    console.warn("Error saving cart to localStorage:", e);
+  }
+}
+
+/**
+ * Navbar cart badge update (Top + bottom)
+ * - Uses #cartCount (header)
+ * - Uses #bottomCartCount (mobile bottom nav → থাকলে)
+ */
+function updateCartBadge() {
+  const cart = getCart();
+  const qty = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+
+  const top = document.getElementById("cartCount");
+  const bottom = document.getElementById("bottomCartCount");
+
+  if (top) top.textContent = qty;
+  if (bottom) bottom.textContent = qty;
+}
+
+/********************************************
  * MASTER INIT (DOM READY)
  ********************************************/
 document.addEventListener("DOMContentLoaded", () => {
@@ -37,6 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initOfferBannerEffects();
   initFooterPro();
   initMobileShopMenu();
+
+  // 🔔 Page load হওয়ার সাথে সাথে cart badge sync
+  updateCartBadge();
 });
 
 /********************************************
@@ -218,27 +264,6 @@ function initSmoothScroll() {
 }
 
 /********************************************
- * MOBILE MENU
- ********************************************/
-function initMobileMenu() {
-  const btn = $("mobileMenuBtn");
-  const menu = $("mobileMenu");
-
-  if (!btn || !menu) return;
-
-  btn.addEventListener("click", () => {
-    const open = menu.style.maxHeight && menu.style.maxHeight !== "0px";
-    if (open) {
-      menu.style.maxHeight = "0";
-      setTimeout(() => menu.classList.add("hidden"), 250);
-    } else {
-      menu.classList.remove("hidden");
-      menu.style.maxHeight = "260px";
-    }
-  });
-}
-
-/********************************************
  * BOTTOM MOBILE NAV
  ********************************************/
 function initBottomMenu() {
@@ -302,6 +327,7 @@ function initHeaderScrollHide() {
     lastY = curr;
   });
 }
+
 /*
  * CATEGORY SECTION EFFECTS (Smart Hybrid Edition)
  * ----------------------------------------------------------
@@ -476,31 +502,35 @@ function initProductSystem() {
     },
   ];
 
-  const getCart = () => JSON.parse(localStorage.getItem("cart") || "[]");
-  const saveCart = (cart) => localStorage.setItem("cart", JSON.stringify(cart));
-
+  // Wishlist only এই ফাইলে হ্যান্ডেল হবে
   const getWishlist = () =>
     JSON.parse(localStorage.getItem("wishlist") || "[]");
   const saveWishlist = (list) =>
     localStorage.setItem("wishlist", JSON.stringify(list));
 
-  function updateCartBadge() {
-    const cart = getCart();
-    const qty = cart.reduce((sum, item) => sum + item.qty, 0);
-
-    const top = document.getElementById("cartCount");
-    const bottom = document.getElementById("bottomCartCount");
-
-    if (top) top.textContent = qty;
-    if (bottom) bottom.textContent = qty;
-  }
-
+  /**
+   * Add to Cart (Index Page)
+   * - Same format as single-product.js:
+   *   { id, name, price, image, qty }
+   */
   function addToCart(id) {
     const cart = getCart();
-    const exist = cart.find((x) => x.id === id);
+    const idx = cart.findIndex((x) => x.id === id);
 
-    if (exist) exist.qty += 1;
-    else cart.push({ id, qty: 1 });
+    if (idx >= 0) {
+      cart[idx].qty = (cart[idx].qty || 0) + 1;
+    } else {
+      const p = PRODUCTS.find((prod) => prod.id === id);
+      if (!p) return;
+
+      cart.push({
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        image: p.image,
+        qty: 1,
+      });
+    }
 
     saveCart(cart);
     updateCartBadge();
@@ -635,7 +665,7 @@ function initProductSystem() {
   // Initialize
   initProductCardButtons();
   initProductsPage();
-  updateCartBadge();
+  updateCartBadge(); // index পেজ থেকেই badge ঠিক থাকবে
 }
 
 /*
@@ -896,7 +926,7 @@ function initFeaturedEffects() {
     img.style.position = "relative";
     img.style.overflow = "hidden";
 
-    img.addEventListener("mousemove", (e) => {
+    img.addEventListener("mousemove", () => {
       const shine = document.createElement("span");
       shine.className =
         "absolute top-0 left-0 w-full h-full pointer-events-none shine-effect";
@@ -976,7 +1006,6 @@ function initTestimonialsEffects() {
       // Find card closest to center
       let closest = null;
       let closestDist = Infinity;
-      const center = slider.scrollLeft + slider.clientWidth / 2;
 
       cards.forEach((card) => {
         const rect = card.getBoundingClientRect();

@@ -1,28 +1,49 @@
 // backend/server.js
 
-// MongoDB Connect
 require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+
+// Database Connect
 const connectDB = require("./config/db");
 connectDB();
 
-const express = require("express");
-const cors = require("cors");
-const productRoutes = require("./routes/productRoutes"); // <-- new
-
 const app = express();
 
+// Middlewares
 app.use(cors());
-app.use(express.json()); // body থেকে JSON পড়তে লাগবে
+app.use(express.json());
 
-// Test Route
+// --------------------------------------
+// ROUTES IMPORT
+// --------------------------------------
+const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");   // ⭐ NEW
+
+// --------------------------------------
+// ROUTES USE
+// --------------------------------------
 app.get("/", (req, res) => {
-  res.send("Backend is running!");
+  res.send("Look At Me Fashion Backend is running!");
 });
 
-// Products Route
-app.use("/api/products", productRoutes); // <-- new
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);   // ⭐ NEW
 
-const PORT = 5000;
+// --------------------------------------
+// GLOBAL ERROR HANDLER (Optional Premium)
+// --------------------------------------
+app.use((err, req, res, next) => {
+  console.error("🔥 Server Error:", err);
+  res.status(500).json({ error: "Server Error Occurred" });
+});
+
+// --------------------------------------
+// START SERVER
+// --------------------------------------
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

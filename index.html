@@ -48,498 +48,493 @@
   </head>
   <body class="bg-white text-gray-900 antialiased">
     <!--Header Section-->
-    <header
-      id="mainHeader"
-      class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm"
-    >
-      <!--NavBar Section-->
-      <nav
-        id="mainNav"
-        class="max-w-7xl mx-auto px-4 lg:px-8"
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <div class="flex items-center justify-between py-3 gap-3">
-          <!-- LOGO + BRAND -->
-          <a href="#homeSection" class="flex items-center gap-2">
-            <div
-              class="bg-[#B60000] px-3 py-1 sm:px-5 sm:py-2 rounded-lg shadow shrink-0"
-            >
-              <span
-                class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide"
-              >
-                LOOK AT ME FASHION
-              </span>
-            </div>
-          </a>
-
-          <!-- DESKTOP NAV LINKS -->
-          <ul
-            class="hidden md:flex items-center gap-6 font-semibold text-[15px] text-gray-800"
-          >
-            <li>
-              <a href="#homeSection" class="nav-link hover:text-[#B60000]"
-                >HOME</a
-              >
-            </li>
-
-            <li class="relative">
-              <!-- SHOP BUTTON  -->
-              <button
-                id="shopBtn"
-                class="hover:text-[#B60000] flex items-center gap-1 select-none"
-              >
-                SHOP
-                <svg
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M6 9l6 6 6-6"></path>
-                </svg>
-              </button>
-
-              <!-- MEGA MENU -->
-              <div
-                id="megaMenu"
-                class="hidden opacity-0 transition-all duration-200 absolute left-0 top-full w-[750px] bg-white shadow-xl rounded-b-lg mt-2 p-6 grid grid-cols-4 gap-8 border-t-4 border-[#B60000]"
-              >
-                <!-- Column 1 Clothing-->
-                <div>
-                  <h3 class="font-bold text-[#B60000] mb-3">Clothing</h3>
-                  <ul class="space-y-2 text-sm">
-                    <li>
-                      <a class="hover:text-red-600" href="products.html?category=Boys clothing set"
-                        >Boys clothing set</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Girls Dress"
-                        >Girls Dress</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Hijab"
-                        >Hijab</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Three Piece"
-                        >Three Piece</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Trouser/Pants"
-                        >Trouser/Pants</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Orbit Cotton Fabric"
-                        >Orbit Cotton Fabric</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Premium Cotton Lungi"
-                        >Premium Cotton Lungi</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Gamcha"
-                        >Gamcha</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-
-                <!-- Column 2 Bag -->
-                <div>
-                  <h3 class="font-bold text-[#B60000] mb-3">Bags</h3>
-                  <ul class="space-y-2 text-sm">
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=School Bag"
-                        >School Bag</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Ledies Bag"
-                        >Ledies Bag</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=HandBag"
-                        >HandBag</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Tote Bag"
-                        >Tote Bag</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Wallet"
-                        >Wallet</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-
-                <!-- Column 3 Shoes -->
-                <div>
-                  <h3 class="font-bold text-[#B60000] mb-3">Footwear</h3>
-                  <ul class="space-y-2 text-sm">
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Men Shoes"
-                        >Men Shoes</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Women Shoes"
-                        >Women Shoes</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Kids Shoes"
-                        >Kids Shoes</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=School Jump cats"
-                        >School Jump cats</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Burmese Sandals"
-                        >Burmese Sandals</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-
-                <!-- Column 4 Beautry -->
-                <div>
-                  <h3 class="font-bold text-[#B60000] mb-3">
-                    Beauty & Accessories
-                  </h3>
-                  <ul class="space-y-2 text-sm">
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Color Cosmetics"
-                      >
-                        Color Cosmetics</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Jewelry"
-                        >Jewelry</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Earrings & Hair Clips"
-                        >Earrings & Hair Clips</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Watches"
-                        >Watches</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Sunglasses"
-                        >Sunglasses</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Perfume / Attar"
-                        >Perfume / Attar</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
-                        href="products.html?category=Socks & Caps"
-                        >Socks & Caps</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <a
-                href="#newArrivalsSection"
-                class="nav-link hover:text-[#B60000]"
-              >
-                NEW ARRIVALS
-              </a>
-            </li>
-            <li>
-              <a href="#featuredSection" class="nav-link hover:text-[#B60000]">
-                FEATURED
-              </a>
-            </li>
-            <li>
-              <a href="#contactSection" class="nav-link hover:text-[#B60000]">
-                CONTACT
-              </a>
-            </li>
-          </ul>
-
-          <!-- RIGHT SIDE ICONS (SEARCH, WISH, CART, USER) -->
-          <div class="flex items-center gap-2 sm:gap-3 relative">
-            <!-- SEARCH BUTTON -->
-            <button
-              id="searchBtn"
-              class="hidden sm:flex w-10 h-10 items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
-            >
-              <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="9" cy="9" r="7"></circle>
-                <path d="M21 21l-5-5"></path>
-              </svg>
-            </button>
-
-            <!-- SEARCH BOX (DESKTOP) -->
-            <div
-              id="searchBox"
-              class="hidden absolute right-0 top-full mt-2 bg-white border border-red-300 shadow-lg rounded-lg p-3 flex items-center gap-3 w-72"
-            >
-              <input
-                id="searchInput"
-                type="text"
-                placeholder="Search products..."
-                class="flex-1 border border-red-400 rounded-lg px-3 py-2 text-sm focus:outline-none"
-              />
-
-              <button
-                id="searchClose"
-                class="w-8 h-8 flex items-center justify-center rounded-full border border-red-300 text-red-500"
-              >
-                ✕
-              </button>
-            </div>
-
-            <!-- WISHLIST -->
-            <button
-              id="wishBtn"
-              class="w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
-            >
-              <svg
-                id="wishIcon"
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1.1-1a5.5 5.5 0 00-7.7 7.7L12 21.2l8.8-8.8a5.5 5.5 0 000-7.8z"
-                ></path>
-              </svg>
-            </button>
-
-            <!-- CART BUTTON -->
-            <button
-              id="cartBtn"
-              class="relative w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
-            >
-              <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="8" cy="20" r="1"></circle>
-                <circle cx="19" cy="20" r="1"></circle>
-                <path
-                  d="M1 1h4l2.7 12.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"
-                ></path>
-              </svg>
-
-              <span
-                id="cartCount"
-                class="absolute -top-1 -right-1 bg-[#FFD600] text-[#B60000] text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
-              >
-                0
-              </span>
-            </button>
-
-            <!-- USER BUTTON -->
-            <div class="relative">
-              <button
-                id="userBtn"
-                class="w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <circle cx="12" cy="7" r="4"></circle>
-                  <path d="M5.5 21a8.5 8.5 0 0113 0"></path>
-                </svg>
-              </button>
-
-              <!-- USER DROPDOWN MENU (একটাই id থাকবে) -->
-              <div
-                id="userMenu"
-                class="hidden absolute right-0 mt-2 bg-white shadow-lg border p-3 rounded-lg w-40"
-              >
-                <a href="#" class="block py-1 text-sm hover:text-[#B60000]"
-                  >Login</a
-                >
-                <a href="#" class="block py-1 text-sm hover:text-[#B60000]"
-                  >Register</a
-                >
-                <a href="#" class="block py-1 text-sm hover:text-[#B60000]"
-                  >Profile</a
-                >
-              </div>
-            </div>
-
-            <!-- MOBILE MENU BUTTON -->
-            <button
-              id="mobileMenuBtn"
-              class="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
-            >
-              <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                aria-hidden="true"
-              >
-                <path d="M3 6h18M3 12h18M3 18h18"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- MOBILE MENU (drawer style) -->
+<!--Header Section-->
+<header
+  id="mainHeader"
+  class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm"
+>
+  <!--NavBar Section-->
+  <nav
+    id="mainNav"
+    class="max-w-7xl mx-auto px-4 lg:px-8"
+    role="navigation"
+    aria-label="Main navigation"
+  >
+    <div class="flex items-center justify-between py-3 gap-3">
+      <!-- LOGO + BRAND -->
+      <a href="#homeSection" class="flex items-center gap-2">
         <div
-          id="mobileMenu"
-          class="md:hidden mobile-slide max-h-0 overflow-y-auto flex flex-col gap-3 font-semibold text-[15px] bg-white p-4 rounded-lg shadow border border-red-200 mt-2"
+          class="bg-[#B60000] px-3 py-1 sm:px-5 sm:py-2 rounded-lg shadow shrink-0"
         >
-          <a href="#homeSection" class="nav-link hover:text-[#B60000]">HOME</a>
-          <a id="mobileMenuShop" class="nav-link hover:text-[#B60000]">SHOP</a>
-          <!-- MOBILE SHOP MENU -->
-          <div
-            id="mobileShopMenu"
-            class="hidden bg-white border-l-4 border-[#B60000] mt-2 p-4 rounded-lg shadow-md space-y-4"
+          <span
+            class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide"
           >
+            LOOK AT ME FASHION
+          </span>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAV LINKS -->
+      <ul
+        class="hidden md:flex items-center gap-6 font-semibold text-[15px] text-gray-800"
+      >
+        <li>
+          <a href="#homeSection" class="nav-link hover:text-[#B60000]">HOME</a>
+        </li>
+
+        <li class="relative">
+          <!-- SHOP BUTTON  -->
+          <button
+            id="shopBtn"
+            class="hover:text-[#B60000] flex items-center gap-1 select-none"
+          >
+            SHOP
+            <svg
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <!-- MEGA MENU -->
+          <div
+            id="megaMenu"
+            class="hidden opacity-0 transition-all duration-200 absolute left-0 top-full w-[750px] bg-white shadow-xl rounded-b-lg mt-2 p-6 grid grid-cols-4 gap-8 border-t-4 border-[#B60000]"
+          >
+            <!-- Column 1 Clothing-->
             <div>
-              <h4 class="font-bold text-[#B60000]">Clothing</h4>
-              <ul class="ml-3 text-sm text-gray-700 space-y-1">
-                <li>Boys Clothing</li>
-                <li>Girls Dress</li>
-                <li>Hijab</li>
-                <li>Three Piece</li>
-                <li>Fabric</li>
-                <li>Lungi</li>
-                <li>Gamcha</li>
+              <h3 class="font-bold text-[#B60000] mb-3">Clothing</h3>
+              <ul class="space-y-2 text-sm">
+                <li>
+                  <a class="hover:text-red-600" href="products.html?category=Boys clothing set"
+                    >Boys clothing set</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Girls Dress"
+                    >Girls Dress</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Hijab"
+                    >Hijab</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Three Piece"
+                    >Three Piece</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Trouser/Pants"
+                    >Trouser/Pants</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Orbit Cotton Fabric"
+                    >Orbit Cotton Fabric</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Premium Cotton Lungi"
+                    >Premium Cotton Lungi</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Gamcha"
+                    >Gamcha</a
+                  >
+                </li>
               </ul>
             </div>
 
+            <!-- Column 2 Bag -->
             <div>
-              <h4 class="font-bold text-[#B60000]">Bags</h4>
-              <ul class="ml-3 text-sm text-gray-700 space-y-1">
-                <li>School Bag</li>
-                <li>Ladies Bag</li>
-                <li>Tote Bag</li>
-                <li>Wallet</li>
+              <h3 class="font-bold text-[#B60000] mb-3">Bags</h3>
+              <ul class="space-y-2 text-sm">
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=School Bag"
+                    >School Bag</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Ledies Bag"
+                    >Ledies Bag</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=HandBag"
+                    >HandBag</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Tote Bag"
+                    >Tote Bag</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Wallet"
+                    >Wallet</a
+                  >
+                </li>
               </ul>
             </div>
 
+            <!-- Column 3 Shoes -->
             <div>
-              <h4 class="font-bold text-[#B60000]">Footwear</h4>
-              <ul class="ml-3 text-sm text-gray-700 space-y-1">
-                <li>Men Shoes</li>
-                <li>Women Shoes</li>
-                <li>Kids Shoes</li>
-                <li>Sandals</li>
+              <h3 class="font-bold text-[#B60000] mb-3">Footwear</h3>
+              <ul class="space-y-2 text-sm">
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Men Shoes"
+                    >Men Shoes</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Women Shoes"
+                    >Women Shoes</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Kids Shoes"
+                    >Kids Shoes</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=School Jump cats"
+                    >School Jump cats</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Burmese Sandals"
+                    >Burmese Sandals</a
+                  >
+                </li>
               </ul>
             </div>
 
+            <!-- Column 4 Beautry -->
             <div>
-              <h4 class="font-bold text-[#B60000]">Beauty & Accessories</h4>
-              <ul class="ml-3 text-sm text-gray-700 space-y-1">
-                <li>Cosmetics</li>
-                <li>Jewelry</li>
-                <li>Hair Clips</li>
-                <li>Watches</li>
-                <li>Perfume</li>
+              <h3 class="font-bold text-[#B60000] mb-3">
+                Beauty & Accessories
+              </h3>
+              <ul class="space-y-2 text-sm">
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Color Cosmetics"
+                  >
+                    Color Cosmetics</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Jewelry"
+                    >Jewelry</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Earrings & Hair Clips"
+                    >Earrings & Hair Clips</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Watches"
+                    >Watches</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Sunglasses"
+                    >Sunglasses</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Perfume / Attar"
+                    >Perfume / Attar</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="hover:text-red-600 hover:bg-red-50 rounded-md px-2 py-1 inline-block"
+                    href="products.html?category=Socks & Caps"
+                    >Socks & Caps</a
+                  >
+                </li>
               </ul>
             </div>
           </div>
+        </li>
 
-          <a href="#newArrivalsSection" class="nav-link hover:text-[#B60000]"
-            >NEW ARRIVALS</a
+        <li>
+          <a href="#newArrivalsSection" class="nav-link hover:text-[#B60000]">
+            NEW ARRIVALS
+          </a>
+        </li>
+        <li>
+          <a href="#featuredSection" class="nav-link hover:text-[#B60000]">
+            FEATURED
+          </a>
+        </li>
+        <li>
+          <a href="#contactSection" class="nav-link hover:text-[#B60000]">
+            CONTACT
+          </a>
+        </li>
+      </ul>
+
+      <!-- RIGHT ICONS -->
+      <div class="flex items-center gap-2 sm:gap-3 relative">
+        <!-- SEARCH BUTTON -->
+        <button
+          id="searchBtn"
+          class="hidden sm:flex w-10 h-10 items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
+        >
+          <svg
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
           >
-          <a href="#featuredSection" class="nav-link hover:text-[#B60000]"
-            >FEATURED</a
+            <circle cx="9" cy="9" r="7"></circle>
+            <path d="M21 21l-5-5"></path>
+          </svg>
+        </button>
+
+        <!-- SEARCH BOX -->
+        <div
+          id="searchBox"
+          class="hidden absolute right-0 top-full mt-2 bg-white border border-red-300 shadow-lg rounded-lg p-3 flex items-center gap-3 w-72"
+        >
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search products..."
+            class="flex-1 border border-red-400 rounded-lg px-3 py-2 text-sm focus:outline-none"
+          />
+
+          <button
+            id="searchClose"
+            class="w-8 h-8 flex items-center justify-center rounded-full border border-red-300 text-red-500"
           >
-          <a href="#contactSection" class="nav-link hover:text-[#B60000]"
-            >CONTACT</a
-          >
+            ✕
+          </button>
         </div>
-      </nav>
-    </header>
+
+        <!-- WISHLIST -->
+        <button
+          id="wishBtn"
+          class="w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
+        >
+          <svg
+            id="wishIcon"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1.1-1a5.5 5.5 0 00-7.7 7.7L12 21.2l8.8-8.8a5.5 5.5 0 000-7.8z"
+            ></path>
+          </svg>
+        </button>
+
+        <!-- CART -->
+        <button
+          id="cartBtn"
+          class="relative w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
+        >
+          <svg
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="8" cy="20" r="1"></circle>
+            <circle cx="19" cy="20" r="1"></circle>
+            <path
+              d="M1 1h4l2.7 12.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"
+            ></path>
+          </svg>
+
+          <!-- Cart Badge FIXED -->
+          <span
+            id="cartCount"
+            class="absolute -top-1 -right-1 bg-[#FFD600] text-[#B60000] text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
+          >
+            0
+          </span>
+        </button>
+
+        <!-- USER BUTTON -->
+        <div class="relative">
+          <button
+            id="userBtn"
+            class="w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
+          >
+            <svg
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="7" r="4"></circle>
+              <path d="M5.5 21a8.5 8.5 0 0113 0"></path>
+            </svg>
+          </button>
+
+          <div
+            id="userMenu"
+            class="hidden absolute right-0 mt-2 bg-white shadow-lg border p-3 rounded-lg w-40"
+          >
+            <a href="#" class="block py-1 text-sm hover:text-[#B60000]">Login</a>
+            <a href="#" class="block py-1 text-sm hover:text-[#B60000]"
+              >Register</a
+            >
+            <a href="#" class="block py-1 text-sm hover:text-[#B60000]"
+              >Profile</a
+            >
+          </div>
+        </div>
+
+        <!-- MOBILE MENU BUTTON -->
+        <button
+          id="mobileMenuBtn"
+          class="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-[#B60000] text-[#B60000] hover:bg-red-50"
+        >
+          <svg
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M3 6h18M3 12h18M3 18h18"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div
+      id="mobileMenu"
+      class="md:hidden mobile-slide max-h-0 overflow-y-auto flex flex-col gap-3 font-semibold text-[15px] bg-white p-4 rounded-lg shadow border border-red-200 mt-2"
+    >
+      <a href="#homeSection" class="nav-link hover:text-[#B60000]">HOME</a>
+      <a id="mobileMenuShop" class="nav-link hover:text-[#B60000]">SHOP</a>
+
+      <!-- MOBILE SHOP MENU -->
+      <div
+        id="mobileShopMenu"
+        class="hidden bg-white border-l-4 border-[#B60000] mt-2 p-4 rounded-lg shadow-md space-y-4"
+      >
+        <div>
+          <h4 class="font-bold text-[#B60000]">Clothing</h4>
+          <ul class="ml-3 text-sm text-gray-700 space-y-1">
+            <li>Boys Clothing</li>
+            <li>Girls Dress</li>
+            <li>Hijab</li>
+            <li>Three Piece</li>
+            <li>Fabric</li>
+            <li>Lungi</li>
+            <li>Gamcha</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-[#B60000]">Bags</h4>
+          <ul class="ml-3 text-sm text-gray-700 space-y-1">
+            <li>School Bag</li>
+            <li>Ladies Bag</li>
+            <li>Tote Bag</li>
+            <li>Wallet</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-[#B60000]">Footwear</h4>
+          <ul class="ml-3 text-sm text-gray-700 space-y-1">
+            <li>Men Shoes</li>
+            <li>Women Shoes</li>
+            <li>Kids Shoes</li>
+            <li>Sandals</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-[#B60000]">Beauty & Accessories</h4>
+          <ul class="ml-3 text-sm text-gray-700 space-y-1">
+            <li>Cosmetics</li>
+            <li>Jewelry</li>
+            <li>Hair Clips</li>
+            <li>Watches</li>
+            <li>Perfume</li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="#newArrivalsSection" class="nav-link hover:text-[#B60000]"
+        >NEW ARRIVALS</a
+      >
+      <a href="#featuredSection" class="nav-link hover:text-[#B60000]"
+        >FEATURED</a
+      >
+      <a href="#contactSection" class="nav-link hover:text-[#B60000]"
+        >CONTACT</a
+      >
+    </div>
+  </nav>
+</header>
+
 
     <!--  HERO SECTION Start-->
     <section

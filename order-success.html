@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Success - Look At Me Fashion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <link href="src/output.css" rel="stylesheet">
+
+  <style>
+    body { 
+      font-family: "Inter", "Poppins", sans-serif;
+      background: #faf5f5;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center px-6 py-10">
+
+  <!-- SUCCESS BOX -->
+  <div 
+    class="bg-white max-w-md w-full rounded-3xl shadow-xl border border-red-200 p-8 text-center transform scale-[0.85] opacity-0 transition-all duration-700"
+    id="successBox"
+  >
+    <!-- ICON -->
+    <div class="flex items-center justify-center">
+      <div class="w-20 h-20 flex items-center justify-center rounded-full bg-green-100 animate-bounce">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2">
+          <path d="M20 6L9 17l-5-5"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- HEADING -->
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-[#6B0000] mt-6">
+      অর্ডার সফলভাবে সম্পন্ন হয়েছে!
+    </h1>
+
+    <p class="text-gray-600 text-sm sm:text-base mt-2 leading-relaxed">
+      ধন্যবাদ! আপনার অর্ডারটি আমরা রিসিভ করেছি। অল্প সময়ের মধ্যেই আমাদের টিম আপনার সাথে যোগাযোগ করবে।
+    </p>
+
+    <!-- ORDER ID -->
+    <div class="mt-5 bg-yellow-100 border border-yellow-300 text-yellow-800 px-4 py-2 rounded-lg text-sm font-medium">
+      অর্ডার আইডি: <span id="orderIdText" class="font-bold"></span>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="mt-8 flex flex-col gap-3">
+      <a href="index.html"
+        class="w-full bg-[#FFD600] text-[#6B0000] font-bold py-3 rounded-full shadow hover:bg-white border border-[#FFD600] transition text-sm sm:text-base">
+        🏠 হোমে ফিরে যান
+      </a>
+
+      <a href="products.html"
+        class="w-full bg-white text-[#6B0000] border border-[#6B0000] font-semibold py-3 rounded-full hover:bg-red-50 transition text-sm sm:text-base">
+        🛍️ আরও পণ্য দেখুন
+      </a>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="./order-success.js"></script>
+</body>
+</html>

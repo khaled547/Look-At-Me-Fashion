@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Account - Look At Me Fashion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind -->
+  <link href="src/output.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: "Inter", "Poppins", sans-serif;
+      background: #fff7f7;
+    }
+  </style>
+</head>
+<body class="text-gray-900 antialiased">
+
+  <!-- HEADER (Mobile Friendly) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm">
+    <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex items-center justify-between gap-3">
+
+      <!-- Brand -->
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow shrink-0">
+          <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide">
+            LOOK AT ME FASHION
+          </span>
+        </div>
+      </a>
+
+      <!-- Right side -->
+      <div class="flex items-center gap-2 sm:gap-3">
+
+        <!-- Cart Shortcut (optional future use) -->
+        <a href="cart.html"
+           class="hidden sm:inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#6B0000] border border-red-200 rounded-full px-3 py-1.5 bg-red-50 hover:bg-red-100 transition">
+          🛒 Cart
+        </a>
+
+        <!-- Logout -->
+        <button
+          id="logoutBtn"
+          class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 sm:px-4 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+          লগআউট
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 md:py-10 space-y-6">
+
+    <!-- PAGE TITLE -->
+    <section class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div>
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B0000]">
+          আমার একাউন্ট
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">
+          প্রোফাইল, অর্ডার হিস্টোরি ও অন্যান্য তথ্য এক জায়গায়।
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
+        <a href="index.html" class="hover:text-[#6B0000] font-medium">হোম</a>
+        <span>/</span>
+        <span class="font-semibold text-[#6B0000]">আমার একাউন্ট</span>
+      </div>
+    </section>
+
+    <!-- LOADING STATE -->
+    <section
+      id="profileLoading"
+      class="bg-white border border-red-100 rounded-2xl shadow-sm p-6 flex items-center justify-center text-gray-500 text-sm">
+      আপনার একাউন্ট তথ্য লোড হচ্ছে...
+    </section>
+
+    <!-- ERROR STATE -->
+    <section
+      id="profileError"
+      class="hidden bg-white border border-red-200 rounded-2xl shadow-sm p-6 text-center">
+      <p id="profileErrorText" class="text-sm text-red-600 font-semibold">
+        কিছু সমস্যা হয়েছে, একটু পরে আবার চেষ্টা করুন।
+      </p>
+      <a href="login.html"
+         class="inline-block mt-3 px-5 py-2 rounded-full bg-[#6B0000] text-[#FFD600] text-xs sm:text-sm font-semibold shadow hover:bg-red-900 transition">
+        লগইন পেইজে যান
+      </a>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section id="profileContent" class="hidden space-y-6">
+
+      <!-- TOP GRID: PROFILE + SUMMARY -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+
+        <!-- PROFILE CARD -->
+        <div class="md:col-span-2 bg-white border border-red-100 rounded-2xl shadow-sm p-5 sm:p-6">
+          <div class="flex items-start gap-4">
+
+            <!-- Avatar -->
+            <div
+              class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#B60000] to-[#FFD600] flex items-center justify-center text-white font-bold text-xl shadow-inner">
+              <span id="profileAvatarLetter">U</span>
+            </div>
+
+            <!-- Info -->
+            <div class="flex-1 space-y-1">
+              <h2 id="profileName" class="text-lg sm:text-xl font-extrabold text-[#6B0000]">
+                লোড হচ্ছে...
+              </h2>
+              <p id="profileEmail" class="text-xs sm:text-sm text-gray-600">
+                -
+              </p>
+              <p id="profilePhone" class="text-xs sm:text-sm text-gray-600">
+                মোবাইল: -
+              </p>
+
+              <p class="text-[11px] sm:text-xs text-gray-400 mt-1">
+                একাউন্ট তৈরি হয়েছে:
+                <span id="profileJoinedDate">-</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Edit Button (future use) -->
+          <div class="mt-4 flex flex-wrap items-center gap-2">
+            <button
+              id="editProfileBtn"
+              class="px-4 py-1.5 rounded-full border border-red-200 text-xs sm:text-sm text-gray-700 hover:bg-red-50 transition">
+              ✏️ প্রোফাইল এডিট (শীঘ্রই আসছে)
+            </button>
+          </div>
+        </div>
+
+        <!-- SUMMARY CARD -->
+        <div class="bg-white border border-red-100 rounded-2xl shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="text-sm font-bold text-[#6B0000] flex items-center gap-2">
+            📊 অর্ডার সারাংশ
+          </h3>
+
+          <div class="grid grid-cols-3 gap-3 text-center text-xs sm:text-sm">
+            <div class="bg-red-50 rounded-xl px-2 py-3">
+              <p class="text-[11px] text-gray-500">মোট অর্ডার</p>
+              <p id="summaryTotalOrders" class="text-lg font-extrabold text-[#6B0000]">0</p>
+            </div>
+            <div class="bg-yellow-50 rounded-xl px-2 py-3">
+              <p class="text-[11px] text-gray-500">Pending</p>
+              <p id="summaryPending" class="text-lg font-extrabold text-[#B68A00]">0</p>
+            </div>
+            <div class="bg-green-50 rounded-xl px-2 py-3">
+              <p class="text-[11px] text-gray-500">Completed</p>
+              <p id="summaryCompleted" class="text-lg font-extrabold text-[#15803d]">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER LIST HEADER -->
+      <div class="flex items-center justify-between flex-wrap gap-2 mt-2">
+        <h3 class="text-lg sm:text-xl font-extrabold text-[#6B0000]">
+          আমার অর্ডারসমূহ
+        </h3>
+
+        <select
+          id="orderFilter"
+          class="border border-red-200 rounded-full px-3 py-1.5 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#FFD600]">
+          <option value="all">সকল অর্ডার</option>
+          <option value="pending">শুধু Pending</option>
+          <option value="processing">শুধু Processing</option>
+          <option value="completed">শুধু Completed</option>
+          <option value="cancelled">শুধু Cancelled</option>
+        </select>
+      </div>
+
+      <!-- ORDER LIST -->
+      <section id="ordersContainer" class="space-y-3 mt-2">
+        <!-- JS দিয়ে অর্ডার কার্ড আসবে -->
+      </section>
+
+      <!-- ORDER EMPTY STATE -->
+      <p id="ordersEmpty" class="hidden text-sm text-gray-500 text-center py-8">
+        এখনো কোনো অর্ডার করেননি।
+      </p>
+    </section>
+
+  </main>
+
+  <!-- TOAST FOR LOGOUT -->
+  <div
+    id="logoutToast"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-[#6B0000] text-[#FFD600] text-xs sm:text-sm px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300">
+    সফলভাবে লগআউট হয়েছে
+  </div>
+
+  <!-- JS -->
+  <script src="./user-profile.js"></script>
+</body>
+</html>
