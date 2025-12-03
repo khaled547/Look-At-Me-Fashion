@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="src/output.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  
+  <style>
+    body { font-family: "Inter", sans-serif; }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+
+  <div class="max-w-md mx-auto mt-16 bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+
+    <h1 class="text-2xl font-bold text-center text-red-700 mb-4">
+      Admin Login
+    </h1>
+
+    <div class="space-y-3">
+      <input id="email" class="input" placeholder="Admin Email" />
+      <input id="password" type="password" class="input" placeholder="Password" />
+      <button id="loginBtn" class="btn">Login</button>
+    </div>
+
+    <p id="msg" class="text-center text-red-600 text-sm mt-3"></p>
+  </div>
+
+  <script>
+    const API = "http://localhost:5000/api/users/admin-login";
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const msg = document.getElementById("msg");
+
+      if (!email || !password) {
+        msg.textContent = "Email এবং Password প্রয়োজন!";
+        return;
+      }
+
+      try {
+        const res = await fetch(API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          msg.textContent = data.message || "Unauthorized Admin!";
+          return;
+        }
+
+        // Save token
+        localStorage.setItem("lmf_admin_token", data.token);
+        localStorage.setItem("lmf_admin_user", JSON.stringify(data.user));
+
+        msg.style.color = "green";
+        msg.textContent = "Admin Login Successful...";
+
+        setTimeout(() => {
+          window.location.href = "admin-dashboard.html";
+        }, 1200);
+
+      } catch (error) {
+        msg.textContent = "Server Error!";
+        console.error(error);
+      }
+    });
+  </script>
+
+  <style>
+    .input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #f3caca;
+      border-radius: 10px;
+      background: #fff8f8;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #FFD600;
+      color: #6B0000;
+      border-radius: 10px;
+      font-weight: 700;
+      margin-top: 5px;
+    }
+  </style>
+</body>
+</html>

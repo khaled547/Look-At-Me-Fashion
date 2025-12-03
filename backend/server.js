@@ -14,6 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//adminRotes
+app.use("/api/admin", require("./routes/adminRoutes"));
+
+
 // --------------------------------------
 // ROUTES IMPORT
 // --------------------------------------

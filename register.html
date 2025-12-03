@@ -40,26 +40,48 @@
     const API = "http://localhost:5000/api/users/register";
 
     document.getElementById("registerBtn").addEventListener("click", async () => {
-      const data = {
-        name: name.value,
-        phone: phone.value,
-        email: email.value,
-        password: password.value
-      };
 
-      const res = await fetch(API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const msg = document.getElementById("msg");
 
-      const json = await res.json();
-      document.getElementById("msg").textContent = json.msg;
+      if (!name || !password) {
+        msg.textContent = "Name এবং Password প্রয়োজন!";
+        return;
+      }
 
-      if (res.ok) {
+      const bodyData = { name, email, password, phone };
+
+      try {
+        const res = await fetch(API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bodyData)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          msg.textContent = data.message || (data.errors?.[0]?.msg);
+          return;
+        }
+
+        msg.style.color = "green";
+        msg.textContent = "Registration Successful! Redirecting...";
+
+        // token store করা
+        localStorage.setItem("lmf_token", data.token);
+        localStorage.setItem("lmf_user", JSON.stringify(data.user));
+
         setTimeout(() => {
           window.location.href = "login.html";
-        }, 1000);
+        }, 1200);
+
+      } catch (error) {
+        msg.textContent = "Something went wrong!";
+        console.error(error);
       }
     });
   </script>

@@ -18,6 +18,10 @@
       font-family: "Poppins", sans-serif;
       background: #fff5f5;
     }
+    .wishlist-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    }
   </style>
 </head>
 
@@ -61,10 +65,98 @@
     </div>
 
     <!-- Wishlist List -->
-    <div id="wishlistList" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 hidden"></div>
+    <div id="wishlistList"
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 hidden">
+    </div>
 
   </main>
 
-  <script src="./wishlist.js"></script>
+  <!-- ========================================= -->
+  <!-- WISHLIST JAVASCRIPT MERGED HERE           -->
+  <!-- ========================================= -->
+  <script>
+    const WISHLIST_KEY = "lmf_wishlist";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const wishlistList = document.getElementById("wishlistList");
+      const wishlistEmpty = document.getElementById("wishlistEmpty");
+
+      let wishlist = [];
+
+      // Load from localStorage
+      function loadWishlist() {
+        try {
+          const data = localStorage.getItem(WISHLIST_KEY);
+          wishlist = data ? JSON.parse(data) : [];
+        } catch {
+          wishlist = [];
+        }
+      }
+
+      // Save wishlist
+      function saveWishlist() {
+        localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
+      }
+
+      // Remove item
+      function removeItem(productId) {
+        wishlist = wishlist.filter((p) => p.id !== productId);
+        saveWishlist();
+        renderWishlist();
+      }
+
+      // Render UI
+      function renderWishlist() {
+        loadWishlist();
+
+        if (wishlist.length === 0) {
+          wishlistEmpty.classList.remove("hidden");
+          wishlistList.classList.add("hidden");
+          return;
+        }
+
+        wishlistEmpty.classList.add("hidden");
+        wishlistList.classList.remove("hidden");
+        wishlistList.innerHTML = "";
+
+        wishlist.forEach((item) => {
+          const card = document.createElement("div");
+          card.className =
+            "wishlist-card bg-white border border-red-200 rounded-2xl shadow p-3 relative transition hover:bg-red-50";
+
+          card.innerHTML = `
+            <button class="removeBtn absolute top-2 right-2 text-red-600 text-xl font-bold hover:text-red-800">×</button>
+
+            <img src="image/${item.image}" 
+                 onerror="this.src='https://via.placeholder.com/300?text=No+Image'"
+                 class="w-full h-40 object-cover rounded-lg" />
+
+            <h3 class="mt-2 font-semibold text-gray-800 text-sm line-clamp-2">
+              ${item.name}
+            </h3>
+
+            <p class="text-[#6B0000] font-bold text-sm">
+              ৳ ${item.price}
+            </p>
+
+            <a href="single-product.html?id=${item.id}"
+               class="block text-center mt-2 bg-[#FFD600] text-[#6B0000] py-1.5 text-sm rounded-full font-semibold hover:bg-[#ffea80] transition">
+              View Details
+            </a>
+          `;
+
+          // Remove button
+          card.querySelector(".removeBtn").addEventListener("click", () => {
+            removeItem(item.id);
+          });
+
+          wishlistList.appendChild(card);
+        });
+      }
+
+      renderWishlist();
+    });
+  </script>
+
 </body>
 </html>

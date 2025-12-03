@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Details - Look At Me Fashion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS -->
+  <link href="src/output.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #fff5f5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 bg-white/95 backdrop-blur shadow border-b border-red-200 z-50">
+    <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
+
+      <a href="index.html">
+        <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
+          <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg">
+            LOOK AT ME FASHION
+          </span>
+        </div>
+      </a>
+
+      <a href="my-orders.html"
+        class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+        ← Back to Orders
+      </a>
+
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-3xl mx-auto px-4 lg:px-8 py-8">
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#6B0000] mb-6">
+      Order Details 🧾
+    </h1>
+
+    <!-- Loading -->
+    <div id="loading" class="text-center text-gray-500 py-12 text-sm">
+      Loading order details...
+    </div>
+
+    <!-- Error -->
+    <div id="errorBox"
+         class="hidden bg-white border border-red-300 text-center py-12 rounded-2xl shadow text-red-600 font-semibold">
+      Failed to load order details.
+    </div>
+
+    <!-- Order Details Container -->
+    <div id="orderBox" class="hidden space-y-6">
+
+      <!-- Order Info -->
+      <div class="bg-white border border-red-200 rounded-2xl shadow p-5">
+        <h2 class="text-xl font-bold text-[#6B0000] mb-3">Order Summary</h2>
+
+        <p class="text-sm"><strong>Order ID:</strong> <span id="oId"></span></p>
+        <p class="text-sm"><strong>Status:</strong>
+          <span id="oStatus" class="px-3 py-1 text-xs rounded-full font-bold"></span>
+        </p>
+        <p class="text-sm"><strong>Date:</strong> <span id="oDate"></span></p>
+        <p class="text-sm"><strong>Phone:</strong> <span id="oPhone"></span></p>
+        <p class="text-sm"><strong>Address:</strong> <span id="oAddress"></span></p>
+
+        <p class="text-lg font-bold text-[#6B0000] mt-3">
+          Total: ৳ <span id="oTotal"></span>
+        </p>
+      </div>
+
+      <!-- ITEMS LIST -->
+      <div class="bg-white border border-red-200 rounded-2xl shadow p-5">
+        <h2 class="text-xl font-bold text-[#6B0000] mb-4">Ordered Items</h2>
+
+        <div id="itemsList" class="space-y-3"></div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- JAVASCRIPT (Combined) -->
+  <script>
+    const token = localStorage.getItem("lmf_token");
+    const API_BASE = "http://localhost:5000/api/orders/order";
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    // Get order id from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get("id");
+
+    const loading = document.getElementById("loading");
+    const errorBox = document.getElementById("errorBox");
+    const orderBox = document.getElementById("orderBox");
+
+    // Order Summary Elements
+    const oId = document.getElementById("oId");
+    const oStatus = document.getElementById("oStatus");
+    const oDate = document.getElementById("oDate");
+    const oPhone = document.getElementById("oPhone");
+    const oAddress = document.getElementById("oAddress");
+    const oTotal = document.getElementById("oTotal");
+
+    const itemsList = document.getElementById("itemsList");
+
+    async function loadOrder() {
+      try {
+        const res = await fetch(`${API_BASE}/${orderId}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        const data = await res.json();
+
+        loading.classList.add("hidden");
+
+        if (!res.ok) {
+          errorBox.classList.remove("hidden");
+          return;
+        }
+
+        // Show order box
+        orderBox.classList.remove("hidden");
+
+        // Fill Order Info
+        oId.textContent = orderId.slice(-6).toUpperCase();
+        oPhone.textContent = data.phone || "N/A";
+        oAddress.textContent = data.address || "Not Provided";
+        oTotal.textContent = data.total || 0;
+
+        // Status styling
+        const status = data.status.toLowerCase();
+        oStatus.textContent = status.toUpperCase();
+
+        if (status === "pending") {
+          oStatus.className += " bg-yellow-100 text-yellow-700 border border-yellow-300";
+        } else if (status === "processing") {
+          oStatus.className += " bg-blue-100 text-blue-700 border border-blue-300";
+        } else if (status === "completed") {
+          oStatus.className += " bg-green-100 text-green-700 border border-green-300";
+        } else {
+          oStatus.className += " bg-red-100 text-red-700 border border-red-300";
+        }
+
+        // Date
+        const dateObj = new Date(data.createdAt);
+        oDate.textContent = dateObj.toLocaleDateString("bn-BD");
+
+        // Items
+        itemsList.innerHTML = "";
+
+        data.items.forEach(item => {
+          const row = document.createElement("div");
+          row.className =
+            "flex gap-3 border border-red-100 rounded-xl p-3 bg-white hover:bg-red-50 transition";
+
+          row.innerHTML = `
+            <div class="w-16 h-16 rounded-lg overflow-hidden">
+              <img src="image/${item.image}" 
+                   onerror="this.src='https://via.placeholder.com/100'"
+                   class="w-full h-full object-cover">
+            </div>
+
+            <div class="flex-1">
+              <p class="font-semibold text-sm">${item.name}</p>
+              <p class="text-xs text-gray-500">Qty: ${item.qty}</p>
+            </div>
+
+            <p class="font-bold text-[#6B0000] text-sm">
+              ৳ ${item.price}
+            </p>
+          `;
+
+          itemsList.appendChild(row);
+        });
+
+      } catch (error) {
+        console.log(error);
+        loading.textContent = "Failed to load order details.";
+      }
+    }
+
+    loadOrder();
+  </script>
+
+</body>
+</html>

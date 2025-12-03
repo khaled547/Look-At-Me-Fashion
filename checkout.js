@@ -1,9 +1,18 @@
-// checkout.js
-// Look At Me Fashion
+// =============================================
+// checkout.js - Look At Me Fashion (UPDATED)
+// =============================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
   const CART_KEY = "lmf_cart";
+  const token = localStorage.getItem("lmf_token");
+  const user = JSON.parse(localStorage.getItem("lmf_user"));
+
+  // If user not logged in → redirect to login
+  if (!token || !user) {
+    window.location.href = "login.html";
+    return;
+  }
 
   const checkoutItems = document.getElementById("checkoutItems");
   const checkoutTotal = document.getElementById("checkoutTotal");
@@ -17,11 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Load Cart
   function loadCart() {
-    const stored = localStorage.getItem(CART_KEY);
-    cart = stored ? JSON.parse(stored) : [];
+    try {
+      cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    } catch {
+      cart = [];
+    }
   }
 
-  // Render UI
+  // Render Checkout UI
   function renderCheckout() {
     loadCart();
     checkoutItems.innerHTML = "";
@@ -45,9 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCheckout();
 
 
+  // ================================
   // Place Order
-  placeOrderBtn.addEventListener("click", () => {
-    
+  // ================================
+  placeOrderBtn.addEventListener("click", async () => {
+
     const name = nameInput.value.trim();
     const phone = phoneInput.value.trim();
     const address = addressInput.value.trim();
@@ -62,33 +76,54 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const total = Number(checkoutTotal.textContent.replace("৳", "").trim());
+
+    // Backend Order Format
     const orderData = {
+      user: user.id,      // logged-in user ID
       customerName: name,
       phone,
       address,
-      items: cart,
-      totalAmount: checkoutTotal.textContent.replace("৳", "").trim(),
+      items: cart.map(item => ({
+        productId: item.id,
+        name: item.name,
+        qty: item.qty,
+        price: item.price,
+        image: item.image
+      })),
+      total: total,
+      status: "pending"
     };
 
-    // Send to backend
-    fetch("http://localhost:5000/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData)
-    })
-      .then(res => res.json())
-      .then(data => {
-        // Clear cart
-        localStorage.removeItem(CART_KEY);
-
-        // Redirect
-        window.location.href = `order-success.html?orderId=${data._id}`;
-      })
-      .catch(err => {
-        console.error(err);
-        alert("Order failed. Try again!");
+    try {
+      const res = await fetch("http://localhost:5000/api/orders", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(orderData)
       });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Order failed!");
+        return;
+      }
+
+      // Clear cart
+      localStorage.removeItem(CART_KEY);
+
+      // Redirect to success page
+      window.location.href = `order-success.html?orderId=${data._id}`;
+
+    } catch (err) {
+      console.error(err);
+      alert("Order failed. Try again!");
+    }
 
   });
 
 });
+

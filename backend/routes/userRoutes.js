@@ -1,66 +1,84 @@
+// backend/routes/userRoutes.js
 const express = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const { body } = require("express-validator");
+
+const {
+  registerUser,
+  loginUser,
+  getMe,
+  updateMe,
+  adminLogin,   // ⭐ Admin Login Controller
+} = require("../controllers/userController");
+
+const { protect, adminOnly } = require("../middleware/authMiddleware");
 
 const router = express.Router();
-const User = require("../models/user");
 
+/**
+ * ==============================
+ * USER REGISTRATION
+ * ==============================
+ */
+router.post(
+  "/register",
+  [
+    body("name").notEmpty().withMessage("Name is required"),
+    body("email").isEmail().withMessage("Valid email required"),
+    body("password")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters"),
+  ],
+  registerUser
+);
 
-// REGISTER
-router.post("/register", async (req, res) => {
-  try {
-    const { name, phone, email, password } = req.body;
+/**
+ * ==============================
+ * NORMAL USER LOGIN
+ * ==============================
+ */
+router.post(
+  "/login",
+  [
+    body("email").isEmail().withMessage("Valid email required"),
+    body("password").notEmpty().withMessage("Password is required"),
+  ],
+  loginUser
+);
 
-    const exist = await User.findOne({ phone });
-    if (exist) return res.status(400).json({ msg: "Phone already registered" });
+/**
+ * ==============================
+ * ADMIN LOGIN  ⭐ NEW
+ * ==============================
+ */
+router.post(
+  "/admin-login",
+  [
+    body("email").isEmail().withMessage("Valid email required"),
+    body("password").notEmpty().withMessage("Password is required"),
+  ],
+  adminLogin
+);
 
-    const hash = await bcrypt.hash(password, 10);
+/**
+ * ==============================
+ * GET LOGGED-IN USER PROFILE
+ * ==============================
+ */
+router.get("/me", protect, getMe);
 
-    const user = await User.create({
-      name,
-      phone,
-      email,
-      password: hash
-    });
+/**
+ * ==============================
+ * UPDATE PROFILE
+ * ==============================
+ */
+router.put("/me", protect, updateMe);
 
-    res.json({ msg: "Registered successfully", user });
-  } catch (err) {
-    res.status(500).json({ msg: "Error", error: err.message });
-  }
-});
-
-
-// LOGIN
-router.post("/login", async (req, res) => {
-  try {
-    const { phone, password } = req.body;
-
-    const user = await User.findOne({ phone });
-    if (!user) return res.status(400).json({ msg: "User not found" });
-
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(400).json({ msg: "Wrong password" });
-
-    const token = jwt.sign(
-      { id: user._id, phone: user.phone, role: user.role },
-      "SECRET_KEY",
-      { expiresIn: "7d" }
-    );
-
-    res.json({
-      msg: "Logged in",
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        phone: user.phone,
-        role: user.role
-      }
-    });
-
-  } catch (err) {
-    res.status(500).json({ msg: "Login error", error: err.message });
-  }
-});
+/**
+ * ==============================
+ * FUTURE ADMIN ROUTES
+ * ==============================
+ */
+// router.get("/all", protect, adminOnly, getAllUsers);
+// router.delete("/:id", protect, adminOnly, deleteUser);
 
 module.exports = router;
