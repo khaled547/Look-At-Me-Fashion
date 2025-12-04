@@ -18,122 +18,269 @@
   <style>
     body {
       font-family: "Inter", "Poppins", sans-serif;
-      background: #fff7f7;
+      background: #fff6f6;
+    }
+
+    .input {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #f3c8c8;
+      border-radius: 10px;
+      background: white;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    .input:focus {
+      border-color: #FFD600;
+      box-shadow: 0 0 0 2px #ffec8c;
+      outline: none;
+    }
+
+    /* Toast Styling */
+    #toast {
+      transition: all 0.4s ease;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="sticky top-0 bg-white/90 backdrop-blur shadow border-b border-red-200 z-50">
-    <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
+<!-- ========================================= -->
+<!-- HEADER SECTION -->
+<!-- ========================================= -->
+<header class="sticky top-0 bg-white/95 backdrop-blur shadow border-b border-red-200 z-50">
+  <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
 
-      <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
-        <span class="text-[#FFD600] font-extrabold text-sm tracking-wide">
-          ADMIN PANEL – EDIT PRODUCT
-        </span>
+    <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
+      <span class="text-[#FFD600] font-extrabold text-sm tracking-wide">
+        ADMIN PANEL – EDIT PRODUCT
+      </span>
+    </div>
+
+    <a href="admin-dashboard.html"
+      class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+      ← Dashboard
+    </a>
+
+  </nav>
+</header>
+
+
+<!-- ========================================= -->
+<!-- MAIN SECTION -->
+<!-- ========================================= -->
+<main class="max-w-3xl mx-auto px-4 lg:px-8 py-6 space-y-6">
+
+  <!-- Title -->
+  <section>
+    <h1 class="text-3xl font-extrabold text-[#6B0000]">Edit Product</h1>
+    <p id="editSubtitle" class="text-sm text-gray-500">Loading product...</p>
+  </section>
+
+  <!-- FORM CARD -->
+  <section class="bg-white border border-red-200 rounded-2xl shadow p-5 space-y-4">
+
+    <!-- Loading -->
+    <div id="loadingBox" class="text-center py-10 text-gray-600">
+      Loading product details...
+    </div>
+
+    <!-- Error -->
+    <div id="errorBox" class="hidden text-center py-10 text-red-600 font-semibold">
+      Product not found ❌
+    </div>
+
+    <!-- FORM -->
+    <form id="editForm" class="space-y-4 hidden">
+
+      <!-- Name -->
+      <div>
+        <label class="block text-xs font-semibold text-gray-700 mb-1">Product Name</label>
+        <input id="prodName" class="input" required />
       </div>
 
-      <a href="admin-dashboard.html"
-        class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 py-1.5 rounded-full hover:bg-[#FFD600] transition">
-        ← Dashboard
-      </a>
-
-    </nav>
-  </header>
-
-  <!-- MAIN -->
-  <main class="max-w-3xl mx-auto px-4 lg:px-8 py-6 space-y-6">
-
-    <!-- TITLE -->
-    <section>
-      <h1 class="text-3xl font-extrabold text-[#6B0000]">Edit Product</h1>
-      <p class="text-sm text-gray-500" id="editSubtitle">Loading product...</p>
-    </section>
-
-    <!-- EDIT FORM -->
-    <section class="bg-white border border-red-200 rounded-2xl shadow p-4 sm:p-6 space-y-4">
-
-      <form id="editForm" class="space-y-4 hidden">
-
-        <!-- NAME -->
+      <!-- Price + Category -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs font-semibold text-gray-700 mb-1">Product Name</label>
-          <input id="prodName" required class="input">
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Price (৳)</label>
+          <input id="prodPrice" type="number" class="input" required />
         </div>
 
-        <!-- PRICE + CATEGORY -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-gray-700 mb-1">Price (৳)</label>
-            <input id="prodPrice" type="number" required class="input">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-gray-700 mb-1">Category</label>
-            <input id="prodCategory" required class="input">
-          </div>
-        </div>
-
-        <!-- IMAGE -->
         <div>
-          <label class="block text-xs font-semibold text-gray-700 mb-1">Image File Name</label>
-          <input id="prodImage" required class="input">
+          <label class="block text-xs font-semibold text-gray-700 mb-1">Category</label>
+          <input id="prodCategory" class="input" required />
         </div>
+      </div>
 
-        <!-- DESCRIPTION -->
-        <div>
-          <label class="block text-xs font-semibold text-gray-700 mb-1">Description</label>
-          <textarea id="prodDesc" rows="3" class="input resize-y"></textarea>
-        </div>
+      <!-- Image -->
+      <div>
+        <label class="block text-xs font-semibold text-gray-700 mb-1">Image File Name</label>
+        <input id="prodImage" class="input" required />
+      </div>
 
-        <!-- BUTTONS -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
-          <button type="submit"
-            class="px-6 py-2.5 bg-[#FFD600] border border-[#FFD600] rounded-full text-[#6B0000] font-bold hover:bg-white shadow transition">
-            💾 Update Product
-          </button>
+      <!-- Description -->
+      <div>
+        <label class="block text-xs font-semibold text-gray-700 mb-1">Description</label>
+        <textarea id="prodDesc" rows="3" class="input resize-y"></textarea>
+      </div>
 
-          <button id="deleteBtn" type="button"
-            class="px-6 py-2.5 bg-red-600 text-white rounded-full font-bold hover:bg-red-700 shadow transition">
-            🗑 Delete Product
-          </button>
-        </div>
-      </form>
+      <!-- Buttons -->
+      <div class="flex flex-col sm:flex-row justify-between gap-3 pt-3">
+        <button
+          type="submit"
+          class="px-6 py-2.5 bg-[#FFD600] border border-[#FFD600] rounded-full text-[#6B0000] font-bold hover:bg-white shadow transition">
+          💾 Update Product
+        </button>
 
-      <!-- Loading -->
-      <div id="loadingBox" class="text-center py-10 text-gray-600">Loading...</div>
+        <button
+          id="deleteBtn"
+          type="button"
+          class="px-6 py-2.5 bg-red-600 text-white rounded-full font-bold hover:bg-red-700 shadow transition">
+          🗑 Delete Product
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
 
-      <!-- Error -->
-      <div id="errorBox" class="hidden text-center py-10 text-red-600 font-semibold">Product not found.</div>
+<!-- ========================================= -->
+<!-- TOAST -->
+<!-- ========================================= -->
+<div id="toast"
+  class="fixed bottom-6 right-6 bg-[#6B0000] text-[#FFD600] text-sm px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none">
+  Saved!
+</div>
 
-    </section>
-  </main>
 
-  <!-- TOAST -->
-  <div id="toast"
-    class="fixed bottom-6 right-6 bg-[#6B0000] text-[#FFD600] text-sm px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300">
-    Saved!
-  </div>
+<!-- ===================================================== -->
+<!-- INLINE JAVASCRIPT (MERGED JS)                        -->
+<!-- ===================================================== -->
+<script>
+  const API_URL = "http://localhost:5000/api/products";
 
-  <script src="./admin-edit-product.js"></script>
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
 
-  <style>
-    .input {
-      width: 100%;
-      padding: 0.55rem 0.75rem;
-      border: 1px solid #f3c8c8;
-      border-radius: 8px;
-      background: #fff;
-      font-size: 14px;
-      outline: none;
+  // DOM Elements
+  const form = document.getElementById("editForm");
+  const loadingBox = document.getElementById("loadingBox");
+  const errorBox = document.getElementById("errorBox");
+  const subtitle = document.getElementById("editSubtitle");
+
+  const toast = document.getElementById("toast");
+
+  // Inputs
+  const nameEl = document.getElementById("prodName");
+  const priceEl = document.getElementById("prodPrice");
+  const categoryEl = document.getElementById("prodCategory");
+  const imageEl = document.getElementById("prodImage");
+  const descEl = document.getElementById("prodDesc");
+
+  const deleteBtn = document.getElementById("deleteBtn");
+
+
+  /* ----------------------------------------------------
+     Load Product From API
+  ---------------------------------------------------- */
+  async function loadProduct() {
+    try {
+      const res = await fetch(`${API_URL}/${productId}`);
+
+      if (!res.ok) throw new Error();
+
+      const product = await res.json();
+
+      // Fill form fields
+      nameEl.value = product.name;
+      priceEl.value = product.price;
+      categoryEl.value = product.category;
+      imageEl.value = product.image;
+      descEl.value = product.description || "";
+
+      subtitle.textContent = `Editing: ${product.name}`;
+      form.classList.remove("hidden");
+      loadingBox.classList.add("hidden");
+
+    } catch (err) {
+      loadingBox.classList.add("hidden");
+      errorBox.classList.remove("hidden");
     }
-    .input:focus {
-      border-color: #FFD600;
-      box-shadow: 0 0 0 2px #ffe469;
+  }
+
+  loadProduct();
+
+
+  /* ----------------------------------------------------
+     Update Product
+  ---------------------------------------------------- */
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const updatedData = {
+      name: nameEl.value.trim(),
+      price: Number(priceEl.value),
+      category: categoryEl.value.trim(),
+      image: imageEl.value.trim(),
+      description: descEl.value.trim(),
+    };
+
+    try {
+      const res = await fetch(`${API_URL}/${productId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (!res.ok) throw new Error();
+
+      showToast("Product Updated Successfully! 🎉");
+
+    } catch (err) {
+      showToast("Update Failed ❌");
     }
-  </style>
+  });
+
+
+  /* ----------------------------------------------------
+     Delete Product
+  ---------------------------------------------------- */
+  deleteBtn.addEventListener("click", async () => {
+    const sure = confirm("আপনি কি সত্যিই এই পণ্যটি মুছে ফেলতে চান?");
+    if (!sure) return;
+
+    try {
+      const res = await fetch(`${API_URL}/${productId}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error();
+
+      showToast("Deleted Successfully 🗑");
+
+      setTimeout(() => {
+        window.location.href = "admin-dashboard.html";
+      }, 1200);
+
+    } catch (err) {
+      showToast("Delete Failed ❌");
+    }
+  });
+
+
+  /* ----------------------------------------------------
+     Toast Notification Function
+  ---------------------------------------------------- */
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.remove("opacity-0", "pointer-events-none");
+    toast.classList.add("opacity-100");
+
+    setTimeout(() => {
+      toast.classList.remove("opacity-100");
+      toast.classList.add("opacity-0", "pointer-events-none");
+    }, 1800);
+  }
+</script>
 
 </body>
 </html>

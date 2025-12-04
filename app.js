@@ -1,10 +1,21 @@
 /********************************************
  * UTILITY HELPERS (GLOBAL)
  ********************************************/
+
+// আইডি দিয়ে element নেওয়ার শর্টকাট
 const $ = (id) => document.getElementById(id);
+
+// CSS selector দিয়ে একাধিক element নেওয়ার শর্টকাট
 const $$ = (selector) => document.querySelectorAll(selector);
 
+/**
+ * বাইরে ক্লিক করলে যে কোনো popup/drawer বন্ধ করার helper
+ * element = যে বক্স/মেনু বন্ধ করতে হবে
+ * except  = যে বাটনে ক্লিক করলে বক্স খুলে (ওইটার উপরে ক্লিক করলে আবার বন্ধ হবে না)
+ */
 function clickOutside(element, except, callback) {
+  if (!element || !except || !callback) return; // সেফটি চেক
+
   document.addEventListener("click", (e) => {
     if (!element.contains(e.target) && !except.contains(e.target)) {
       callback();
@@ -17,8 +28,10 @@ function clickOutside(element, except, callback) {
  * - Same structure as single-product.js / cart page
  * - localStorage key: "lmf_cart"
  ********************************************/
+
 const CART_KEY = "lmf_cart";
 
+// localStorage থেকে cart বের করা
 function getCart() {
   try {
     const stored = localStorage.getItem(CART_KEY);
@@ -31,6 +44,7 @@ function getCart() {
   }
 }
 
+// cart localStorage এ সেভ করা
 function saveCart(cart) {
   try {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -59,6 +73,7 @@ function updateCartBadge() {
  * MASTER INIT (DOM READY)
  ********************************************/
 document.addEventListener("DOMContentLoaded", () => {
+  // Header / Navbar
   initSearchBox();
   initWishlistToggle();
   initUserMenu();
@@ -66,12 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initStickyHeader();
   initSmoothScroll();
   initMobileMenu();
+  initMobileShopMenu();
   initBottomMenu();
   initActiveNavHighlight();
   initGlobalEscapeClose();
   initHeaderScrollHide();
 
-  /* ADD THESE */
+  // Home page sections (যদি ওই সেকশনগুলো থাকে)
   initCategoryPremium();
   initProductSystem();
   initNewArrivalSlider();
@@ -79,14 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initTestimonialsEffects();
   initOfferBannerEffects();
   initFooterPro();
-  initMobileShopMenu();
 
-  // 🔔 Page load হওয়ার সাথে সাথে cart badge sync
+  // পেজ লোডে cart badge sync
   updateCartBadge();
 });
 
 /********************************************
- * MOBILE MENU
+ * MOBILE MENU (hamburger)
  ********************************************/
 function initMobileMenu() {
   const btn = $("mobileMenuBtn");
@@ -94,15 +109,20 @@ function initMobileMenu() {
 
   if (!btn || !menu) return;
 
-  btn.addEventListener("click", () => {
-    const open = menu.style.maxHeight && menu.style.maxHeight !== "0px";
+  // শুরুতেই style সেট না থাকলে 0 করে দিই
+  if (!menu.style.maxHeight) {
+    menu.style.maxHeight = "0px";
+  }
 
-    if (open) {
+  btn.addEventListener("click", () => {
+    const isOpen = menu.style.maxHeight && menu.style.maxHeight !== "0px";
+
+    if (isOpen) {
       // বন্ধ করার সময়
       menu.style.maxHeight = "0px";
       setTimeout(() => menu.classList.add("hidden"), 250);
     } else {
-      // খোলার সময় => content যত লম্বা, height তত
+      // খোলার সময় => content এর আসল height অনুযায়ী
       menu.classList.remove("hidden");
       menu.style.maxHeight = menu.scrollHeight + "px"; // ✅ auto height
     }
@@ -113,8 +133,8 @@ function initMobileMenu() {
  * MOBILE SHOP DROPDOWN (inside mobile menu)
  ********************************************/
 function initMobileShopMenu() {
-  const btn = $("mobileMenuShop"); // mobile menu তে SHOP button
-  const menu = $("mobileShopMenu"); // dropdown box
+  const btn = $("mobileMenuShop");   // mobile menu তে SHOP button
+  const menu = $("mobileShopMenu");  // dropdown box
 
   if (!btn || !menu) return;
 
@@ -124,53 +144,96 @@ function initMobileShopMenu() {
 }
 
 /********************************************
- * SEARCH BOX
+ * SEARCH BOX (Navbar search)
  ********************************************/
 function initSearchBox() {
-  const searchBtn = $("searchBtn");
-  const searchBox = $("searchBox");
-  const searchClose = $("searchClose");
-  const searchInput = $("searchInput");
+  const searchBtn = $("searchBtn");      // 🔍 বাটন (header)
+  const searchBox = $("searchBox");      // ড্রপডাউন বক্স
+  const searchClose = $("searchClose");  // ✕ ক্লোজ বাটন
+  const searchInput = $("searchInput");  // ইনপুট ফিল্ড
 
   if (!searchBtn || !searchBox) return;
 
-  // Open
+  // ওপেন / ক্লোজ টগল
   searchBtn.addEventListener("click", (e) => {
     e.stopPropagation();
+    const willOpen = searchBox.classList.contains("hidden");
     searchBox.classList.toggle("hidden");
-    if (!searchBox.classList.contains("hidden")) searchInput?.focus();
+
+    if (willOpen && searchInput) {
+      // একটু delay দিয়ে focus দিলে UX ভালো লাগে
+      setTimeout(() => searchInput.focus(), 50);
+    }
   });
 
+  // ক্লোজ বাটন
   searchClose?.addEventListener("click", () => {
     searchBox.classList.add("hidden");
   });
 
+  // বক্সের বাইরে ক্লিক করলে বন্ধ
   clickOutside(searchBox, searchBtn, () => searchBox.classList.add("hidden"));
+
+  // ✅ Enter প্রেস করলে products page এ search query পাঠিয়ে redirect
+  // উদাহরণ: products.html?search=bag
+  if (searchInput) {
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const q = searchInput.value.trim();
+        if (!q) return;
+        const encoded = encodeURIComponent(q);
+        window.location.href = `products.html?search=${encoded}`;
+      }
+    });
+  }
 }
 
 /********************************************
- * HEADER WISHLIST
+ * HEADER WISHLIST BUTTON (New HTML Compatible)
  ********************************************/
+/**
+ * আগের ভার্সনে wishIcon SVG ছিল, এখন শুধু ❤️ বাটন আছে।
+ * তাই এখানে আমরা শুধু ছোট tap animation আর সেফ হ্যান্ডলিং রাখছি।
+ * Navigation ইতিমধ্যে HTML এ `onclick="location.href='wishlist.html'"` দিয়ে করা আছে।
+ */
 function initWishlistToggle() {
   const wishBtn = $("wishBtn");
-  const wishIcon = $("wishIcon");
-  if (!wishBtn || !wishIcon) return;
 
-  let active = localStorage.getItem("headerWish") === "true";
+  // যদি header এ wishlist বাটনই না থাকে, কিছু করার দরকার নাই
+  if (!wishBtn) return;
 
-  const update = () => {
-    wishIcon.setAttribute("fill", active ? "#B60000" : "none");
-    wishIcon.setAttribute("stroke", active ? "#B60000" : "currentColor");
-  };
+  // মোবাইলে নীল tap highlight remove
+  wishBtn.style.webkitTapHighlightColor = "transparent";
 
-  update();
+  // ছোট press অ্যানিমেশন (mobile + desktop দুটোতেই সুন্দর দেখায়)
+  const addPress = () => wishBtn.classList.add("scale-95");
+  const removePress = () => wishBtn.classList.remove("scale-95");
 
-  wishBtn.addEventListener("click", () => {
-    active = !active;
-    update();
-    localStorage.setItem("headerWish", active);
-  });
+  wishBtn.addEventListener("mousedown", addPress);
+  wishBtn.addEventListener("mouseup", removePress);
+  wishBtn.addEventListener("mouseleave", removePress);
+
+  wishBtn.addEventListener(
+    "touchstart",
+    () => {
+      addPress();
+    },
+    { passive: true }
+  );
+  wishBtn.addEventListener(
+    "touchend",
+    () => {
+      removePress();
+    },
+    { passive: true }
+  );
+
+  // 👉 NOTE:
+  // এখানে আর wishIcon / localStorage headerWish ব্যবহার করছি না,
+  // কারণ নতুন HTML এ আলাদা কোনো icon element নেই।
+  // Wishlist এর data সময় products / single-product পেইজে handle হবে।
 }
+
 
 /********************************************
  * USER MENU
@@ -693,6 +756,7 @@ function initAuthModal() {
 }
 
 /*
+/**
  * NEW ARRIVAL SLIDER (Smart + Mobile Perfect Edition)
  * ----------------------------------------------------------
  * ✓ Arrow control
@@ -701,44 +765,69 @@ function initAuthModal() {
  * ✓ Mobile swipe boost
  * ✓ Auto snap to nearest card
  * ✓ Disable/Enable arrows on edges
- * ✓ Clean & readable code
+ * ✓ Responsive STEP (card width অনুযায়ী)
  */
 function initNewArrivalSlider() {
   const slider = document.getElementById("arrivalSlider");
   const next = document.getElementById("arrivalNext");
   const prev = document.getElementById("arrivalPrev");
 
+  // সেফটি চেক – কিছু না পেলে সরাসরি return
   if (!slider || !next || !prev) return;
 
-  /* -------------------------------
-     Basic Setup
-  ------------------------------- */
-  const STEP = 280; // slide distance
-  const cards = slider.children;
+  // সব card element গুলো সংগ্রহ করি
+  const cards = Array.from(slider.children).filter(
+    (el) => el.nodeType === 1
+  );
+  if (!cards.length) {
+    // যদি কার্ডই না থাকে → arrow দরকার নেই
+    next.style.display = "none";
+    prev.style.display = "none";
+    return;
+  }
 
-  // Remove mobile tap highlight
+  // STEP = প্রথম কার্ডের width + একটু gap (responsive)
+  let STEP = 280;
+  const firstCardWidth = cards[0].offsetWidth;
+  if (firstCardWidth && !Number.isNaN(firstCardWidth)) {
+    STEP = firstCardWidth + 24; // 24px মানে approx gap
+  }
+
+  // Mobile tap highlight remove
   slider.style.webkitTapHighlightColor = "transparent";
 
   /* -------------------------------
      Arrow Controls
   ------------------------------- */
-  next.addEventListener("click", () =>
-    slider.scrollBy({ left: STEP, behavior: "smooth" })
-  );
+  next.addEventListener("click", () => {
+    slider.scrollBy({ left: STEP, behavior: "smooth" });
+  });
 
-  prev.addEventListener("click", () =>
-    slider.scrollBy({ left: -STEP, behavior: "smooth" })
-  );
+  prev.addEventListener("click", () => {
+    slider.scrollBy({ left: -STEP, behavior: "smooth" });
+  });
 
   /* -------------------------------
      Disable arrows on edges
   ------------------------------- */
   function updateArrows() {
-    prev.style.opacity = slider.scrollLeft <= 10 ? "0.3" : "1";
-    next.style.opacity =
-      slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10
-        ? "0.3"
-        : "1";
+    // বাম দিকে আর স্ক্রল করার জায়গা নেই
+    if (slider.scrollLeft <= 10) {
+      prev.style.opacity = "0.3";
+      prev.style.pointerEvents = "none";
+    } else {
+      prev.style.opacity = "1";
+      prev.style.pointerEvents = "auto";
+    }
+
+    // ডান দিকের শেষ প্রান্তে পৌঁছে গেলে
+    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+      next.style.opacity = "0.3";
+      next.style.pointerEvents = "none";
+    } else {
+      next.style.opacity = "1";
+      next.style.pointerEvents = "auto";
+    }
   }
 
   /* -------------------------------
@@ -755,7 +844,7 @@ function initNewArrivalSlider() {
     { threshold: 0.3 }
   );
 
-  Array.from(cards).forEach((card) => {
+  cards.forEach((card) => {
     card.classList.add(
       "opacity-0",
       "translate-y-2",
@@ -766,61 +855,41 @@ function initNewArrivalSlider() {
   });
 
   /* -------------------------------
-     Scroll scale effect
-  ------------------------------- */
-  slider.addEventListener("scroll", () => {
-    const screenCenter = window.innerWidth / 2;
-
-    Array.from(cards).forEach((card) => {
-      const rect = card.getBoundingClientRect();
-      const cardCenter = rect.left + rect.width / 2;
-      const distance = Math.abs(screenCenter - cardCenter);
-
-      // smooth scale
-      const scale = 1 - Math.min(distance / 1000, 0.12);
-      card.style.transform = `scale(${scale})`;
-    });
-
-    updateArrows();
-  });
-
-  /* -------------------------------
-     Mobile Swipe Momentum Boost
-  ------------------------------- */
-  let touchStart = 0;
-  let touchEnd = 0;
-
-  slider.addEventListener("touchstart", (e) => {
-    touchStart = e.touches[0].clientX;
-  });
-
-  slider.addEventListener("touchend", (e) => {
-    touchEnd = e.changedTouches[0].clientX;
-
-    const diff = touchStart - touchEnd;
-
-    if (Math.abs(diff) > 50) {
-      // Small swipe = big movement (boost)
-      slider.scrollBy({
-        left: diff > 0 ? STEP : -STEP,
-        behavior: "smooth",
-      });
-    }
-  });
-
-  /* -------------------------------
-     Auto Snap to nearest card
+     Scroll: scale + arrows + snap debounce
   ------------------------------- */
   let snapTimeout;
-  slider.addEventListener("scroll", () => {
-    clearTimeout(snapTimeout);
+  let ticking = false; // scroll performance এর জন্য
 
+  slider.addEventListener("scroll", () => {
+    // scale + arrows অংশকে rAF এর ভিতরে দিচ্ছি performance ভালো রাখার জন্য
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const screenCenter = window.innerWidth / 2;
+
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + rect.width / 2;
+          const distance = Math.abs(screenCenter - cardCenter);
+
+          // distance অনুযায়ী scale কমানো/বাড়ানো
+          const scale = 1 - Math.min(distance / 1000, 0.12);
+          card.style.transform = `scale(${scale})`;
+        });
+
+        updateArrows();
+        ticking = false;
+      });
+      ticking = true;
+    }
+
+    // Snap debounce: scroll থেমে গেলে কাছের কার্ডে snap করবে
+    clearTimeout(snapTimeout);
     snapTimeout = setTimeout(() => {
       let nearestCard = null;
       let minDist = Infinity;
       const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
 
-      Array.from(cards).forEach((card) => {
+      cards.forEach((card) => {
         const cardCenter = card.offsetLeft + card.offsetWidth / 2;
         const dist = Math.abs(cardCenter - sliderCenter);
 
@@ -839,37 +908,73 @@ function initNewArrivalSlider() {
     }, 120);
   });
 
-  updateArrows(); // initial update
+  /* -------------------------------
+     Mobile Swipe Momentum Boost
+  ------------------------------- */
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  slider.addEventListener(
+    "touchstart",
+    (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      touchStartX = e.touches[0].clientX;
+    },
+    { passive: true }
+  );
+
+  slider.addEventListener(
+    "touchend",
+    (e) => {
+      if (!e.changedTouches || !e.changedTouches[0]) return;
+      touchEndX = e.changedTouches[0].clientX;
+
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > 50) {
+        slider.scrollBy({
+          left: diff > 0 ? STEP : -STEP,
+          behavior: "smooth",
+        });
+      }
+    },
+    { passive: true }
+  );
+
+  // প্রথম অবস্থাতেই arrow ঠিক করে নেওয়া
+  updateArrows();
 }
 
 /*
- * FEATURED SECTION EFFECTS (Ripple + Shine + Animation)
+ * FEATURED SECTION EFFECTS (Premium Edition)
  * ----------------------------------------------------------
- * ✓ Fade-in + stagger
+ * ✓ Fade-in + stagger (একবারই অ্যানিমেট হবে, স্ক্রলে আবার লুকাবে না)
  * ✓ Ripple effect on card tap/click
- * ✓ Shine effect on images
- * ✓ Mobile perfect
+ * ✓ Shine effect on images (throttled – DOM স্প্যাম হবে না)
+ * ✓ Desktop + Mobile দুটোতেই ঠিকভাবে কাজ করবে
  */
+
 function initFeaturedEffects() {
   const cards = document.querySelectorAll("#featuredSection .featured-card");
-  const images = document.querySelectorAll(
-    "#featuredSection .featured-card img"
-  );
+  const images = document.querySelectorAll("#featuredSection .featured-card img");
+
   if (!cards.length) return;
 
-  const isMobile = window.innerWidth < 640;
+  // মোবাইল ডিভাইস ডিটেকশন (width + pointer দুটোই চেক)
+  const isMobile =
+    window.matchMedia("(max-width: 640px)").matches ||
+    window.matchMedia("(pointer: coarse)").matches;
 
   /* ---------------------------------------------------
-     Fade-in + Stagger Animation
+     Fade-in + Stagger Animation (IntersectionObserver)
   --------------------------------------------------- */
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry, index) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.style.transitionDelay = `${index * 0.1}s`;
+          // শুধু একবারই অ্যানিমেশন চালিয়ে পরে unobserve করে দিচ্ছি
           entry.target.classList.add("opacity-100", "translate-y-0");
-        } else {
-          entry.target.classList.remove("opacity-100", "translate-y-0");
+          observer.unobserve(entry.target);
         }
       });
     },
@@ -879,10 +984,13 @@ function initFeaturedEffects() {
   /* ---------------------------------------------------
      CARD LOOP
   --------------------------------------------------- */
-  cards.forEach((card) => {
+  cards.forEach((card, index) => {
+    // স্ট্যাগার delay – কার্ডের অর্ডার অনুযায়ী
+    card.style.transitionDelay = `${index * 0.1}s`;
+
     observer.observe(card);
 
-    // Remove default tap highlight
+    // মোবাইলে ট্যাপ হাইলাইট রিমুভ
     card.style.webkitTapHighlightColor = "transparent";
     card.style.position = "relative";
     card.style.overflow = "hidden";
@@ -891,21 +999,23 @@ function initFeaturedEffects() {
        DESKTOP HOVER SCALE (mobile auto-disable)
     --------------------------------------------------- */
     if (!isMobile) {
-      card.addEventListener("mouseenter", () =>
-        card.classList.add("scale-[1.02]")
-      );
-      card.addEventListener("mouseleave", () =>
-        card.classList.remove("scale-[1.02]")
-      );
+      card.addEventListener("mouseenter", () => {
+        card.classList.add("scale-[1.02]");
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.classList.remove("scale-[1.02]");
+      });
     }
 
     /* ---------------------------------------------------
        RIPPLE EFFECT on CLICK/TAP
+       - কার্ড ক্লিক করলে হলুদ গোল ছায়া ছোট টাইমের জন্য দেখাবে
     --------------------------------------------------- */
     card.addEventListener("click", (e) => {
       const ripple = document.createElement("span");
       ripple.className =
-        "absolute bg-yellow-300/40 rounded-full animate-[ping_0.7s_ease-out] w-10 h-10";
+        "absolute bg-yellow-300/40 rounded-full animate-[ping_0.7s_ease-out] w-10 h-10 pointer-events-none";
 
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -915,27 +1025,52 @@ function initFeaturedEffects() {
       ripple.style.top = `${y - 20}px`;
 
       card.appendChild(ripple);
+
       setTimeout(() => ripple.remove(), 700);
     });
   });
 
   /* ---------------------------------------------------
-     IMAGE SHINE EFFECT
+     IMAGE SHINE EFFECT (Desktop only)
+     - mousemove এ DOM স্প্যাম না হয় তাই throttle করা হয়েছে
   --------------------------------------------------- */
-  images.forEach((img) => {
-    img.style.position = "relative";
-    img.style.overflow = "hidden";
+  if (!isMobile) {
+    images.forEach((img) => {
+      // ইমেজের উপরের wrapper div (যেখানে aspect-[4/5] আছে) নেবো
+      const wrapper = img.closest(".aspect-[4/5]") || img.parentElement;
+      if (!wrapper) return;
 
-    img.addEventListener("mousemove", () => {
-      const shine = document.createElement("span");
-      shine.className =
-        "absolute top-0 left-0 w-full h-full pointer-events-none shine-effect";
+      wrapper.style.position = "relative";
+      wrapper.style.overflow = "hidden";
 
-      img.parentElement.appendChild(shine);
+      let shining = false; // থ্রটল ফ্ল্যাগ
 
-      setTimeout(() => shine.remove(), 600);
+      wrapper.addEventListener("mousemove", () => {
+        if (shining) return; // আগের shine শেষ না হওয়া পর্যন্ত নতুন বানাবো না
+        shining = true;
+
+        const shine = document.createElement("span");
+        shine.className =
+          "pointer-events-none absolute top-0 left-0 w-full h-full " +
+          "bg-gradient-to-r from-transparent via-white/40 to-transparent " +
+          "translate-x-[-100%] animate-[shine_0.6s_ease-out_forwards]";
+
+        wrapper.appendChild(shine);
+
+        setTimeout(() => {
+          shine.remove();
+          shining = false;
+        }, 600);
+      });
     });
-  });
+
+    /*
+      ⚠️ NOTE: উপরের animate-[shine_0.6s_ease-out_forwards] ক্লাস কাজ করাতে চাইলে
+      Tailwind config-এ কাস্টম keyframes যোগ করতে হবে।
+      না চাইলে উপরের class এর জায়গায় নিজের CSS অ্যানিমেশন ব্যবহার করতে পারো,
+      অথবা একেবারে simple opacity-based effectও করতে পারো।
+    */
+  }
 }
 
 /*
@@ -1109,8 +1244,14 @@ function initOfferBannerEffects() {
 
 /********************************************
  * FOOTER PRO – Smart + Mobile Optimized
+ * - Year auto set
+ * - Back to top
+ * - Copy phone with toast
+ * - Footer reveal on scroll
+ * - Mobile-safe (no runtime error)
  ********************************************/
 function initFooterPro() {
+  // সব দরকারি এলিমেন্টগুলি ধরে আনা
   const back = document.getElementById("backToTop");
   const copyBtn = document.getElementById("copyPhone");
   const toast = document.getElementById("toast");
@@ -1119,65 +1260,123 @@ function initFooterPro() {
   const socialIcons = document.querySelectorAll(".footerIcon");
   const year = document.getElementById("year");
 
-  /* Update Year */
-  year.textContent = new Date().getFullYear();
+  /* ---------------------------------------
+   * Year auto update (যদি span থাকে)
+   * ------------------------------------- */
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
 
-  /* Back to Top */
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      back.classList.remove("hidden");
-      back.classList.add("opacity-100");
-    } else {
-      back.classList.add("hidden");
-      back.classList.remove("opacity-100");
-    }
-  });
-
-  back.addEventListener("click", () =>
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  );
-
-  /* Copy Phone Number */
-  copyBtn.addEventListener("click", () => {
-    navigator.clipboard.writeText("01775539131");
-
-    toast.textContent = "Copied!";
-    toast.classList.remove("hidden", "opacity-0");
-
-    setTimeout(() => {
-      toast.classList.add("opacity-0");
-      setTimeout(() => toast.classList.add("hidden"), 300);
-    }, 1200);
-  });
-
-  /* Footer Links Hover */
-  links.forEach((l) => {
-    l.addEventListener("mouseenter", () =>
-      l.classList.add("tracking-wide", "text-yellow-300")
-    );
-    l.addEventListener("mouseleave", () =>
-      l.classList.remove("tracking-wide", "text-yellow-300")
-    );
-  });
-
-  /* Social Icons Tap Animation */
-  socialIcons.forEach((icon) => {
-    icon.addEventListener("click", () => {
-      icon.classList.add("scale-110");
-      setTimeout(() => icon.classList.remove("scale-110"), 200);
+  /* ---------------------------------------
+   * Back to Top button (safe check)
+   * ------------------------------------- */
+  if (back) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        back.classList.remove("hidden");
+        back.classList.add("opacity-100");
+      } else {
+        back.classList.add("hidden");
+        back.classList.remove("opacity-100");
+      }
     });
-  });
 
-  /* Footer Reveal Animation */
-  const obs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting)
-          footer.classList.add("opacity-100", "translate-y-0");
+    back.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* ---------------------------------------
+   * Copy Phone Number with toast
+   * ------------------------------------- */
+  if (copyBtn && toast) {
+    copyBtn.addEventListener("click", async () => {
+      const phoneNumber = "01775539131"; // ✅ tel লিঙ্কের সাথে মিল আছে
+
+      try {
+        // modern browser clipboard API
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(phoneNumber);
+        } else {
+          // fallback (পুরোনো ব্রাউজার)
+          const tempInput = document.createElement("input");
+          tempInput.value = phoneNumber;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand("copy");
+          document.body.removeChild(tempInput);
+        }
+
+        toast.textContent = "Copied!";
+      } catch (err) {
+        console.error("Copy failed:", err);
+        toast.textContent = "Copy failed!";
+      }
+
+      // toast show
+      toast.classList.remove("hidden", "opacity-0");
+      toast.classList.add("opacity-100");
+
+      // toast hide
+      setTimeout(() => {
+        toast.classList.remove("opacity-100");
+        toast.classList.add("opacity-0");
+        setTimeout(() => toast.classList.add("hidden"), 300);
+      }, 1200);
+    });
+  }
+
+  /* ---------------------------------------
+   * Footer Links Hover (ডেস্কটপ UX)
+   * ------------------------------------- */
+  if (links && links.length) {
+    links.forEach((l) => {
+      l.addEventListener("mouseenter", () => {
+        l.classList.add("tracking-wide", "text-yellow-300");
       });
-    },
-    { threshold: 0.2 }
-  );
+      l.addEventListener("mouseleave", () => {
+        l.classList.remove("tracking-wide", "text-yellow-300");
+      });
+    });
+  }
 
-  obs.observe(footer);
+  /* ---------------------------------------
+   * Social Icons Tap Animation (Mobile ok)
+   * ------------------------------------- */
+  if (socialIcons && socialIcons.length) {
+    socialIcons.forEach((icon) => {
+      icon.style.webkitTapHighlightColor = "transparent"; // মোবাইল tap highlight remove
+
+      icon.addEventListener("click", () => {
+        icon.classList.add("scale-110");
+        setTimeout(() => icon.classList.remove("scale-110"), 200);
+      });
+    });
+  }
+
+  /* ---------------------------------------
+   * Footer Reveal Animation (IntersectionObserver safe)
+   * ------------------------------------- */
+  if (footer && "IntersectionObserver" in window) {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            footer.classList.add("opacity-100", "translate-y-0");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    obs.observe(footer);
+  } else if (footer) {
+    // fallback: observer না থাকলে সরাসরি visible করে দেই
+    footer.classList.add("opacity-100", "translate-y-0");
+  }
 }
+
+/* ---------------------------------------
+ * DOM লোড হওয়ার পর init কল করা
+ * ------------------------------------- */
+document.addEventListener("DOMContentLoaded", initFooterPro);

@@ -5,32 +5,36 @@
   <title>My Wishlist - Look At Me Fashion</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Fonts -->
+  <!-- Google Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
-  <!-- Tailwind -->
+  <!-- Tailwind CSS -->
   <link href="src/output.css" rel="stylesheet" />
 
   <style>
     body {
-      font-family: "Poppins", sans-serif;
+      font-family: "Inter", "Poppins", sans-serif;
       background: #fff5f5;
+      -webkit-tap-highlight-color: transparent;
     }
-    .wishlist-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    .wishlist-card {
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+    .wishlist-card:active {
+      transform: scale(.97);
     }
   </style>
 </head>
 
-<body class="text-gray-900">
+<body class="text-gray-900 antialiased">
 
-  <!-- HEADER -->
+  <!-- ================= HEADER ================= -->
   <header class="sticky top-0 bg-white/95 backdrop-blur shadow border-b border-red-200 z-50">
     <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
-      
+
+      <!-- Logo -->
       <a href="index.html">
         <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
           <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide">
@@ -39,17 +43,21 @@
         </div>
       </a>
 
+      <!-- Back Button -->
       <a href="index.html"
-        class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+        class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] 
+               bg-[#FFD600]/80 px-3 py-1.5 rounded-full hover:bg-[#FFD600] transition">
         ← Back to Home
       </a>
     </nav>
   </header>
 
-  <!-- MAIN -->
+  <!-- ================= MAIN ================= -->
   <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8">
 
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#6B0000] mb-6">My Wishlist ❤️</h1>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#6B0000] mb-6">
+      My Wishlist ❤️
+    </h1>
 
     <!-- Empty State -->
     <div id="wishlistEmpty"
@@ -64,51 +72,50 @@
       </a>
     </div>
 
-    <!-- Wishlist List -->
+    <!-- Wishlist Items -->
     <div id="wishlistList"
       class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 hidden">
     </div>
 
   </main>
 
-  <!-- ========================================= -->
-  <!-- WISHLIST JAVASCRIPT MERGED HERE           -->
-  <!-- ========================================= -->
+  <!-- ================= JAVASCRIPT (MERGED) ================= -->
   <script>
     const WISHLIST_KEY = "lmf_wishlist";
 
     document.addEventListener("DOMContentLoaded", () => {
+
       const wishlistList = document.getElementById("wishlistList");
       const wishlistEmpty = document.getElementById("wishlistEmpty");
 
       let wishlist = [];
 
-      // Load from localStorage
+      // 🔥 Load wishlist from localStorage
       function loadWishlist() {
         try {
-          const data = localStorage.getItem(WISHLIST_KEY);
-          wishlist = data ? JSON.parse(data) : [];
+          wishlist = JSON.parse(localStorage.getItem(WISHLIST_KEY)) || [];
         } catch {
           wishlist = [];
         }
       }
 
-      // Save wishlist
+      // 🔥 Save wishlist to localStorage
       function saveWishlist() {
         localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
       }
 
-      // Remove item
+      // 🔥 Remove item from wishlist
       function removeItem(productId) {
-        wishlist = wishlist.filter((p) => p.id !== productId);
+        wishlist = wishlist.filter(item => item.id !== productId);
         saveWishlist();
         renderWishlist();
       }
 
-      // Render UI
+      // 🔥 Render Wishlist UI
       function renderWishlist() {
         loadWishlist();
 
+        // If empty → show empty state
         if (wishlist.length === 0) {
           wishlistEmpty.classList.remove("hidden");
           wishlistList.classList.add("hidden");
@@ -117,44 +124,55 @@
 
         wishlistEmpty.classList.add("hidden");
         wishlistList.classList.remove("hidden");
-        wishlistList.innerHTML = "";
+        wishlistList.innerHTML = ""; // Clear UI
 
-        wishlist.forEach((item) => {
+        // Generate UI cards
+        wishlist.forEach(item => {
+
           const card = document.createElement("div");
-          card.className =
-            "wishlist-card bg-white border border-red-200 rounded-2xl shadow p-3 relative transition hover:bg-red-50";
+          card.className = 
+            "wishlist-card bg-white border border-red-200 rounded-2xl shadow p-3 relative hover:bg-red-50";
 
           card.innerHTML = `
-            <button class="removeBtn absolute top-2 right-2 text-red-600 text-xl font-bold hover:text-red-800">×</button>
+            <!-- Remove Button -->
+            <button 
+              class="removeBtn absolute top-2 right-2 text-red-600 text-xl font-bold hover:text-red-800 active:scale-90 transition">
+              ×
+            </button>
 
+            <!-- Product Image -->
             <img src="image/${item.image}" 
-                 onerror="this.src='https://via.placeholder.com/300?text=No+Image'"
-                 class="w-full h-40 object-cover rounded-lg" />
+                 class="w-full h-40 object-cover rounded-lg"
+                 onerror="this.src='https://via.placeholder.com/300?text=No+Image'"/>
 
+            <!-- Product Name -->
             <h3 class="mt-2 font-semibold text-gray-800 text-sm line-clamp-2">
               ${item.name}
             </h3>
 
+            <!-- Price -->
             <p class="text-[#6B0000] font-bold text-sm">
               ৳ ${item.price}
             </p>
 
+            <!-- Details Button -->
             <a href="single-product.html?id=${item.id}"
-               class="block text-center mt-2 bg-[#FFD600] text-[#6B0000] py-1.5 text-sm rounded-full font-semibold hover:bg-[#ffea80] transition">
+               class="block text-center mt-2 bg-[#FFD600] text-[#6B0000] py-1.5 text-sm rounded-full font-semibold hover:bg-[#fff1a6] transition">
               View Details
             </a>
           `;
 
-          // Remove button
+          // Remove button event
           card.querySelector(".removeBtn").addEventListener("click", () => {
-            removeItem(item.id);
+            card.classList.add("opacity-50", "scale-95");
+            setTimeout(() => removeItem(item.id), 200);
           });
 
           wishlistList.appendChild(card);
         });
       }
 
-      renderWishlist();
+      renderWishlist(); // Initial Load
     });
   </script>
 

@@ -1,45 +1,73 @@
 // backend/models/users.js
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
+    // 🔹 User Name
     name: {
       type: String,
       required: [true, "Name is required"],
       trim: true,
     },
+
+    // 🔹 Email (Unique Login Field)
     email: {
       type: String,
       required: [true, "Email is required"],
       unique: true,
       lowercase: true,
+      trim: true,
     },
+
+    // 🔹 Password (Hashed Automatically)
     password: {
       type: String,
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters"],
-      select: false, // default query তে password আসবে না
+      select: false, // By default, password NEVER returns
     },
+
+    // 🔹 Phone number (future optional)
+    phone: {
+      type: String,
+      default: null,
+    },
+
+    // 🔹 Role: Customer / Admin
     role: {
       type: String,
       enum: ["customer", "admin"],
       default: "customer",
     },
+
+    // 🔹 Future: user image
+    avatar: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true }
 );
 
-// save হওয়ার আগে password hash করবো
+//====================================================
+// 🟡 PRE-SAVE → Hash Password
+//====================================================
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next(); // পুরনো পাস থাকলে আবার hash না
+  // যদি password change না করা হয়, skip
+  if (!this.isModified("password")) return next();
 
+  // Hashing
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+
   next();
 });
 
-// instance method -> পাসওয়ার্ড ম্যাচ করে কিনা
+//====================================================
+// 🟡 MATCH PASSWORD (Login Checker)
+//====================================================
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };

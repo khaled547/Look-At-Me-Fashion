@@ -2,23 +2,18 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8" />
-  <title>Add Product - Look At Me Fashion Admin</title>
+  <title>Add Product - Look At Me Fashion (Admin)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Premium Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS -->
-  <link href="src/output.css" rel="stylesheet" />
+  <link href="src/output.css" rel="stylesheet">
 
   <style>
     body {
-      font-family: "Inter", "Poppins", sans-serif;
+      font-family: "Poppins", sans-serif;
       background: #fff7f7;
     }
   </style>
@@ -26,153 +21,245 @@
 
 <body class="text-gray-900">
 
-  <!-- HEADER -->
-  <header class="sticky top-0 bg-white/90 backdrop-blur shadow border-b border-red-200 z-50">
-    <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
+  <!-- =============================== -->
+  <!-- HEADER (Mobile Friendly)        -->
+  <!-- =============================== -->
+  <header class="sticky top-0 bg-white shadow border-b border-red-200 z-50">
+    <nav class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
 
-      <div class="flex items-center gap-2">
-        <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
-          <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide">
-            LOOK AT ME FASHION - ADMIN
-          </span>
-        </div>
+      <!-- LOGO -->
+      <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
+        <span class="text-[#FFD600] font-extrabold text-sm sm:text-lg tracking-wide">
+          LMF ADMIN
+        </span>
       </div>
 
+      <!-- Back to Admin Dashboard -->
       <a href="admin-dashboard.html"
-        class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 sm:px-4 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+        class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 py-1.5 rounded-full hover:bg-[#FFD600] transition">
         ← Dashboard
       </a>
 
     </nav>
   </header>
 
-  <!-- MAIN -->
-  <main class="max-w-3xl mx-auto px-4 lg:px-8 py-6 space-y-6">
 
-    <!-- TITLE -->
+  <!-- =============================== -->
+  <!-- MAIN CONTENT                    -->
+  <!-- =============================== -->
+  <main class="max-w-3xl mx-auto px-4 py-6 space-y-6">
+
+    <!-- PAGE TITLE -->
     <section>
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B0000]">
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-[#6B0000]">
         Add New Product
       </h1>
-      <p class="text-sm text-gray-500 mt-1">
-        নতুন প্রডাক্ট যোগ করুন (Name, Price, Category, Image ইত্যাদি পূরণ করে Save করুন)
+      <p class="text-sm text-gray-600 mt-1">
+        নিচের ফর্ম পূরণ করে নতুন প্রোডাক্ট যোগ করুন।
       </p>
     </section>
 
-    <!-- FORM CARD -->
-    <section class="bg-white border border-red-200 rounded-2xl shadow p-4 sm:p-6 space-y-4">
+    <!-- FORM CARD (Mobile-optimized) -->
+    <section class="bg-white border border-red-200 rounded-2xl shadow-lg p-5 space-y-4">
 
+      <!-- PRODUCT FORM -->
       <form id="productForm" class="space-y-4">
 
-        <!-- NAME -->
+        <!-- PRODUCT NAME -->
         <div>
-          <label class="block text-xs font-semibold text-gray-700 mb-1">
-            Product Name <span class="text-red-500">*</span>
+          <label class="block text-sm font-semibold mb-1 text-gray-700">
+            Product Name <span class="text-red-600">*</span>
           </label>
           <input
-            type="text"
             id="prodName"
+            type="text"
+            placeholder="e.g. Premium Hand Bag"
+            class="w-full px-3 py-2 rounded-lg border border-red-200 focus:ring-2 focus:ring-[#FFD600] text-sm"
             required
-            placeholder="e.g. Premium Ladies Bag"
-            class="w-full px-3 py-2 rounded-lg border border-red-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]"
           />
         </div>
 
         <!-- PRICE + CATEGORY -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <!-- PRICE -->
           <div>
-            <label class="block text-xs font-semibold text-gray-700 mb-1">
-              Price (৳) <span class="text-red-500">*</span>
+            <label class="block text-sm font-semibold mb-1">
+              Price (৳) <span class="text-red-600">*</span>
             </label>
             <input
-              type="number"
               id="prodPrice"
-              required
+              type="number"
               min="0"
-              step="1"
-              placeholder="e.g. 2500"
-              class="w-full px-3 py-2 rounded-lg border border-red-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]"
+              placeholder="e.g. 1400"
+              class="w-full px-3 py-2 rounded-lg border border-red-200 focus:ring-2 focus:ring-[#FFD600] text-sm"
+              required
             />
           </div>
 
+          <!-- CATEGORY -->
           <div>
-            <label class="block text-xs font-semibold text-gray-700 mb-1">
-              Category <span class="text-red-500">*</span>
+            <label class="block text-sm font-semibold mb-1">
+              Category <span class="text-red-600">*</span>
             </label>
-            <!-- আপনি চাইলে এখানে select বানাতে পারেন ফিক্সড ক্যাটাগরি দিয়ে -->
             <input
-              type="text"
               id="prodCategory"
+              type="text"
+              placeholder="e.g. Bags / Hijab / Watches"
+              class="w-full px-3 py-2 rounded-lg border border-red-200 focus:ring-2 focus:ring-[#FFD600] text-sm"
               required
-              placeholder="e.g. Bags, Watches, Hijab"
-              class="w-full px-3 py-2 rounded-lg border border-red-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]"
             />
           </div>
         </div>
 
-        <!-- IMAGE FILE NAME / URL -->
+        <!-- IMAGE -->
         <div>
-          <label class="block text-xs font-semibold text-gray-700 mb-1">
-            Image File Name <span class="text-red-500">*</span>
+          <label class="block text-sm font-semibold mb-1">
+            Image File Name <span class="text-red-600">*</span>
           </label>
           <input
-            type="text"
             id="prodImage"
+            type="text"
+            placeholder="e.g. bag-01.jpg"
+            class="w-full px-3 py-2 rounded-lg border border-red-200 focus:ring-2 focus:ring-[#FFD600] text-sm"
             required
-            placeholder="e.g. ladies-bag-01.jpg (image ফোল্ডারের নাম)"
-            class="w-full px-3 py-2 rounded-lg border border-red-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]"
           />
           <p class="text-[11px] text-gray-500 mt-1">
-            আপনার image ফাইল যদি <code>image/</code> ফোল্ডারে থাকে, শুধু ফাইলের নাম দিন। (Backend অনুযায়ী পরিবর্তন করতে পারবেন)
+            শুধু ফাইল নাম দিন (image/ ফোল্ডার থেকে লোড হবে)
           </p>
         </div>
 
         <!-- DESCRIPTION -->
         <div>
-          <label class="block text-xs font-semibold text-gray-700 mb-1">
+          <label class="block text-sm font-semibold mb-1">
             Description
           </label>
           <textarea
             id="prodDescription"
             rows="3"
             placeholder="Product details লিখুন..."
-            class="w-full px-3 py-2 rounded-lg border border-red-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600] resize-y"
+            class="w-full px-3 py-2 rounded-lg border border-red-200 focus:ring-2 focus:ring-[#FFD600] text-sm resize-y"
           ></textarea>
         </div>
 
-        <!-- BUTTONS -->
-        <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between pt-2">
+        <!-- ACTION BUTTONS -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 pt-2">
+
           <button
             type="submit"
-            class="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 rounded-full bg-[#FFD600] text-[#6B0000] font-bold text-sm sm:text-base shadow hover:bg-white hover:shadow-lg border border-[#FFD600] transition">
+            class="px-8 py-2.5 rounded-full bg-[#FFD600] text-[#6B0000] font-bold shadow hover:bg-white hover:shadow-lg border border-[#FFD600] transition">
             💾 Save Product
           </button>
 
-          <button
-            type="button"
-            id="resetBtn"
-            class="text-xs sm:text-sm font-semibold text-gray-500 underline">
+          <button id="resetBtn" type="button" class="text-sm font-semibold text-gray-500 underline">
             Reset Form
           </button>
-        </div>
 
-        <!-- SMALL INFO -->
-        <p class="text-[11px] text-gray-500">
-          ডাটা সফলভাবে save হলে নিচে Toast ম্যাসেজ দেখাবে। Backend সমস্যা থাকলে Console এ error দেখাবে।
-        </p>
+        </div>
       </form>
     </section>
-
   </main>
 
-  <!-- TOAST -->
+
+  <!-- TOAST MESSAGE -->
   <div
     id="toast"
-    class="fixed bottom-6 right-6 bg-[#6B0000] text-[#FFD600] text-sm px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300">
+    class="fixed bottom-6 right-6 bg-[#6B0000] text-[#FFD600] px-4 py-2 rounded-full shadow-lg text-sm opacity-0 pointer-events-none transition-all duration-300">
     Product saved successfully!
   </div>
 
-  <!-- JS -->
-  <script src="./admin-add-product.js"></script>
+
+  <!-- =============================== -->
+  <!-- INLINE JAVASCRIPT               -->
+  <!-- =============================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      // Backend API URL
+      const API_URL = "http://localhost:5000/api/products";
+
+      // Admin Token
+      const token = localStorage.getItem("lmf_admin_token");
+
+      // Admin না থাকলে redirect
+      if (!token) {
+        alert("Admin login required!");
+        return (window.location.href = "admin-login.html");
+      }
+
+      // Form Elements
+      const formEl = document.getElementById("productForm");
+      const toastEl = document.getElementById("toast");
+
+      // ===============================
+      // PRODUCT FORM SUBMIT HANDLER
+      // ===============================
+      formEl.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Form values collect
+        const payload = {
+          name: prodName.value.trim(),
+          price: Number(prodPrice.value.trim()),
+          category: prodCategory.value.trim(),
+          image: prodImage.value.trim(),
+          description: prodDescription.value.trim(),
+        };
+
+        // Basic validation
+        if (!payload.name || !payload.price || !payload.category || !payload.image) {
+          return alert("Name, Price, Category এবং Image দেওয়া বাধ্যতামূলক!");
+        }
+
+        try {
+          const submitBtn = formEl.querySelector("button[type='submit']");
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Saving...";
+
+          const res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + token,
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (!res.ok) throw new Error("Save failed");
+
+          showToast("Product saved successfully! 🎉");
+          formEl.reset();
+
+        } catch (err) {
+          console.error(err);
+          showToast("Failed to save product ❌");
+        } finally {
+          const submitBtn = formEl.querySelector("button[type='submit']");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "💾 Save Product";
+        }
+      });
+
+      // ===============================
+      // RESET BUTTON
+      // ===============================
+      resetBtn.addEventListener("click", () => formEl.reset());
+
+      // ===============================
+      // BEAUTIFUL TOAST ANIMATION
+      // ===============================
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("opacity-100");
+        toastEl.classList.remove("opacity-0");
+
+        setTimeout(() => {
+          toastEl.classList.remove("opacity-100");
+          toastEl.classList.add("opacity-0");
+        }, 2000);
+      }
+    });
+  </script>
+
 </body>
 </html>

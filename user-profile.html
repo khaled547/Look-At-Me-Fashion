@@ -1,61 +1,99 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8" />
-  <title>User Profile</title>
+  <title>User Profile - Look At Me Fashion</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- Tailwind -->
   <link href="src/output.css" rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-    body { font-family: "Inter", sans-serif; }
+    body {
+      font-family: "Inter", sans-serif;
+      background: #fff5f5;
+      -webkit-tap-highlight-color: transparent;
+    }
   </style>
 </head>
 
-<body class="bg-red-50">
+<body class="min-h-screen flex items-center justify-center px-6">
 
-  <div class="max-w-md mx-auto mt-10 bg-white rounded-2xl shadow p-6 border border-red-200">
+  <!-- PROFILE CARD -->
+  <div
+    class="w-full max-w-md bg-white rounded-3xl shadow-xl border border-red-200 p-7 mt-10 opacity-0 translate-y-4 transition-all duration-700"
+    id="profileCard">
 
-    <h1 class="text-2xl font-bold text-[#6B0000] text-center mb-6">
+    <!-- Heading -->
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-[#6B0000] text-center mb-6">
       My Profile
     </h1>
 
-    <div id="loading" class="text-center text-gray-500 text-sm">
-      Loading...
+    <!-- Loading -->
+    <div id="loading" class="text-center text-gray-500 text-sm py-4">
+      Loading your profile...
     </div>
 
+    <!-- Profile Info -->
     <div id="profileBox" class="hidden space-y-4">
-      <div class="p-4 bg-red-50 rounded-xl border border-red-200">
-        <p><strong>Name:</strong> <span id="pName"></span></p>
-        <p><strong>Email:</strong> <span id="pEmail"></span></p>
-        <p><strong>Phone:</strong> <span id="pPhone"></span></p>
-        <p><strong>Role:</strong> <span id="pRole"></span></p>
+
+      <div class="p-4 bg-red-50 rounded-2xl border border-red-200 shadow-sm">
+        <p class="text-sm"><strong>Name:</strong> <span id="pName"></span></p>
+        <p class="text-sm"><strong>Email:</strong> <span id="pEmail"></span></p>
+        <p class="text-sm"><strong>Phone:</strong> <span id="pPhone"></span></p>
+        <p class="text-sm"><strong>Role:</strong>
+          <span id="pRole" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 border border-yellow-300"></span>
+        </p>
       </div>
 
-      <button
-        id="logoutBtn"
-        class="w-full bg-[#FFD600] text-[#6B0000] font-bold py-2 rounded-lg shadow"
-      >
+      <!-- My Orders Button -->
+      <a href="my-orders.html"
+        class="w-full block text-center bg-[#FFD600] text-[#6B0000] font-bold py-2.5 rounded-lg shadow hover:bg-white border border-[#FFD600] transition active:scale-95">
+        My Orders →
+      </a>
+
+      <!-- Logout -->
+      <button id="logoutBtn"
+        class="w-full bg-red-100 text-red-700 font-bold py-2.5 rounded-lg shadow hover:bg-red-200 transition active:scale-95">
         Logout
       </button>
+
     </div>
 
+    <!-- Message -->
     <p id="msg" class="text-center text-red-600 text-sm mt-3"></p>
 
   </div>
 
+  <!-- INLINE JAVASCRIPT -->
   <script>
+    /*
+      ================================================
+      USER PROFILE PAGE LOGIC
+      ================================================
+      ✔ Token থাকলে backend থেকে profile load
+      ✔ No token → Auto redirect to login
+      ✔ Logout → Token clear + redirect
+      ✔ Smooth card animation
+    */
+
     const API = "http://localhost:5000/api/users/me";
     const token = localStorage.getItem("lmf_token");
 
-    // If no login → Redirect
+    // If no user -> send to login page
     if (!token) {
       window.location.href = "login.html";
     }
+
+    // Smooth Card Animation on Load
+    setTimeout(() => {
+      document.getElementById("profileCard").classList.remove("opacity-0", "translate-y-4");
+      document.getElementById("profileCard").classList.add("opacity-100", "translate-y-0");
+    }, 150);
 
     async function loadProfile() {
       const loading = document.getElementById("loading");
@@ -73,42 +111,44 @@
 
         const data = await res.json();
 
+        // If unauthorized
         if (!res.ok) {
-          msg.textContent = data.message || "Session Expired! Please Login again.";
+          msg.textContent = data.message || "Session expired! Please login again.";
           localStorage.removeItem("lmf_token");
           localStorage.removeItem("lmf_user");
           setTimeout(() => (window.location.href = "login.html"), 1200);
           return;
         }
 
-        // 🎯 Backend Response Format:
-        // { id, name, email, phone, role }
-
+        // Fill profile data
         document.getElementById("pName").textContent = data.name;
-        document.getElementById("pEmail").textContent = data.email || "N/A";
-        document.getElementById("pPhone").textContent = data.phone || "N/A";
-        document.getElementById("pRole").textContent = data.role;
+        document.getElementById("pEmail").textContent = data.email || "Not Provided";
+        document.getElementById("pPhone").textContent = data.phone || "Not Provided";
+        document.getElementById("pRole").textContent = data.role.toUpperCase();
 
         loading.classList.add("hidden");
         box.classList.remove("hidden");
 
       } catch (error) {
         console.error(error);
-        msg.textContent = "Error loading profile!";
+        msg.textContent = "Failed to load profile!";
       }
     }
 
     loadProfile();
 
-    // LOGOUT
+    // Logout
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("lmf_token");
       localStorage.removeItem("lmf_user");
-      window.location.href = "login.html";
+
+      // Smooth logout
+      document.getElementById("logoutBtn").textContent = "Logging out...";
+      setTimeout(() => (window.location.href = "login.html"), 800);
     });
   </script>
 
 </body>
-</html>
 
 </html>
+

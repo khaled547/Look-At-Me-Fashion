@@ -9,33 +9,35 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&
+    family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   />
 
-  <!-- Tailwind -->
+  <!-- Tailwind CSS -->
   <link href="src/output.css" rel="stylesheet" />
 
   <style>
     body {
       font-family: "Inter", sans-serif;
-      letter-spacing: 0.2px;
+      background: #fff5f5;
       -webkit-font-smoothing: antialiased;
       -webkit-tap-highlight-color: transparent;
     }
-    h1, h2, h3, h4 {
+    h1, h2, h3 {
       font-family: "Poppins", sans-serif;
     }
   </style>
 </head>
 
-<body class="bg-red-50 text-gray-900 antialiased">
+<body class="text-gray-900">
+
   <!-- HEADER -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm">
-    <nav class="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between py-3 gap-3">
+    <nav class="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between py-3">
 
-      <!-- LOGO -->
-      <a href="index.html">
+      <!-- Logo -->
+      <a href="index.html" class="active:scale-95 transition">
         <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
           <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide">
             LOOK AT ME FASHION
@@ -44,16 +46,19 @@
       </a>
 
       <a href="index.html"
-        class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+        class="text-xs sm:text-sm font-semibold text-[#6B0000] 
+               border border-[#FFD600] bg-[#FFD600]/80 px-3 py-1.5 
+               rounded-full hover:bg-[#FFD600] active:scale-95 transition">
         ← Back to Home
       </a>
+
     </nav>
   </header>
 
   <!-- MAIN -->
   <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 md:py-10 space-y-6">
 
-    <!-- BREADCRUMB -->
+    <!-- Breadcrumb + Title -->
     <section class="space-y-3">
       <nav class="text-xs sm:text-sm text-gray-600 flex flex-wrap items-center gap-1">
         <a href="index.html" class="hover:text-[#6B0000] font-medium">Home</a>
@@ -61,36 +66,40 @@
         <span id="breadcrumb" class="font-semibold text-[#6B0000]">Products</span>
       </nav>
 
+      <!-- Title & Count -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <h1 id="pageTitle" class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B0000]">
+        <h1 id="pageTitle"
+          class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B0000]">
           Products
         </h1>
         <p id="productCount" class="text-xs sm:text-sm text-gray-600"></p>
       </div>
     </section>
 
-    <!-- SEARCH + SORT -->
+    <!-- FILTERS -->
     <section
-      class="bg-white rounded-2xl shadow-sm border border-red-100 px-4 py-4 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+      class="bg-white rounded-2xl shadow-sm border border-red-100 px-4 py-4
+             flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
 
-      <!-- Search -->
+      <!-- Search Bar -->
       <div class="w-full sm:w-1/2">
         <label class="text-xs uppercase tracking-wide text-gray-500 mb-1 block">Search</label>
         <input
           id="filterInput"
           type="text"
           placeholder="Search products..."
-          class="w-full border border-red-200 rounded-lg bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]"
+          class="w-full border border-red-200 rounded-lg bg-white px-3 py-2 text-sm 
+                 focus:outline-none focus:ring-2 focus:ring-[#FFD600]"
         />
       </div>
 
-      <!-- Sort -->
+      <!-- Sort Dropdown -->
       <div class="flex items-center gap-2">
-        <label for="sortSelect" class="text-xs sm:text-sm font-medium text-gray-700">Sort by:</label>
-
+        <label class="text-xs font-medium text-gray-700">Sort by:</label>
         <select
           id="sortSelect"
-          class="w-40 sm:w-44 border border-red-200 rounded-lg bg-white px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]">
+          class="w-40 sm:w-44 border border-red-200 rounded-lg bg-white px-3 py-2 text-xs sm:text-sm
+                 focus:outline-none focus:ring-2 focus:ring-[#FFD600]">
           <option value="default">Default</option>
           <option value="low-high">Price: Low → High</option>
           <option value="high-low">Price: High → Low</option>
@@ -99,37 +108,11 @@
     </section>
 
     <!-- EMPTY STATE -->
-    <section
-      id="emptyState"
-      class="hidden text-center py-16 bg-white border border-red-100 rounded-2xl shadow-sm">
+    <div id="emptyState"
+      class="hidden text-center py-16 bg-white rounded-2xl border border-red-100 shadow-sm">
       <div class="text-5xl mb-3">🛍️</div>
       <h3 class="text-xl font-semibold text-[#6B0000]">No Products Found</h3>
-      <p class="text-gray-600 empty-message">Try changing filters or category.</p>
-    </section>
-
-    <!-- PRODUCT CARD TEMPLATE -->
-    <div
-      id="productCardTemplate"
-      class="hidden bg-white rounded-2xl shadow-sm border border-red-100 overflow-hidden group">
-
-      <div class="aspect-[4/5] bg-gray-100 overflow-hidden">
-        <img
-          data-role="product-image"
-          class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-        />
-      </div>
-
-      <div class="p-4 space-y-1">
-        <h3 data-role="product-name" class="font-semibold text-base text-gray-900"></h3>
-        <p data-role="product-price" class="text-lg font-extrabold text-[#6B0000]"></p>
-
-        <!-- ⭐ View Details Button ⭐ -->
-        <a
-          data-role="view-details"
-          class="text-sm font-semibold text-[#6B0000] hover:underline block mt-1">
-          View Details →
-        </a>
-      </div>
+      <p class="text-gray-600 empty-message">Try changing filters.</p>
     </div>
 
     <!-- PRODUCT GRID -->
@@ -142,11 +125,143 @@
 
   </main>
 
-  <!-- JS File -->
-  <script src="./product.js"></script>
+
+  <!-- ========================================================= -->
+  <!-- INLINE JAVASCRIPT — Clean, Premium, Professional Comments -->
+  <!-- ========================================================= -->
+  <script>
+    // DOM Elements
+    const pageTitle = document.getElementById("pageTitle");
+    const breadcrumb = document.getElementById("breadcrumb");
+    const productCount = document.getElementById("productCount");
+    const productContainer = document.getElementById("productContainer");
+    const filterInput = document.getElementById("filterInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const emptyState = document.getElementById("emptyState");
+
+    let allProducts = [];
+    let searchValue = "";
+    let sortMode = "default";
+
+    // Detect category from URL
+    const params = new URLSearchParams(window.location.search);
+    const currentCategory = params.get("category");
+
+    if (currentCategory) {
+      const clean = capitalize(currentCategory);
+      pageTitle.textContent = `${clean} Products`;
+      breadcrumb.textContent = `${clean} Products`;
+    }
+
+    // Fetch all products from backend
+    fetch("http://localhost:5000/api/products")
+      .then(res => res.json())
+      .then(data => {
+        allProducts = data || [];
+        renderProducts();
+      })
+      .catch(() => showEmpty("Could not load products."));
+
+    // Search (debounced for mobile smoothness)
+    let typingTimer;
+    filterInput.addEventListener("input", (e) => {
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(() => {
+        searchValue = e.target.value.toLowerCase();
+        renderProducts();
+      }, 150);
+    });
+
+    // Sort change
+    sortSelect.addEventListener("change", () => {
+      sortMode = sortSelect.value;
+      renderProducts();
+    });
+
+    // Render Function
+    function renderProducts() {
+      let products = [...allProducts];
+
+      // Filter by category
+      if (currentCategory) {
+        products = products.filter(
+          p => p.category.toLowerCase() === currentCategory.toLowerCase()
+        );
+      }
+
+      // Search
+      if (searchValue) {
+        products = products.filter(p =>
+          p.name.toLowerCase().includes(searchValue)
+        );
+      }
+
+      // Sorting
+      if (sortMode === "low-high") {
+        products.sort((a, b) => a.price - b.price);
+      } else if (sortMode === "high-low") {
+        products.sort((a, b) => b.price - a.price);
+      }
+
+      // Empty Check
+      if (products.length === 0) {
+        showEmpty("No products found.");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      productContainer.innerHTML = "";
+      productCount.textContent = `${products.length} products`;
+
+      const fragment = document.createDocumentFragment();
+
+      products.forEach(p => fragment.appendChild(makeCard(p)));
+
+      productContainer.appendChild(fragment);
+    }
+
+    // Create product card
+    function makeCard(p) {
+      const card = document.createElement("div");
+      card.className =
+        "bg-white rounded-2xl shadow-sm border border-red-100 overflow-hidden group";
+
+      card.innerHTML = `
+        <div class="aspect-[4/5] bg-gray-100 overflow-hidden">
+          <img src="image/${p.image}"
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+        </div>
+
+        <div class="p-4 space-y-1">
+          <h3 class="font-semibold text-base text-gray-900">${capitalize(p.name)}</h3>
+          <p class="text-lg font-extrabold text-[#6B0000]">৳ ${p.price}</p>
+
+          <a href="single-product.html?id=${p._id}"
+            class="text-sm font-semibold text-[#6B0000] hover:underline block">
+            View Details →
+          </a>
+        </div>
+      `;
+
+      return card;
+    }
+
+    // Empty state helper
+    function showEmpty(text) {
+      emptyState.classList.remove("hidden");
+      emptyState.querySelector(".empty-message").textContent = text;
+      productCount.textContent = "0 products";
+      productContainer.innerHTML = "";
+    }
+
+    // Capitalize words
+    function capitalize(text) {
+      return text
+        .split(" ")
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+    }
+  </script>
 
 </body>
 </html>
-
-
-

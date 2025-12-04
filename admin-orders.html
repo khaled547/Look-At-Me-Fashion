@@ -5,7 +5,7 @@
   <title>Order Management - Look At Me Fashion Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Premium Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link
@@ -19,102 +19,355 @@
   <style>
     body {
       font-family: "Inter", "Poppins", sans-serif;
-      background: #fff7f7;
+      background: #fff6f6;
+    }
+
+    /* Small custom tweaks for mobile */
+    .order-card {
+      transition: 0.2s ease;
+    }
+    .order-card:hover {
+      transform: translateY(-2px);
     }
   </style>
 </head>
 
-<body class="text-gray-900">
+<body class="text-gray-900 antialiased">
 
-  <!-- HEADER -->
-  <header class="sticky top-0 bg-white/90 backdrop-blur shadow border-b border-red-200 z-50">
-    <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
-      <div class="flex items-center gap-2">
-        <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
-          <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide">
-            LOOK AT ME FASHION - ADMIN
-          </span>
+<!-- ======================================= -->
+<!-- HEADER -->
+<!-- ======================================= -->
+<header class="sticky top-0 bg-white/95 backdrop-blur shadow border-b border-red-200 z-50">
+  <nav class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
+
+    <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
+      <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg tracking-wide">
+        LOOK AT ME FASHION - ADMIN
+      </span>
+    </div>
+
+    <a href="admin-dashboard.html"
+      class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-4 py-1.5 rounded-full hover:bg-[#FFD600] transition">
+      ← Dashboard
+    </a>
+
+  </nav>
+</header>
+
+
+<!-- ======================================= -->
+<!-- MAIN CONTENT -->
+<!-- ======================================= -->
+<main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 space-y-6">
+
+  <!-- TITLE & SUMMARY -->
+  <section class="space-y-2">
+    <h1 class="text-3xl font-extrabold text-[#6B0000]">Order Management</h1>
+    <p class="text-sm text-gray-500">সব অর্ডার এক জায়গা থেকে দেখুন এবং Manage করুন।</p>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3 text-xs sm:text-sm">
+      <div class="bg-white border border-red-100 rounded-2xl px-3 py-2 shadow-sm">
+        <p class="text-gray-500">Total</p>
+        <p id="statsTotal" class="text-xl font-bold text-[#6B0000]">0</p>
+      </div>
+      <div class="bg-white border border-red-100 rounded-2xl px-3 py-2 shadow-sm">
+        <p class="text-gray-500">Pending</p>
+        <p id="statsPending" class="text-xl font-bold text-orange-500">0</p>
+      </div>
+      <div class="bg-white border border-red-100 rounded-2xl px-3 py-2 shadow-sm">
+        <p class="text-gray-500">Processing</p>
+        <p id="statsProcessing" class="text-xl font-bold text-blue-500">0</p>
+      </div>
+      <div class="bg-white border border-red-100 rounded-2xl px-3 py-2 shadow-sm">
+        <p class="text-gray-500">Completed</p>
+        <p id="statsCompleted" class="text-xl font-bold text-green-600">0</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FILTER & SEARCH -->
+  <section class="bg-white border border-red-200 rounded-2xl shadow p-4 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+
+    <!-- FILTER -->
+    <div class="flex items-center gap-2">
+      <label class="text-sm font-semibold text-gray-700">Filter:</label>
+      <select id="statusFilter"
+        class="border border-red-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#FFD600]">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="processing">Processing</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="w-full sm:w-72">
+      <input id="searchInput"
+        placeholder="Search by name / phone / order ID..."
+        class="w-full border border-red-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#FFD600]">
+    </div>
+
+  </section>
+
+
+  <!-- ORDER LIST -->
+  <section id="orderList" class="space-y-4"></section>
+
+  <!-- EMPTY MESSAGE -->
+  <p id="emptyMsg" class="hidden text-center text-gray-500 text-sm py-10">
+    No orders found.
+  </p>
+
+</main>
+
+
+<!-- ========================================================= -->
+<!-- INLINE JS (FULL MERGED ORDER MANAGEMENT LOGIC) -->
+<!-- ========================================================= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const API_URL = "http://localhost:5000/api/orders";
+
+  // CORE ELEMENTS
+  const orderListEl = document.getElementById("orderList");
+  const emptyMsgEl = document.getElementById("emptyMsg");
+  const statusFilterEl = document.getElementById("statusFilter");
+  const searchInputEl = document.getElementById("searchInput");
+
+  // STATS ELEMENTS
+  const statsTotalEl = document.getElementById("statsTotal");
+  const statsPendingEl = document.getElementById("statsPending");
+  const statsProcessingEl = document.getElementById("statsProcessing");
+  const statsCompletedEl = document.getElementById("statsCompleted");
+
+  // STATE
+  let allOrders = [];
+  let filterStatus = "all";
+  let searchText = "";
+
+  // EVENT: FILTER
+  statusFilterEl.addEventListener("change", () => {
+    filterStatus = statusFilterEl.value;
+    renderOrders();
+  });
+
+  // EVENT: SEARCH
+  searchInputEl.addEventListener("input", (e) => {
+    searchText = e.target.value.toLowerCase();
+    renderOrders();
+  });
+
+  // INITIAL LOAD
+  loadOrders();
+
+  /* ------------------------------------------------------------
+     FETCH ALL ORDERS
+  ------------------------------------------------------------ */
+  async function loadOrders() {
+    try {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      allOrders = Array.isArray(data) ? data : [];
+      renderOrders();
+    } catch (err) {
+      orderListEl.innerHTML = `<p class="text-red-500">Failed to load orders.</p>`;
+    }
+  }
+
+  /* ------------------------------------------------------------
+     RENDER ORDER LIST (WITH FILTER + SEARCH)
+  ------------------------------------------------------------ */
+  function renderOrders() {
+    let filtered = [...allOrders];
+
+    // STATUS FILTER
+    if (filterStatus !== "all") {
+      filtered = filtered.filter((o) => o.status === filterStatus);
+    }
+
+    // SEARCH FILTER
+    if (searchText) {
+      filtered = filtered.filter((o) =>
+        (o.customerName || "").toLowerCase().includes(searchText) ||
+        (o.phone || "").toLowerCase().includes(searchText) ||
+        (o._id || "").toLowerCase().includes(searchText)
+      );
+    }
+
+    updateStats();
+
+    if (!filtered.length) {
+      emptyMsgEl.classList.remove("hidden");
+      orderListEl.innerHTML = "";
+      return;
+    }
+
+    emptyMsgEl.classList.add("hidden");
+    orderListEl.innerHTML = "";
+
+    filtered.forEach((order) => {
+      orderListEl.appendChild(buildOrderCard(order));
+    });
+  }
+
+  /* ------------------------------------------------------------
+     UPDATE SMALL STAT COUNTERS
+  ------------------------------------------------------------ */
+  function updateStats() {
+    statsTotalEl.textContent = allOrders.length;
+    statsPendingEl.textContent = allOrders.filter(o => o.status === "pending").length;
+    statsProcessingEl.textContent = allOrders.filter(o => o.status === "processing").length;
+    statsCompletedEl.textContent = allOrders.filter(o => o.status === "completed").length;
+  }
+
+  /* ------------------------------------------------------------
+     ORDER CARD COMPONENT
+  ------------------------------------------------------------ */
+  function buildOrderCard(order) {
+
+    const wrapper = document.createElement("div");
+    wrapper.className =
+      "order-card bg-white border border-red-200 rounded-2xl shadow-sm p-4 sm:p-5 flex flex-col gap-3";
+
+    const {
+      _id,
+      customerName,
+      phone,
+      address,
+      status,
+      totalAmount,
+      items = [],
+      paymentMethod,
+      createdAt
+    } = order;
+
+    const orderDate = new Date(createdAt).toLocaleString("bn-BD", {
+      year: "numeric", month: "short", day: "numeric",
+      hour: "2-digit", minute: "2-digit"
+    });
+
+    const totalItems = items.reduce((sum, it) => sum + (it.qty || 0), 0);
+
+    wrapper.innerHTML = `
+      <div class="flex flex-col sm:flex-row justify-between gap-4">
+
+        <div class="space-y-1">
+          <p class="text-[11px] text-gray-400">Order ID: ${_id}</p>
+          <h2 class="text-lg font-semibold text-[#6B0000]">${customerName}</h2>
+          <p class="text-sm text-gray-700">📞 ${phone}</p>
+          <p class="text-xs text-gray-500">📍 ${address}</p>
+          <p class="text-[11px] text-gray-400 mt-1">🕒 ${orderDate}</p>
         </div>
+
+        <div class="sm:text-right flex flex-col gap-2">
+          <p class="text-sm text-gray-600">Items: <b>${totalItems}</b></p>
+          <p class="text-xl font-bold text-[#6B0000]">৳ ${totalAmount}</p>
+          <p class="text-xs text-gray-500">Payment: ${paymentMethod}</p>
+
+          <select data-id="${_id}"
+            class="statusSelect border border-red-200 rounded-full px-3 py-1 text-xs focus:ring-2 ring-[#FFD600]">
+            <option value="pending" ${status === "pending" ? "selected" : ""}>Pending</option>
+            <option value="processing" ${status === "processing" ? "selected" : ""}>Processing</option>
+            <option value="completed" ${status === "completed" ? "selected" : ""}>Completed</option>
+            <option value="cancelled" ${status === "cancelled" ? "selected" : ""}>Cancelled</option>
+          </select>
+
+          <div class="flex gap-2">
+            <button class="toggleItems px-3 py-1 text-xs border rounded-full hover:bg-gray-100">
+              View Items
+            </button>
+            <button class="deleteOrder px-3 py-1 text-xs border border-red-300 text-red-600 rounded-full hover:bg-red-50">
+              Delete
+            </button>
+          </div>
+        </div>
+
       </div>
 
-      <a href="admin-dashboard.html"
-         class="text-xs sm:text-sm font-semibold text-[#6B0000] border border-[#FFD600] bg-[#FFD600]/80 px-3 sm:px-4 py-1.5 rounded-full hover:bg-[#FFD600] transition">
-        ← Dashboard
-      </a>
-    </nav>
-  </header>
-
-  <!-- MAIN -->
-  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 space-y-6">
-
-    <!-- TITLE + SMALL STATS -->
-    <section class="space-y-2">
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#6B0000]">
-        Order Management
-      </h1>
-      <p class="text-sm text-gray-500">
-        সব অর্ডার এক জায়গা থেকে দেখুন, status change করুন, প্রয়োজন হলে delete/modify করুন।
-      </p>
-
-      <!-- Small stats -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3 text-xs sm:text-sm">
-        <div class="bg-white border border-red-100 rounded-2xl px-3 py-2 shadow-sm">
-          <p class="text-gray-500">Total</p>
-          <p id="statsTotal" class="text-lg font-bold text-[#6B0000]">0</p>
-        </div>
-        <div class="bg-white border border-red-100 rounded-2xl px-3 py-2 shadow-sm">
-          <p class="text-gray-500">Pending</p>
-          <p id="statsPending" class="text-lg font-bold text-orange-500">0</p>
-        </div>
-        <div class="bg-white border border-red-100 rounded-2xl px-3 py-2 shadow-sm">
-          <p class="text-gray-500">Processing</p>
-          <p id="statsProcessing" class="text-lg font-bold text-blue-500">0</p>
-        </div>
-        <div class="bg-white border border-red-100 rounded-2xl px-3 py-2 shadow-sm">
-          <p class="text-gray-500">Completed</p>
-          <p id="statsCompleted" class="text-lg font-bold text-green-600">0</p>
-        </div>
+      <!-- HIDDEN ITEMS LIST -->
+      <div class="itemsBox hidden border-t border-red-100 mt-3 pt-3 space-y-2">
+        ${items
+          .map(
+            (it) => `
+            <div class="flex items-center gap-3">
+              <img src="image/${it.image}" class="w-12 h-12 rounded-lg border object-cover" />
+              <div class="flex-1">
+                <p class="text-sm font-semibold">${it.name}</p>
+                <p class="text-xs text-gray-500">Qty: ${it.qty} × ৳ ${it.price}</p>
+              </div>
+              <p class="text-sm font-bold text-[#6B0000]">৳ ${it.qty * it.price}</p>
+            </div>
+        `
+          )
+          .join("")}
       </div>
-    </section>
+    `;
 
-    <!-- FILTER + SEARCH -->
-    <section class="bg-white border border-red-200 rounded-2xl shadow p-4 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-      <div class="flex items-center gap-2">
-        <label class="text-sm font-semibold text-gray-700">Filter by:</label>
-        <select id="statusFilter"
-          class="border border-red-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#FFD600]">
-          <option value="all">All</option>
-          <option value="pending">Pending</option>
-          <option value="processing">Processing</option>
-          <option value="completed">Completed</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-      </div>
+    // ITEM TOGGLE
+    const toggleBtn = wrapper.querySelector(".toggleItems");
+    const itemsBox = wrapper.querySelector(".itemsBox");
+    toggleBtn.onclick = () => {
+      itemsBox.classList.toggle("hidden");
+      toggleBtn.textContent = itemsBox.classList.contains("hidden")
+        ? "View Items"
+        : "Hide Items";
+    };
 
-      <!-- Search box -->
-      <div class="w-full sm:w-64">
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="Search by name, phone or order ID..."
-          class="w-full border border-red-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFD600]"
-        />
-      </div>
-    </section>
+    // STATUS CHANGE
+    wrapper.querySelector(".statusSelect").onchange = async (e) => {
+      updateStatus(_id, e.target.value);
+    };
 
-    <!-- ORDER LIST -->
-    <section id="orderList" class="space-y-4">
-      <!-- JS will inject cards -->
-    </section>
+    // DELETE ORDER
+    wrapper.querySelector(".deleteOrder").onclick = () => {
+      if (confirm("Are you sure?")) deleteOrder(_id);
+    };
 
-    <!-- EMPTY -->
-    <p id="emptyMsg" class="hidden text-center text-gray-500 text-sm py-10">
-      No orders found.
-    </p>
+    return wrapper;
+  }
 
-  </main>
+  /* ------------------------------------------------------------
+     UPDATE ORDER STATUS
+  ------------------------------------------------------------ */
+  async function updateStatus(id, newStatus) {
+    try {
+      const res = await fetch(`${API_URL}/${id}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
 
-  <script src="./admin-orders.js"></script>
+      const updated = await res.json();
+      const idx = allOrders.findIndex(o => o._id === id);
+      if (idx >= 0) {
+        allOrders[idx].status = updated.status;
+        renderOrders();
+      }
+    } catch {
+      alert("Status update failed!");
+    }
+  }
+
+  /* ------------------------------------------------------------
+     DELETE ORDER
+  ------------------------------------------------------------ */
+  async function deleteOrder(id) {
+    try {
+      const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error();
+      allOrders = allOrders.filter(o => o._id !== id);
+      renderOrders();
+    } catch {
+      alert("Failed to delete order!");
+    }
+  }
+
+});
+</script>
+
 </body>
 </html>
-

@@ -2,37 +2,62 @@
 
 const mongoose = require("mongoose");
 
-// প্রোডাক্টের জন্য স্কিমা (ডাটার স্ট্রাকচার)
 const productSchema = new mongoose.Schema(
   {
+    // 🔹 Product Name
     name: {
       type: String,
-      required: true,      // নাম না থাকলে Error
+      required: [true, "Product name is required"],
+      trim: true,
     },
+
+    // 🔹 Price
     price: {
       type: Number,
-      required: true,
+      required: [true, "Price is required"],
     },
+
+    // 🔹 Category (Men, Women, Kids, Shoes etc.)
     category: {
       type: String,
-      required: true,
+      required: [true, "Category is required"],
+      trim: true,
     },
+
+    // 🔹 Single Image URL (Future: multiple images optional)
     image: {
-      type: String,        // ইমেজের URL বা ফাইল নাম
-      required: false,
+      type: String,
+      default: null,
     },
+
+    // 🔹 Product Description
     description: {
       type: String,
-      required: false,
+      default: "",
+    },
+
+    // 🔹 Stock (very important for real e-commerce)
+    stock: {
+      type: Number,
+      default: 10, // Future: admin panel will update
+    },
+
+    // 🔹 Discount Price (optional)
+    discountPrice: {
+      type: Number,
+      default: null,
+    },
+
+    // 🔹 Product Status (Available / Out of Stock)
+    status: {
+      type: String,
+      enum: ["available", "out_of_stock"],
+      default: "available",
     },
   },
   {
-    timestamps: true, // ডকুমেন্ট কখন তৈরি/আপডেট হয়েছে সেটা নিজে থেকে রাখবে
+    timestamps: true, // Auto createdAt / updatedAt
   }
 );
 
-// এই স্কিমা থেকে Model বানালাম
-const Product = mongoose.model("Product", productSchema);
-
-// বাইরে থেকে use করার জন্য export করলাম
-module.exports = Product;
+module.exports = mongoose.model("Product", productSchema);

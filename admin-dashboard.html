@@ -5,270 +5,319 @@
   <title>Admin Dashboard - Look At Me Fashion</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
-  <!-- Tailwind -->
+  <!-- Tailwind CSS -->
   <link href="src/output.css" rel="stylesheet" />
 
   <style>
-    body { font-family: "Inter", "Poppins", sans-serif; background:#fef2f2; }
-    ::-webkit-scrollbar { width:5px; }
-    ::-webkit-scrollbar-thumb { background:#e4bebe; border-radius:10px; }
-
-    .card{background:#fff;padding:1rem;border-radius:16px;border:1px solid #f3c2c2;
-      box-shadow:0 4px 8px rgba(0,0,0,0.05);display:flex;flex-direction:column;gap:4px;}
-    .card-top{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#555;}
-    .card-number{font-size:32px;font-weight:800;color:#6B0000;}
-    .card-sub{font-size:11px;color:#666;}
-
-    .panel{background:#fff;padding:1rem;border-radius:20px;border:1px solid #f3c2c2;
-      box-shadow:0 4px 6px rgba(0,0,0,0.04);display:flex;flex-direction:column;}
-    .panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
-    .panel-title{font-size:18px;font-weight:800;color:#6B0000;}
-    .panel-sub{font-size:11px;color:gray;}
-    .panel-list{max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
-
-    .search-input,.filter-input{
-      border:1px solid #f3c2c2;padding:6px 12px;border-radius:9999px;font-size:11px;
+    body {
+      font-family: "Inter", "Poppins", sans-serif;
+      background: #fff6f6;
     }
 
-    .loading,.empty,.error{font-size:12px;padding:8px 0;}
+    /* Mobile Smooth Scroll */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e4bebe;
+      border-radius: 10px;
+    }
+
+    /* Premium Card Style */
+    .card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid #f4caca;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      transition: .2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Dashboard Panel */
+    .panel {
+      background:#fff;
+      padding:1rem;
+      border-radius:20px;
+      border:1px solid #f4caca;
+      box-shadow:0 4px 8px rgba(0,0,0,0.05);
+    }
+
   </style>
 
   <!-- Admin Guard -->
   <script>
     const token = localStorage.getItem("lmf_admin_token");
-    const user = JSON.parse(localStorage.getItem("lmf_admin_user") || "{}");
-    if (!token || !user || user.role !== "admin") {
+    const adminUser = JSON.parse(localStorage.getItem("lmf_admin_user") || "{}");
+
+    if (!token || adminUser.role !== "admin") {
       window.location.href = "admin-login.html";
     }
   </script>
 
 </head>
+
 <body class="text-gray-900 antialiased">
 
-  <!-- HEADER -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-red-200 shadow-sm">
-    <nav class="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between py-3">
-      <div class="flex items-center gap-2">
-        <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
-          <span class="text-[#FFD600] font-extrabold text-xs sm:text-lg uppercase">
-            LMF Admin
-          </span>
+<!-- =============================== -->
+<!-- HEADER                         -->
+<!-- =============================== -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-red-200 shadow">
+  <nav class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+
+    <div class="bg-[#6B0000] px-4 py-1.5 rounded-lg shadow">
+      <span class="text-[#FFD600] font-extrabold text-sm sm:text-lg uppercase">
+        LMF ADMIN
+      </span>
+    </div>
+
+    <button id="logoutBtn" class="bg-red-600 text-white font-semibold text-xs px-4 py-1.5 rounded-full hover:bg-red-700">
+      Logout
+    </button>
+
+  </nav>
+</header>
+
+
+<!-- =============================== -->
+<!-- MAIN SECTION                   -->
+<!-- =============================== -->
+<main class="max-w-7xl mx-auto px-4 py-6 space-y-8">
+
+  <!-- TITLE -->
+  <section class="flex flex-col md:flex-row md:justify-between items-start gap-3">
+    <div>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#6B0000]">Admin Dashboard</h1>
+      <p class="text-xs text-gray-600">সকল কার্যক্রম এক নজরে দেখুন</p>
+    </div>
+    <p id="adminDate" class="text-xs text-gray-500"></p>
+  </section>
+
+
+  <!-- =============================== -->
+  <!-- SUMMARY CARDS                  -->
+  <!-- =============================== -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+    <!-- Total Products -->
+    <div class="card">
+      <div class="flex justify-between text-xs"><span>Products</span>📦</div>
+      <p id="totalProducts" class="text-3xl font-extrabold text-[#6B0000]">0</p>
+      <p class="text-[11px] text-gray-500">সক্রিয় পণ্য</p>
+    </div>
+
+    <!-- Total Orders -->
+    <div class="card">
+      <div class="flex justify-between text-xs"><span>Orders</span>🧾</div>
+      <p id="totalOrders" class="text-3xl font-extrabold text-[#6B0000]">0</p>
+      <p class="text-[11px] text-gray-500">মোট অর্ডার</p>
+    </div>
+
+    <!-- Pending Orders -->
+    <div class="card">
+      <div class="flex justify-between text-xs"><span>Pending</span>⏳</div>
+      <p id="pendingOrders" class="text-3xl font-extrabold text-orange-600">0</p>
+      <p class="text-[11px] text-gray-500">অপেক্ষমাণ অর্ডার</p>
+    </div>
+
+    <!-- Revenue -->
+    <div class="card">
+      <div class="flex justify-between text-xs"><span>Revenue</span>💰</div>
+      <p id="totalRevenue" class="text-3xl font-extrabold text-emerald-700">৳ 0</p>
+      <p class="text-[11px] text-gray-500">মোট আয়</p>
+    </div>
+
+  </section>
+
+
+  <!-- =============================== -->
+  <!-- ORDERS + PRODUCT PANELS        -->
+  <!-- =============================== -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- Recent Orders Panel -->
+    <div class="panel">
+      <div class="flex justify-between items-center mb-3">
+        <div>
+          <h2 class="text-xl font-extrabold text-[#6B0000]">Recent Orders</h2>
+          <p class="text-[11px] text-gray-500">সর্বশেষ অর্ডার তালিকা</p>
         </div>
+        <select id="orderFilter" class="border border-red-200 px-3 py-1 rounded-full text-xs">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="paid">Paid</option>
+          <option value="shipped">Shipped</option>
+        </select>
       </div>
 
-      <button id="logoutBtn" class="text-xs font-semibold text-white bg-red-600 px-4 py-1.5 rounded-full hover:bg-red-700">
-        Logout
-      </button>
-    </nav>
-  </header>
+      <!-- Status -->
+      <p id="ordersLoading" class="text-xs text-gray-500">Loading orders...</p>
+      <p id="ordersError" class="hidden text-xs text-red-600">Failed to load orders 🚫</p>
+      <p id="ordersEmpty" class="hidden text-xs text-gray-500">কোনো অর্ডার পাওয়া যায়নি।</p>
 
-  <!-- MAIN -->
-  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 space-y-6">
+      <div id="ordersList" class="flex flex-col gap-3 max-h-[420px] overflow-y-auto hidden"></div>
+    </div>
 
-    <!-- TITLE -->
-    <section class="flex flex-col md:flex-row md:justify-between gap-3">
-      <div>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-[#6B0000]">Admin Dashboard</h1>
-        <p class="text-xs text-gray-600 mt-1">আজকের সারাংশ ও অর্ডার ম্যানেজমেন্ট</p>
-      </div>
 
-      <p id="adminDate" class="text-xs text-gray-500"></p>
-    </section>
-
-    <!-- SUMMARY CARDS -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-3">
-
-      <div class="card">
-        <div class="card-top"><span>Total Products</span><span>📦</span></div>
-        <p id="totalProducts" class="card-number">0</p>
-        <p class="card-sub">সক্রিয় পণ্যের সংখ্যা</p>
-      </div>
-
-      <div class="card">
-        <div class="card-top"><span>Total Orders</span><span>🧾</span></div>
-        <p id="totalOrders" class="card-number">0</p>
-        <p class="card-sub">মোট অর্ডার</p>
-      </div>
-
-      <div class="card">
-        <div class="card-top"><span>Pending</span><span>⏳</span></div>
-        <p id="pendingOrders" class="card-number text-orange-600">0</p>
-        <p class="card-sub">যেগুলো এখনো প্রসেস হয়নি</p>
-      </div>
-
-      <div class="card">
-        <div class="card-top"><span>Revenue</span><span>💰</span></div>
-        <p id="totalRevenue" class="card-number text-emerald-700">৳ 0</p>
-        <p class="card-sub">মোট আয়</p>
-      </div>
-
-    </section>
-
-    <!-- PANELS -->
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-      <!-- ORDERS PANEL -->
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <h2 class="panel-title">Recent Orders</h2>
-            <p class="panel-sub">সর্বশেষ অর্ডারের তালিকা</p>
-          </div>
-
-          <select id="orderFilter" class="filter-input">
-            <option value="all">All</option>
-            <option value="pending">Pending</option>
-            <option value="processing">Processing</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
+    <!-- Products Panel -->
+    <div class="panel">
+      <div class="flex justify-between items-center mb-3">
+        <div>
+          <h2 class="text-xl font-extrabold text-[#6B0000]">Products</h2>
+          <p class="text-[11px] text-gray-500">পণ্যের তালিকা</p>
         </div>
-
-        <div id="ordersLoading" class="loading">Loading orders...</div>
-        <div id="ordersError" class="error hidden">Orders API error</div>
-        <div id="ordersList" class="panel-list hidden"></div>
-        <p id="ordersEmpty" class="empty hidden">কোনো অর্ডার পাওয়া যায়নি।</p>
+        <input id="productSearch" placeholder="Search..." class="border border-red-200 px-3 py-1 rounded-full text-xs" />
       </div>
 
-      <!-- PRODUCTS PANEL -->
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <h2 class="panel-title">Products</h2>
-            <p class="panel-sub">পণ্যের তালিকা</p>
-          </div>
+      <!-- Status -->
+      <p id="productsLoading" class="text-xs text-gray-500">Loading products...</p>
+      <p id="productsError" class="hidden text-xs text-red-600">Failed to load products 🚫</p>
+      <p id="productsEmpty" class="hidden text-xs text-gray-500">কোনো পণ্য নেই।</p>
 
-          <input id="productSearchInput" type="text" placeholder="Search..." class="search-input">
-        </div>
+      <div id="productsList" class="flex flex-col gap-3 max-h-[420px] overflow-y-auto hidden"></div>
+    </div>
 
-        <div id="productsLoading" class="loading">Loading products...</div>
-        <div id="productsError" class="error hidden">Products API error</div>
-        <div id="productsList" class="panel-list hidden"></div>
-        <p id="productsEmpty" class="empty hidden">কোনো পণ্য নেই।</p>
-      </div>
+  </section>
+</main>
 
-    </section>
 
-  </main>
+<!-- =============================== -->
+<!-- INLINE JAVASCRIPT               -->
+<!-- =============================== -->
+<script>
+  const API = "http://localhost:5000/api";
+  const adminToken = localStorage.getItem("lmf_admin_token");
 
-  <!-- JS SCRIPT INSIDE HTML -->
-  <script>
-    const API_BASE = "http://localhost:5000/api";
-    const adminToken = localStorage.getItem("lmf_admin_token");
-
-    // Logout
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      localStorage.removeItem("lmf_admin_token");
-      localStorage.removeItem("lmf_admin_user");
-      window.location.href = "admin-login.html";
+  // Show Current Date
+  document.getElementById("adminDate").textContent =
+    new Date().toLocaleDateString("bn-BD", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
 
-    // DATE
-    document.getElementById("adminDate").textContent = new Date().toLocaleDateString("bn-BD", {
-      weekday:"short",year:"numeric",month:"short",day:"numeric"
-    });
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("lmf_admin_token");
+    localStorage.removeItem("lmf_admin_user");
+    window.location.href = "admin-login.html";
+  });
 
-    // SUMMARY
-    function fetchSummary() {
-      fetch(`${API_BASE}/admin/summary`, {
-        headers: { Authorization: `Bearer ${adminToken}` }
-      })
-      .then(r=>r.json())
-      .then(data=>{
-        totalProducts.textContent = data.totalProducts ?? 0;
-        totalOrders.textContent   = data.totalOrders ?? 0;
-        pendingOrders.textContent = data.pendingOrders ?? 0;
-        totalRevenue.textContent  = `৳ ${data.totalSales ?? 0}`;
+  // =====================================================
+  // FETCH SUMMARY
+  // =====================================================
+  function loadSummary() {
+    fetch(`${API}/admin/summary`, {
+      headers: { Authorization: `Bearer ${adminToken}` },
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        totalProducts.textContent = d.summary?.totalProducts ?? 0;
+        totalOrders.textContent = d.summary?.totalOrders ?? 0;
+        pendingOrders.textContent = d.summary?.orderStatus?.pending ?? 0;
+        totalRevenue.textContent = `৳ ${d.summary?.totalSales ?? 0}`;
       });
-    }
+  }
 
-    // PRODUCTS
-    function fetchProducts() {
-      productsLoading.classList.remove("hidden");
+  // =====================================================
+  // LOAD PRODUCTS
+  // =====================================================
+  function loadProducts() {
+    productsLoading.classList.remove("hidden");
 
-      fetch(`${API_BASE}/products`, {
-        headers:{ Authorization:`Bearer ${adminToken}` }
-      })
-      .then(r=>r.json())
-      .then(data=>{
-        const list = document.getElementById("productsList");
-        list.innerHTML="";
-        data.forEach(p=>{
-          list.innerHTML += `
-            <div class="flex items-center gap-3 border border-red-100 rounded-2xl px-3 py-2 bg-white">
-              <img src="image/${p.image || ''}" onerror="this.src='https://via.placeholder.com/50'" class="w-10 h-10 rounded-lg object-cover">
+    fetch(`${API}/products`)
+      .then((r) => r.json())
+      .then((items) => {
+        productsList.innerHTML = "";
+
+        if (!items.length) {
+          productsEmpty.classList.remove("hidden");
+          return;
+        }
+
+        items.forEach((p) => {
+          productsList.innerHTML += `
+            <div class="border border-red-100 bg-white rounded-xl p-3 flex items-center gap-3">
+              <img src="image/${p.image}" class="w-10 h-10 rounded-lg object-cover" />
               <div class="flex-1">
-                <p class="text-sm font-semibold">${p.name}</p>
+                <p class="font-semibold text-sm">${p.name}</p>
                 <p class="text-[10px] text-gray-500">${p.category}</p>
               </div>
               <p class="font-bold text-[#6B0000] text-sm">৳ ${p.price}</p>
-            </div>`;
+            </div>
+          `;
         });
+
         productsList.classList.remove("hidden");
       })
-      .catch(()=>{
-        productsError.classList.remove("hidden");
-      })
-      .finally(()=> productsLoading.classList.add("hidden"));
-    }
+      .catch(() => productsError.classList.remove("hidden"))
+      .finally(() => productsLoading.classList.add("hidden"));
+  }
 
-    // ORDERS
-    function fetchOrders() {
-      ordersLoading.classList.remove("hidden");
+  // Search Product
+  document.getElementById("productSearch").addEventListener("input", (e) => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll("#productsList div").forEach((row) => {
+      row.style.display = row.innerText.toLowerCase().includes(q) ? "" : "none";
+    });
+  });
 
-      fetch(`${API_BASE}/orders`, {
-        headers:{ Authorization:`Bearer ${adminToken}` }
-      })
-      .then(r=>r.json())
-      .then(data=>{
-        const list = document.getElementById("ordersList");
-        list.innerHTML="";
+  // =====================================================
+  // LOAD ORDERS
+  // =====================================================
+  function loadOrders() {
+    ordersLoading.classList.remove("hidden");
 
-        data.forEach(o=>{
-          list.innerHTML += `
-            <div class="border border-red-100 rounded-2xl px-3 py-3 bg-red-50">
+    fetch(`${API}/orders`)
+      .then((r) => r.json())
+      .then((orders) => {
+        ordersList.innerHTML = "";
+
+        if (!orders.length) {
+          ordersEmpty.classList.remove("hidden");
+          return;
+        }
+
+        orders.forEach((o) => {
+          ordersList.innerHTML += `
+            <div class="border border-red-100 bg-red-50 rounded-xl p-3">
               <div class="flex justify-between text-sm">
-                <p><strong>Order:</strong> #${String(o._id).slice(-6)}</p>
-                <p><strong>৳ ${o.total || o.amount}</strong></p>
+                <span>Order #${String(o._id).slice(-6)}</span>
+                <span class="font-bold">৳ ${o.totalAmount}</span>
               </div>
-              <p class="text-xs text-gray-700">${o.customerName}</p>
+              <p class="text-xs text-gray-800">👤 ${o.customerName}</p>
               <p class="text-[10px] text-gray-500">📞 ${o.phone}</p>
-            </div>`;
+            </div>
+          `;
         });
 
         ordersList.classList.remove("hidden");
       })
-      .catch(()=>{
-        ordersError.classList.remove("hidden");
-      })
-      .finally(()=> ordersLoading.classList.add("hidden"));
-    }
+      .catch(() => ordersError.classList.remove("hidden"))
+      .finally(() => ordersLoading.classList.add("hidden"));
+  }
 
-    // INIT
-    fetchSummary();
-    fetchProducts();
-    fetchOrders();
 
-    // Filters
-    document.getElementById("orderFilter").addEventListener("change", () => {
-      fetchOrders();
-    });
+  // INIT LOADERS
+  loadSummary();
+  loadProducts();
+  loadOrders();
 
-    document.getElementById("productSearchInput").addEventListener("input", (e)=>{
-      const q = e.target.value.toLowerCase();
-      document.querySelectorAll("#productsList div").forEach(row=>{
-        row.style.display = row.innerText.toLowerCase().includes(q) ? "" : "none";
-      });
-    });
-  </script>
+</script>
 
 </body>
 </html>
