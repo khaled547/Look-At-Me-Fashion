@@ -233,14 +233,13 @@ function initWishlistToggle() {
   // কারণ নতুন HTML এ আলাদা কোনো icon element নেই।
   // Wishlist এর data সময় products / single-product পেইজে handle হবে।
 }
-
-
 /********************************************
- * USER MENU
+ * USER MENU (Safe + Mobile Friendly)
  ********************************************/
 function initUserMenu() {
   const btn = $("userBtn");
   const menu = $("userMenu");
+
   if (!btn || !menu) return;
 
   btn.addEventListener("click", (e) => {
@@ -248,43 +247,56 @@ function initUserMenu() {
     menu.classList.toggle("hidden");
   });
 
-  clickOutside(menu, btn, () => menu.classList.add("hidden"));
+  // Click outside → close
+  document.addEventListener("click", (e) => {
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.add("hidden");
+    }
+  });
 }
 
 /********************************************
- * SHOP MEGA MENU
+ * SHOP MEGA MENU (Desktop Hover + Mobile Click)
  ********************************************/
 function initShopMegaMenu() {
   const btn = $("shopBtn");
   const menu = $("megaMenu");
+
   if (!btn || !menu) return;
 
-  // Click toggle
+  // Mobile + Desktop click toggle
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    const hide = menu.classList.contains("hidden");
-    if (hide) {
-      menu.classList.remove("hidden", "opacity-0");
+
+    const isHidden = menu.classList.contains("hidden");
+
+    if (isHidden) {
+      menu.classList.remove("hidden");
+      setTimeout(() => menu.classList.remove("opacity-0"), 10);
     } else {
       menu.classList.add("opacity-0");
       setTimeout(() => menu.classList.add("hidden"), 150);
     }
   });
 
-  // Hover open (desktop only)
+  // Desktop hover
   if (window.innerWidth > 768) {
     btn.addEventListener("mouseenter", () => {
       menu.classList.remove("hidden", "opacity-0");
     });
+
     menu.addEventListener("mouseleave", () => {
       menu.classList.add("opacity-0");
       setTimeout(() => menu.classList.add("hidden"), 150);
     });
   }
 
-  clickOutside(menu, btn, () => {
-    menu.classList.add("opacity-0");
-    setTimeout(() => menu.classList.add("hidden"), 150);
+  // Click outside → close
+  document.addEventListener("click", (e) => {
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.add("opacity-0");
+      setTimeout(() => menu.classList.add("hidden"), 150);
+    }
   });
 }
 
@@ -301,7 +313,7 @@ function initStickyHeader() {
 }
 
 /********************************************
- * SMOOTH SCROLL
+ * SMOOTH SCROLL (Header Height Aware)
  ********************************************/
 function initSmoothScroll() {
   const header = $("mainHeader");
@@ -309,38 +321,42 @@ function initSmoothScroll() {
   $$(".nav-link").forEach((link) => {
     link.addEventListener("click", (e) => {
       const targetID = link.getAttribute("href");
-      if (!targetID.startsWith("#")) return;
+      if (!targetID || !targetID.startsWith("#")) return;
 
       e.preventDefault();
 
-      const target = document.querySelector(targetID);
-      if (!target) return;
+      const targetEl = document.querySelector(targetID);
+      if (!targetEl) return;
 
-      const pos =
-        target.getBoundingClientRect().top +
-        window.pageYOffset -
-        header.offsetHeight;
+      const yPos =
+        targetEl.getBoundingClientRect().top +
+        window.scrollY -
+        (header?.offsetHeight || 60);
 
-      window.scrollTo({ top: pos, behavior: "smooth" });
+      window.scrollTo({ top: yPos, behavior: "smooth" });
     });
   });
 }
 
 /********************************************
- * BOTTOM MOBILE NAV
+ * BOTTOM MOBILE NAVIGATION
  ********************************************/
 function initBottomMenu() {
   $("navHome")?.addEventListener("click", () => {
     window.location.hash = "#homeSection";
   });
 
-  $("navSearch")?.addEventListener("click", () => $("searchBtn")?.click());
+  $("navSearch")?.addEventListener("click", () => {
+    $("searchBtn")?.click();
+  });
 
   $("navCart")?.addEventListener("click", () => {
     $("cartContainer")?.scrollIntoView({ behavior: "smooth" });
   });
 
-  $("navUser")?.addEventListener("click", () => $("userBtn")?.click());
+  $("navUser")?.addEventListener("click", () => {
+    $("userBtn")?.click();
+  });
 }
 
 /********************************************
@@ -349,45 +365,46 @@ function initBottomMenu() {
 function initActiveNavHighlight() {
   const links = $$(".nav-link");
 
-  links.forEach((a) => {
-    a.addEventListener("click", () => {
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
       links.forEach((x) => x.classList.remove("text-[#B60000]"));
-      a.classList.add("text-[#B60000]");
+      link.classList.add("text-[#B60000]");
     });
   });
 }
 
-/*
- * ESC → CLOSE ANY OPEN DROPDOWN
- */
+/********************************************
+ * ESC → CLOSE (Search, User Menu, Mega Menu)
+ ********************************************/
 function initGlobalEscapeClose() {
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      $("searchBox")?.classList.add("hidden");
-      $("userMenu")?.classList.add("hidden");
-      $("megaMenu")?.classList.add("hidden");
-    }
+    if (e.key !== "Escape") return;
+
+    $("searchBox")?.classList.add("hidden");
+    $("userMenu")?.classList.add("hidden");
+    $("megaMenu")?.classList.add("hidden");
   });
 }
 
-/*
- * SCROLL DOWN → HEADER HIDE
- * SCROLL UP → HEADER SHOW
- */
+/********************************************
+ * SMART HEADER AUTO-HIDE ON SCROLL
+ ********************************************/
 function initHeaderScrollHide() {
   const header = $("mainHeader");
+  if (!header) return;
+
   let lastY = window.scrollY;
 
   window.addEventListener("scroll", () => {
-    const curr = window.scrollY;
+    const currY = window.scrollY;
 
-    if (curr > lastY && curr > 80) {
-      header.style.transform = "translateY(-100%)";
+    if (currY > lastY && currY > 80) {
+      header.style.transform = "translateY(-100%)"; // hide on scroll down
     } else {
-      header.style.transform = "translateY(0)";
+      header.style.transform = "translateY(0)"; // show on scroll up
     }
 
-    lastY = curr;
+    lastY = currY;
   });
 }
 
